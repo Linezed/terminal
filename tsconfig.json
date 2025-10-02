@@ -19,7 +19,7 @@
         "sourceMap": true,
         "declaration": true,
         "declarationMap": true,
-        "moduleResolution": "Node",
+        "moduleResolution": "NodeNext",
 
         // Stricter Typechecking Options
         "noUncheckedIndexedAccess": true,
@@ -45,7 +45,8 @@
     },
 
     "include": ["src"],
-    "exclude": ["dist",
-      "tests"
+    "exclude": [
+        "dist",
+        "tests"
     ]
 }

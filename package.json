@@ -17,7 +17,8 @@
     "main": "dist/index.js",
     "scripts": {
         "format": "prettier --write .",
-        "test": "uvu -r tsx tests"
+        "test": "uvu -r tsx tests",
+        "build": "tsc"
     },
     "devDependencies": {
         "@types/node": "^24.6.2",
