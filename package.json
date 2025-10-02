@@ -1,0 +1,30 @@
+{
+    "name": "ts-template",
+    "version": "1.0.0",
+    "description": "A minimal TS + uvu + Node template",
+    "keywords": [],
+    "homepage": "https://github.com/linezed/ts-template#readme",
+    "bugs": {
+        "url": "https://github.com/linezed/ts-template/issues"
+    },
+    "repository": {
+        "type": "git",
+        "url": "git+https://github.com/linezed/ts-template.git"
+    },
+    "license": "MIT",
+    "author": "Rodrigo R.",
+    "type": "module",
+    "main": "dist/index.js",
+    "scripts": {
+        "format": "prettier --write .",
+        "test": "uvu -r tsx tests"
+    },
+    "devDependencies": {
+        "@types/node": "^24.6.2",
+        "prettier": "^3.6.2",
+        "ts-node": "^10.9.2",
+        "tsx": "^4.20.6",
+        "typescript": "^5.9.3",
+        "uvu": "^0.5.6"
+    }
+}
