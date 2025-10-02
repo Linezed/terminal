@@ -45,8 +45,5 @@
     },
 
     "include": ["src"],
-    "exclude": [
-        "dist",
-        "tests"
-    ]
+    "exclude": ["dist", "tests"]
 }

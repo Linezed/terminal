@@ -8,10 +8,11 @@
 ### TS + Node Template
 
 Welcome! This is a free TypeScript Template that includes
-a bunch of technologies for the successful development of 
+a bunch of technologies for the successful development of
 any program. Feel free to fork it or build on top of it.
 
 **What's included:**
+
 - Node.js support
 - TypeScript support
 - Build script to convert your code to JS (`npm run build`)
