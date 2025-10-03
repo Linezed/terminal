@@ -4,7 +4,7 @@
  License: MIT
  */
 
-import Types from "../types.js";
+import Types from "../../types.js";
 import type Typable from "../interface/typable.js";
 import type { Constructor } from "./constructor.js";
 

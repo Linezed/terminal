@@ -6,7 +6,7 @@
 
 import type { Constructor } from "./constructor.js";
 import type Typable from "../interface/typable.js";
-import Types from "../types.js";
+import Types from "../../types.js";
 import type Flag from "../interface/flag.js";
 
 export function _ContextBase<TBase extends Constructor>(Base: TBase) {
