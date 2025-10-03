@@ -6,7 +6,7 @@
 
 import process from "node:process";
 import IApp from "./impl/app.js";
-import BufferedOStream from "./buffered_ostream.js";
+import BufferedOStream from "./util/buffered_ostream.js";
 import Types from "./types.js";
 
 export default class Terminal {
