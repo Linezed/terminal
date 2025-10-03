@@ -26,13 +26,14 @@ export default class IFlag
     required: boolean = false;
 
     /// Get or set the default value for the flag.
-    Default(val?: any): any | void {
+    Default(val?: any): any | this {
         // Case 1: setter
         if (val !== undefined) {
             // Perform type checking
             MatchType(this.type, val);
 
             this.default = val;
+            return this;
         }
 
         // Case 2: getter
