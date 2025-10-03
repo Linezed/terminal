@@ -12,8 +12,8 @@ import type Argv from "./argv/argv.js";
 
 /// A Command interface.
 export default interface Command extends Nameable, Typable, Context, Trimmable {
-    handler: ((cmd: Argv) => void) | null;
+    handler: ((ctx: Argv) => void) | null;
 
     /// Set the handler for the command.
-    Handler(handler: (cmd: Command) => void): void;
+    Handler(handler: (ctx: Argv) => void): void;
 }

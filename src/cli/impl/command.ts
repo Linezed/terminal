@@ -10,6 +10,7 @@ import { _TypableBase } from "./typable.js";
 import { _ContextBase } from "./context.js";
 import { _TrimmableBase } from "./trimmable.js";
 import type App from "../interface/app.js";
+import type Argv from "../interface/argv/argv.js";
 
 export class ICommand
     extends _NameableBase(_TypableBase(_ContextBase(_TrimmableBase(class{}))))
@@ -19,7 +20,7 @@ export class ICommand
     owner: App | undefined;
 
     /// The command handler
-    handler: ((cmd: Command) => void) | null = null;
+    handler: ((ctx: Argv) => void) | null = null;
 
     /// Constructor
     constructor(app: App, name: string) {
@@ -29,7 +30,7 @@ export class ICommand
     }
 
     /// Set the handler for the command.
-    Handler(handler: (cmd: Command) => void): void {
+    Handler(handler: (ctx: Argv) => void): void {
         this.handler = handler;
     }
 }
