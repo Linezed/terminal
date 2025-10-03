@@ -7,12 +7,15 @@
 import type { Constructor } from "./constructor.js";
 import type Trimmable from "../interface/trimmable.js";
 
+
 export function _TrimmableBase<TBase extends Constructor>(Base: TBase) {
     return class extends Base implements Trimmable {
         /// The shortcut name of the entity.
         shortcut: string | undefined = undefined;
 
         /// Setter for the short name of the entity.
+        Shortcut(val: string): this;
+        Shortcut(): string;
         Shortcut(val?: string): this | string {
             // Case 1: setter
             if (val !== undefined) {

@@ -26,6 +26,8 @@ export default class IFlag
     required: boolean = false;
 
     /// Get or set the default value for the flag.
+    Default(val: any): this;
+    Default(): any;
     Default(val?: any): any | this {
         // Case 1: setter
         if (val !== undefined) {
@@ -41,6 +43,8 @@ export default class IFlag
     }
 
     /// Get or set whether the flag is required.
+    Required(val: boolean): this;
+    Required(): boolean;
     Required(val?: boolean): boolean | this {
         // Case 1: setter
         if (val !== undefined) {
@@ -60,6 +64,8 @@ export default class IFlag
     }
 
     /// Setter for the short name of the entity.
+    Shortcut(): string;
+    Shortcut(val: string): this;
     Shortcut(val?: string): this | string {
         // Case 1: setter
         if (val !== undefined) {
@@ -72,6 +78,12 @@ export default class IFlag
             this.owner?.flags.set(val, this);
         }
 
-        return super.Shortcut(val);
+        // Forward the message to the base class
+        if (val) {
+            return super.Shortcut(val);
+        }
+        else {
+            return super.Shortcut();
+        }
     }
 }

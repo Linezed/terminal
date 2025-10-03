@@ -21,6 +21,8 @@ export function _NameableBase<TBase extends Constructor>(Base: TBase) {
         }
 
         /// Getter and setter for the description of the entity.
+        Description(val: string): this;
+        Description(): string;
         Description(val?: string): string | this {
             // Case 1: setter
             if (val !== undefined) {
