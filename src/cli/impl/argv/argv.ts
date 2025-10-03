@@ -94,17 +94,10 @@ export default class IArgv implements Argv {
                     continue;
                 }
 
-                // Parse command values
-                if (cmd) {
-                    this.val = ConvertToType(cmd.Type() as Types, arg);
-                    cmd = undefined; // No longer waiting on the value
-                    continue;
-                }
-
                 // Check if we have a flag
                 if (arg.startsWith("-")) {
                     // Check if we're waiting for a value
-                    if (lastFlag || cmd) {
+                    if (lastFlag) {
                         throw new ArgvException(
                             ArgvErrorCode.ExpectedValue,
                             "Expected a value, not a flag"
@@ -122,6 +115,13 @@ export default class IArgv implements Argv {
                         this.numbers
                     );
 
+                    continue;
+                }
+
+                // Parse command values
+                if (cmd) {
+                    this.val = ConvertToType(cmd.Type() as Types, arg);
+                    cmd = undefined; // No longer waiting on the value
                     continue;
                 }
 
