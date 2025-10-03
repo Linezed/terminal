@@ -23,5 +23,5 @@ export default interface App extends Context {
     Parse(input: string[]): Argv;
 
     /// Generates a help message for the application.
-    Help(color?: string): string;
+    Help(argv?: Argv, color?: string): string;
 }
