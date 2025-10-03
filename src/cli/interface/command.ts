@@ -11,7 +11,7 @@ import type Trimmable from "./trimmable.js";
 import type Argv from "./argv/argv.js";
 
 /// A Command interface.
-export default interface Command extends Nameable, Typable, Context, Trimmable {
+export default interface Command extends Typable, Context, Trimmable {
     handler: ((ctx: Argv) => void) | null;
 
     /// Set the handler for the command.
