@@ -9,7 +9,7 @@ import type ArgvError from "../../interface/argv/error.js";
 
 export default class IArgvError implements ArgvError {
     /// The error code
-    code: ArgvErrorCode = ArgvErrorCode.NONE;
+    code: ArgvErrorCode = ArgvErrorCode.None;
 
     /// The error message
     message: string = "";

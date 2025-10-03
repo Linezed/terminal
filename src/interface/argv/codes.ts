@@ -6,11 +6,11 @@
 
 /// The error codes for argument parsing.
 enum ArgvErrorCode {
-    TYPE_MISMATCH,
-    MISSING_REQUIRED,
-    UNKNOWN_ARGUMENT,
-    UNKNOWN_FLAG,
-    NONE
+    TypeMismatch,
+    MissingRequired,
+    UnknownArgument,
+    UnknownFlag,
+    None
 }
 
 export default ArgvErrorCode;
