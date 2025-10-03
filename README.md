@@ -33,10 +33,10 @@ In your `main.js` file, add the following code:
 
 ```javascript
 import Terminal from '@linezed/terminal';
-/*import { ICommand, IArgv, ErrorCodes } from '@linezed/terminal';*/
+/*import { IArgv, ErrorCodes } from '@linezed/terminal';*/
 
 // Handlers
-function greetHandler(env/*: ICommand */) {
+function greetHandler(env/*: IArgv */) {
     const val = env.Value(); // Get the value passed to the command
     console.log(`Hello, ${val || 'World'}!`); // Greet the user
     if (env.Bool("verbose")) {
