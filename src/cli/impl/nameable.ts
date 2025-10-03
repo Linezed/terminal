@@ -21,15 +21,15 @@ export function _NameableBase<TBase extends Constructor>(Base: TBase) {
         }
 
         /// Getter and setter for the description of the entity.
-        Description(val?: string): string | undefined {
+        Description(val?: string): string | this {
             // Case 1: setter
             if (val !== undefined) {
                 this.description = val;
-                return;
+                return this;
             }
 
             // Case 2: getter
-            return this.description;
+            return this.description as string;
         }
     };
 }
