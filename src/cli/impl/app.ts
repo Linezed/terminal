@@ -34,11 +34,6 @@ export default class IApp
             return this.commands.get(name)!;
         }
 
-        // Make sure the command isn't already registered
-        if (this.commands.has(name)) {
-            throw Error("Command already registered");
-        }
-
         // Create a new command
         let inst = new ICommand(this, name);
         this.commands.set(name, inst); // Store in map
