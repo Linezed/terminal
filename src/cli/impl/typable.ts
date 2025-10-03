@@ -12,6 +12,8 @@ export function _TypableBase<TBase extends Constructor>(Base: TBase) {
     return class extends Base implements Typable {
         type: Types = Types.Boolean;
 
+        Type(t: Types): this;
+        Type(): Types;
         Type(t?: Types): this | Types {
             // Case 1: setter
             if (t !== undefined) {
