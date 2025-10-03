@@ -5,7 +5,6 @@
  */
 
 /// A terminal application interface.
-import type Nameable from "./nameable.js";
 import type Context from "./context.js";
 import type Command from "./command.js";
 import type Argv from "./argv/argv.js";
@@ -22,4 +21,7 @@ export default interface App extends Context {
 
     /// Parse the given input
     Parse(input: string[]): Argv;
+
+    /// Generates a help message for the application.
+    Help(color?: string): string;
 }
