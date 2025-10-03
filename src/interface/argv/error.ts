@@ -5,7 +5,7 @@
  */
 
 /// A parsing error.
-import type { ArgvErrorCode } from "./codes.js";
+import type ArgvErrorCode from "./codes.js";
 
 export default interface ArgvError {
     /// The error code
