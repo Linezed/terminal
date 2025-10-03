@@ -11,6 +11,7 @@ import Types from "./types.js";
 import LineReader from "./util/line_reader.js";
 import FormatOutput from "./util/format.js";
 import ConvertToType from "./util/converter.js";
+import * as Colors from "./util/colors.js";
 
 export default class Terminal {
     /// The output stream for the terminal.
@@ -92,4 +93,4 @@ process.on("beforeExit", () => {
 });
 
 // Other exports
-export { Types };
+export { Types, Colors };
