@@ -8,6 +8,7 @@
 import { _NameableBase } from "./nameable.js";
 import { _TypableBase } from "./typable.js";
 import { _TrimmableBase } from "./trimmable.js";
+import MatchType from "../../util/type_matcher.js";
 
 export default class Flag
     extends _NameableBase(_TypableBase(_TrimmableBase(class{})))
@@ -23,6 +24,9 @@ export default class Flag
     Default(val?: any): any | void {
         // Case 1: setter
         if (val !== undefined) {
+            // Perform type checking
+            MatchType(this.type, val);
+
             this.default = val;
         }
 
