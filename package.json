@@ -1,6 +1,6 @@
 {
     "name": "@linezed/terminal",
-    "version": "1.0.0",
+    "version": "1.0.1",
     "description": "A feature-rich CLI framework for Node.js",
     "keywords": [
         "framework",
@@ -23,7 +23,8 @@
     "scripts": {
         "format": "prettier --write .",
         "test": "uvu -r tsx tests",
-        "build": "tsc"
+        "build": "tsc",
+        "publish": "npm run build && npm publish --access public"
     },
     "devDependencies": {
         "@types/node": "^24.6.2",
