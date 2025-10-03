@@ -7,6 +7,7 @@
 /// The error codes for argument parsing.
 enum ArgvErrorCode {
     TypeMismatch,
+    ExpectedValue,
     MissingRequired,
     UnknownArgument,
     UnknownFlag,
