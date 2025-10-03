@@ -5,7 +5,6 @@
  */
 
 import type Command from "../interface/command.js";
-import { _NameableBase } from "./nameable.js";
 import { _TypableBase } from "./typable.js";
 import { _ContextBase } from "./context.js";
 import { _TrimmableBase } from "./trimmable.js";
