@@ -41,6 +41,51 @@ export default class Terminal {
         }
     }
 
+    /// Prints the specified format to the standard output
+    public static Printf(format: string, ...args: any[]): void {
+        // Print each character of the format string
+        let arg_idx = 0; // Current argument index
+        for (let i = 0; i < format.length; i++) {
+            // Get the current character
+            let char = format[i];
+
+            // Check if it's a format specifier ("{}")
+            if (char === "{" && i + 1 < format.length && format[i + 1] === "}") {
+                // Ensure there's a corresponding argument
+                if (arg_idx >= args.length) {
+                    throw new Error("Insufficient arguments for format string");
+                }
+
+                // Get the argument
+                let arg = args[arg_idx];
+
+                // Handle null and undefined explicitly
+                if (arg === null) {
+                    this.OStream.Write("(null)");
+                } else if (arg === undefined) {
+                    this.OStream.Write("(undefined)");
+                } else if (!arg) {
+                    this.OStream.Write("(empty)");
+                } else {
+                    // Write the argument
+                    this.OStream.Write(args[arg_idx].toString());
+                }
+
+                arg_idx++; // Move to the next argument
+                i++; // Skip the next character ("}")
+            } else {
+                // Write the character as is
+                this.OStream.Write(char as string);
+            }
+        }
+    }
+
+    /// Prints the specified format to the standard output with a new line
+    public static Printfln(format: string, ...args: any[]): void {
+        this.Printf(format, ...args);
+        this.OStream.Write("\n"); // New line
+    }
+
     /// Flush the output stream
     public static Flush(): void {
         this.OStream.Flush();
