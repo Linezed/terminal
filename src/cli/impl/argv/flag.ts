@@ -41,7 +41,7 @@ export function SetFlagValue(
     numbers: Map<string, number> = new Map()
 ) {
     // Try to parse the value's type
-    let result = ConvertToType(flag.Type(), val);
+    let result = ConvertToType(flag.Type() as Types, val);
 
     // Put the correct flag in the correct map
     switch (flag.Type()) {
