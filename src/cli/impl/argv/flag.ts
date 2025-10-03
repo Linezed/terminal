@@ -31,7 +31,32 @@ function _FindFlag(
     }
 
     return flags.get(name as string) as Flag;
+}
 
+export function SetFlagValue(
+    flag: Flag,
+    val: string,
+    strings: Map<string, string> = new Map(),
+    bools: Map<string, boolean> = new Map(),
+    numbers: Map<string, number> = new Map()
+) {
+    // Try to parse the value's type
+    let result = ConvertToType(flag.Type(), val);
+
+    // Put the correct flag in the correct map
+    switch (flag.Type()) {
+        case Types.String:
+            strings.set(flag.Name(), result as string);
+            break;
+
+        case Types.Number:
+            numbers.set(flag.Name(), result as number);
+            break;
+
+        case Types.Boolean:
+            bools.set(flag.Name(), result as boolean);
+            break;
+    }
 }
 
 export default function ParseFlag(
@@ -118,24 +143,7 @@ export default function ParseFlag(
 
     // Check if we have a value
     if (val) {
-        // Try to parse the value's type
-        let result = ConvertToType(flag.Type(), arg);
-
-        // Put the correct flag in the correct map
-        switch (flag.Type()) {
-            case Types.String:
-                strings.set(name as string, result as string);
-                break;
-
-            case Types.Number:
-                numbers.set(name as string, result as number);
-                break;
-
-            case Types.Boolean:
-                bools.set(name as string, result as boolean);
-                break;
-        }
-
+        SetFlagValue(flag, val, strings, bools, numbers);
         return; // No return value
     }
 
