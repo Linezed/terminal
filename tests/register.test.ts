@@ -13,4 +13,12 @@ test("registers an app", () => {
     assert.is(app.Name(), "test-app");
 });
 
+test("registers a command", () => {
+    let app = Terminal.App("test-app");
+    let cmd = app.Command("test-command");
+    cmd.Shortcut("t");
+    assert.is(app.Commands().has("test-command"), true);
+    assert.is(app.Commands().has("t"), true);
+});
+
 test.run();
