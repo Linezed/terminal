@@ -13,7 +13,7 @@ import type App from "../interface/app.js";
 import type Argv from "../interface/argv/argv.js";
 
 export class ICommand
-    extends _NameableBase(_TypableBase(_ContextBase(_TrimmableBase(class{}))))
+    extends _TypableBase(_ContextBase(_TrimmableBase(class {})))
     implements Command
 {
     /// The owner of the command
@@ -35,7 +35,7 @@ export class ICommand
     }
 
     /// Getter and setter for the short name of the command.
-    Shortcut(val?: string): string | undefined {
+    Shortcut(val?: string): string | this {
         if (val !== undefined) {
             // Make sure the command isn't already registered
             if (this.owner?.commands.has(val)) {

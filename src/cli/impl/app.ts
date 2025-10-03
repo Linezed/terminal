@@ -4,15 +4,14 @@
  License: MIT
  */
 
-import { _NameableBase } from "./nameable.js";
 import type App from "../interface/app.js";
 import type Command from "../interface/command.js";
-import { _ContextBase } from "./context.js";
+import IContext from "./context.js";
 import { ICommand } from "./command.js";
 import IArgv from "./argv/argv.js";
 
 export default class IApp
-    extends _NameableBase(_ContextBase(class {}))
+    extends IContext
     implements App
 {
     commands: Map<string, Command> = new Map();
