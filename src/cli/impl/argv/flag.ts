@@ -63,6 +63,7 @@ export default function ParseFlag(
     arg: string,
     cmd: Command | undefined,
     flags: Map<string, Flag>,
+    requiredFlags: Set<string>,
     strings: Map<string, string> = new Map(),
     bools: Map<string, boolean> = new Map(),
     numbers: Map<string, number> = new Map()
@@ -117,6 +118,9 @@ export default function ParseFlag(
 
             // Set the flag to true in boolean flags
             bools.set(flag.Name(), true);
+
+            // Remove from required flags
+            requiredFlags.delete(flag.Name());
         }
 
         // Return nothing, all flags parsed
@@ -143,9 +147,15 @@ export default function ParseFlag(
 
     // Check if we have a value
     if (val) {
+        // Remove from required flags
+        requiredFlags.delete(flag.Name());
+
         SetFlagValue(flag, val, strings, bools, numbers);
         return; // No return value
     }
+
+    // Remove from required flags
+    requiredFlags.delete(flag.Name());
 
     return flag; // Return the flag
 }
