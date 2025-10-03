@@ -5,10 +5,11 @@
  */
 
 import process from "node:process";
-import IApp from "./impl/app.js";
+import IApp from "./cli/impl/app.js";
 import BufferedOStream from "./util/buffered_ostream.js";
 import Types from "./types.js";
 import LineReader from "./util/line_reader.js";
+import FormatOutput from "./util/format.js";
 
 export default class Terminal {
     /// The output stream for the terminal.
@@ -50,29 +51,14 @@ export default class Terminal {
             let char = format[i];
 
             // Check if it's a format specifier ("{}")
-            if (char === "{" && i + 1 < format.length && format[i + 1] === "}") {
-                // Ensure there's a corresponding argument
-                if (arg_idx >= args.length) {
-                    throw new Error("Insufficient arguments for format string");
-                }
+            if (char === "{") {
+                // Format the argument
+                let [res, skipped] = FormatOutput(format, i, arg_idx, args);
 
-                // Get the argument
-                let arg = args[arg_idx];
-
-                // Handle null and undefined explicitly
-                if (arg === null) {
-                    this.OStream.Write("(null)");
-                } else if (arg === undefined) {
-                    this.OStream.Write("(undefined)");
-                } else if (!arg) {
-                    this.OStream.Write("(empty)");
-                } else {
-                    // Write the argument
-                    this.OStream.Write(args[arg_idx].toString());
-                }
-
+                // Write the formatted argument
+                this.OStream.Write(res);
                 arg_idx++; // Move to the next argument
-                i++; // Skip the next character ("}")
+                i += skipped; // Skip the processed characters
             } else {
                 // Write the character as is
                 this.OStream.Write(char as string);
@@ -123,6 +109,8 @@ export default class Terminal {
         }
     }
 }
+
+Terminal.Printfln("Look I can color strings: {Red}", "Hello world!");
 
 // Flush on exit
 process.on("beforeExit", () => {
