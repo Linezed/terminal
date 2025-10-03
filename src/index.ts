@@ -110,8 +110,6 @@ export default class Terminal {
     }
 }
 
-Terminal.Printfln("Look I can color strings: {Red}", "Hello world!");
-
 // Flush on exit
 process.on("beforeExit", () => {
     Terminal.Flush();
