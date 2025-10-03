@@ -7,6 +7,7 @@
 import process from "node:process";
 import IApp from "./impl/app.js";
 import BufferedOStream from "./buffered_ostream.js";
+import Types from "./types.js";
 
 export default class Terminal {
     /// The output stream for the terminal.
@@ -43,3 +44,6 @@ export default class Terminal {
 process.on("beforeExit", () => {
     Terminal.Flush();
 });
+
+// Other exports
+export { Types };
