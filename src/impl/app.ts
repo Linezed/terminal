@@ -44,8 +44,7 @@ export default class IApp
     }
 
     /// Parse the given input
-    Parse(input: string): IArgv {
-        // TODO! Implement parsing logic
-        return new IArgv();
+    Parse(input: string[]): IArgv {
+        return new IArgv(this, input);
     }
 }
