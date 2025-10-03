@@ -21,5 +21,5 @@ export default interface App extends Nameable, Context {
     Command(name: string): Command;
 
     /// Parse the given input
-    Parse(input: string): Argv;
+    Parse(input: string[]): Argv;
 }
