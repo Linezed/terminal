@@ -10,6 +10,7 @@ enum ArgvErrorCode {
     MissingRequired,
     UnknownArgument,
     UnknownFlag,
+    InvalidFlag,
     None
 }
 
