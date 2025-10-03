@@ -1,15 +1,20 @@
 {
-    "name": "ts-template",
+    "name": "@linezed/terminal",
     "version": "1.0.0",
-    "description": "A minimal TS + uvu + Node template",
-    "keywords": [],
-    "homepage": "https://github.com/linezed/ts-template#readme",
+    "description": "A feature-rich CLI framework for Node.js",
+    "keywords": [
+        "framework",
+        "cli",
+        "modern",
+        "terminal"
+    ],
+    "homepage": "https://github.com/linezed/terminal#readme",
     "bugs": {
-        "url": "https://github.com/linezed/ts-template/issues"
+        "url": "https://github.com/linezed/terminal/issues"
     },
     "repository": {
         "type": "git",
-        "url": "git+https://github.com/linezed/ts-template.git"
+        "url": "git+https://github.com/linezed/terminal.git"
     },
     "license": "MIT",
     "author": "Rodrigo R.",
