@@ -5,9 +5,9 @@
  */
 
 enum Types {
-    STRING,
-    NUMBER,
-    BOOLEAN
+    String,
+    Number,
+    Boolean
 }
 
 export default Types;

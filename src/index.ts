@@ -97,10 +97,10 @@ export default class Terminal {
         let result = await LineReader.Read(); // Read a line
 
         // Check the type
-        if (type === Types.STRING) {
+        if (type === Types.String) {
             // String
             return result;
-        } else if (type === Types.NUMBER) {
+        } else if (type === Types.Number) {
             // Number
             let num = Number(result);
             if (isNaN(num)) {
@@ -108,7 +108,7 @@ export default class Terminal {
             }
 
             return num;
-        } else if (type === Types.BOOLEAN) {
+        } else if (type === Types.Boolean) {
             // Boolean
             let lowered = result.toLowerCase();
             if (lowered === "true" || lowered === "1") {

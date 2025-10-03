@@ -26,9 +26,9 @@ export function _ContextBase<TBase extends Constructor>(Base: TBase) {
             val.forEach((flag) => {
                 // Ensure the flag is of type Typable
                 if ((flag as Typable).Type === undefined) {
-                    (flag as Typable).type = Types.BOOLEAN;
+                    (flag as Typable).type = Types.Boolean;
                 } else if ((flag as Typable).Type() === undefined) {
-                    (flag as Typable).type = Types.BOOLEAN;
+                    (flag as Typable).type = Types.Boolean;
                 }
 
                 this.flags.set(flag.Name(), flag);

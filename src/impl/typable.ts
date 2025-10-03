@@ -10,7 +10,7 @@ import type { Constructor } from "./constructor.js";
 
 export function _TypableBase<TBase extends Constructor>(Base: TBase) {
     return class extends Base implements Typable {
-        type: Types = Types.BOOLEAN;
+        type: Types = Types.Boolean;
 
         Type(): Types {
             return this.type;
