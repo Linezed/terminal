@@ -12,16 +12,16 @@ export function _TrimmableBase<TBase extends Constructor>(Base: TBase) {
         /// The shortcut name of the entity.
         shortcut: string | undefined = undefined;
 
-        /// Getter and setter for the short name of the entity.
-        Shortcut(val?: string): string | undefined {
+        /// Setter for the short name of the entity.
+        Shortcut(val?: string): this | string {
             // Case 1: setter
             if (val !== undefined) {
                 this.shortcut = val;
-                return;
+                return this;
             }
 
             // Case 2: getter
-            return this.shortcut;
+            return this.shortcut as string;
         }
     };
 }
