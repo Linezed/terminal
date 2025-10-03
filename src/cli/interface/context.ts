@@ -11,6 +11,9 @@ export default interface Context extends Nameable {
     /// Flags associated with the context.
     flags: Map<string, Flag>;
 
-    /// Get or set the flags associated with the context.
-    Flags(val?: Flag[]): Map<string, Flag> | void;
+    /// Get the flags
+    Flags(): Map<string, Flag>;
+
+    /// Add a flag to the context.
+    Flag(name: string): Flag;
 }
