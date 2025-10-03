@@ -47,9 +47,35 @@ export default class Terminal {
     }
 
     /// Reads a line from standard input
-    public static async Read(): Promise<string> {
+    public static async Read(type: Types): Promise<string | number | boolean> {
         Terminal.Flush(); // Flush before reading
-        return LineReader.Read();
+        let result = await LineReader.Read(); // Read a line
+
+        // Check the type
+        if (type === Types.STRING) {
+            // String
+            return result;
+        } else if (type === Types.NUMBER) {
+            // Number
+            let num = Number(result);
+            if (isNaN(num)) {
+                throw new Error("Invalid number input");
+            }
+
+            return num;
+        } else if (type === Types.BOOLEAN) {
+            // Boolean
+            let lowered = result.toLowerCase();
+            if (lowered === "true" || lowered === "1") {
+                return true;
+            } else if (lowered === "false" || lowered === "0") {
+                return false;
+            } else {
+                throw new Error("Invalid boolean input");
+            }
+        } else {
+            throw new Error("Unsupported type");
+        }
     }
 }
 
