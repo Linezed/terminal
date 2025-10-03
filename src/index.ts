@@ -12,6 +12,7 @@ import LineReader from "./util/line_reader.js";
 import FormatOutput from "./util/format.js";
 import ConvertToType from "./util/converter.js";
 import * as Colors from "./util/colors.js";
+import Formatter from "./util/formatter.js";
 
 export default class Terminal {
     /// The output stream for the terminal.
@@ -47,26 +48,7 @@ export default class Terminal {
 
     /// Prints the specified format to the standard output
     public static Printf(format: string, ...args: any[]): void {
-        // Print each character of the format string
-        let arg_idx = 0; // Current argument index
-        for (let i = 0; i < format.length; i++) {
-            // Get the current character
-            let char = format[i];
-
-            // Check if it's a format specifier ("{}")
-            if (char === "{") {
-                // Format the argument
-                let [res, skipped] = FormatOutput(format, i, arg_idx, args);
-
-                // Write the formatted argument
-                this.OStream.Write(res);
-                arg_idx++; // Move to the next argument
-                i += skipped; // Skip the processed characters
-            } else {
-                // Write the character as is
-                this.OStream.Write(char as string);
-            }
-        }
+        this.OStream.Write(Formatter.Format(format, ...args));
     }
 
     /// Prints the specified format to the standard output with a new line
