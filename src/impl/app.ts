@@ -9,6 +9,7 @@ import type App from "../interface/app.js";
 import type Command from "../interface/command.js";
 import { _ContextBase } from "./context.js";
 import { ICommand } from "./command.js";
+import IArgv from "./argv/argv.js";
 
 export default class IApp
     extends _NameableBase(_ContextBase(class {}))
@@ -40,5 +41,11 @@ export default class IApp
 
         // Return the command instance
         return inst;
+    }
+
+    /// Parse the given input
+    Parse(input: string): IArgv {
+        // TODO! Implement parsing logic
+        return new IArgv();
     }
 }
