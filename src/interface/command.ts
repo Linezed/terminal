@@ -1,0 +1,18 @@
+/*
+ @linezed/terminal
+ A simple yet powerful terminal framework for building command-line applications in TypeScript.
+ License: MIT
+ */
+
+import type Nameable from "./nameable.js";
+import type Typable from "./typable.js";
+import type Context from "./context.js";
+import type Trimmable from "./trimmable.js";
+
+/// A Command interface.
+export default interface Command extends Nameable, Typable, Context, Trimmable {
+    handler: ((cmd: Command) => void) | null;
+
+    /// Set the handler for the command.
+    Handler(handler: (cmd: Command) => void): void;
+}
