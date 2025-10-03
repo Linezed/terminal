@@ -39,7 +39,7 @@ import Terminal from '@linezed/terminal';
 function greetHandler(env/*: IArgv */) {
     const val = env.Value(); // Get the value passed to the command
     console.log(`Hello, ${val || 'World'}!`); // Greet the user
-    if (env.Bool("verbose")) {
+    if (env.Boolean("verbose")) {
         console.log("Verbose mode is enabled.");
     }
 }
