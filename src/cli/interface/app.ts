@@ -10,7 +10,7 @@ import type Context from "./context.js";
 import type Command from "./command.js";
 import type Argv from "./argv/argv.js";
 
-export default interface App extends Nameable, Context {
+export default interface App extends Context {
     /// Commands of the application.
     commands: Map<string, Command>;
 
