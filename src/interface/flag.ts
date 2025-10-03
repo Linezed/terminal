@@ -14,6 +14,12 @@ export default interface Flag extends Nameable, Typable, Trimmable {
     /// The default value for the flag.
     default: any;
 
+    /// Whether the flag is required.
+    required: boolean;
+
     /// Get or set the default value for the flag.
     Default(val?: any): any | void;
+
+    /// Get or set whether the flag is required.
+    Required(val?: boolean): boolean | void;
 }
