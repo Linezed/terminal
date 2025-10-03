@@ -30,8 +30,9 @@ export class ICommand
     }
 
     /// Set the handler for the command.
-    Handler(handler: (ctx: Argv) => void): void {
+    Handler(handler: (ctx: Argv) => void): this {
         this.handler = handler;
+        return this;
     }
 
     /// Getter and setter for the short name of the command.
