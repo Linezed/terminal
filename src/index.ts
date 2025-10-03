@@ -25,14 +25,20 @@ export default class Terminal {
     }
 
     /// Prints a line to the standard output
-    public static Println(line: string): void {
-        this.OStream.Write(line);
-        this.OStream.Write("\n"); // New line
+    public static Println(...text: string[]): void {
+        // Write all strings
+        for (let str of text) {
+            this.OStream.Write(str);
+            this.OStream.Write("\n"); // New line
+        }
     }
 
     /// Prints to the standard output without a new line
-    public static Print(text: string): void {
-        this.OStream.Write(text);
+    public static Print(...text: string[]): void {
+        // Write all strings
+        for (let str of text) {
+            this.OStream.Write(str);
+        }
     }
 
     /// Flush the output stream
