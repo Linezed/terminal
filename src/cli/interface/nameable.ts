@@ -14,6 +14,9 @@ export default interface Nameable {
     /// Getter for the name of the entity.
     Name(): string;
 
-    /// Getter and setter for the description of the entity.
-    Description(val?: string): string | undefined;
+    /// Getter for the description of the entity.
+    Description(): string;
+
+    /// Setter for the description of the entity.
+    Description(val: string): this;
 }
