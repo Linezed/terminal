@@ -4,7 +4,6 @@
  License: MIT
  */
 
-import type Nameable from "./nameable.js";
 import type Typable from "./typable.js";
 import type Context from "./context.js";
 import type Trimmable from "./trimmable.js";
