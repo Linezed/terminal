@@ -134,7 +134,6 @@ export default class IArgv implements Argv {
                 }
 
                 // Parse the command
-                console.log(arg);
                 cmd = ParseCommand(cmds, arg);
                 cmdName = cmd.Name();
             }
