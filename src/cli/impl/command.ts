@@ -41,6 +41,9 @@ export class ICommand
             if (this.owner?.commands.has(val)) {
                 throw Error("Command already registered");
             }
+
+            // Register in the app as well
+            this.owner?.commands.set(val, this);
         }
 
         return super.Shortcut(val);
