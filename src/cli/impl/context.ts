@@ -24,6 +24,11 @@ export function _ContextBase<TBase extends Constructor>(Base: TBase) {
 
             // Case 2: setter
             val.forEach((flag) => {
+                // Make sure the flag isn't already registered
+                if (this.flags.has(flag.name) || (flag.shortcut && this.flags.has(flag.shortcut))) {
+                    throw new Error("Flag already registered");
+                }
+
                 // Ensure the flag is of type Typable
                 if ((flag as Typable).Type === undefined) {
                     (flag as Typable).type = Types.Boolean;
