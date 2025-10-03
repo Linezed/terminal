@@ -8,6 +8,9 @@ export default interface Trimmable {
     /// The shortcut name of the entity.
     shortcut: string | undefined;
 
-    /// Getter and setter for the short name of the entity.
-    Shortcut(val?: string): this | string;
+    /// Setter for the short name of the entity.
+    Shortcut(val: string): this;
+
+    /// Getter for the short name of the entity.
+    Shortcut(): string;
 }
