@@ -10,6 +10,9 @@ export default interface Typable {
     /// The type of the entity.
     type: Types;
 
-    /// Set or Get the type of the entity.
-    Type(t?: Types): this | Types;
+    /// Set the type of the entity.
+    Type(t: Types): this;
+
+    // Get the type of the entity.
+    Type(): Types;
 }
