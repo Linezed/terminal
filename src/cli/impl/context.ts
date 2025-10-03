@@ -31,7 +31,14 @@ export function _ContextBase<TBase extends Constructor>(Base: TBase) {
                     (flag as Typable).type = Types.Boolean;
                 }
 
+                // Set the flag
                 this.flags.set(flag.Name(), flag);
+
+                // Also set the alias
+                const alias = flag.Shortcut();
+                if (!!alias) {
+                    this.flags.set(alias as string, flag);
+                }
             });
 
             return;
