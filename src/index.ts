@@ -11,8 +11,6 @@ import Types from "./types.js";
 import LineReader from "./util/line_reader.js";
 import FormatOutput from "./util/format.js";
 import ConvertToType from "./util/converter.js";
-import type Argv from "./cli/interface/argv/argv.js";
-import type IArgv from "./cli/impl/argv/argv.js";
 
 export default class Terminal {
     /// The output stream for the terminal.
