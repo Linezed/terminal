@@ -49,6 +49,8 @@ export default class BufferedOStream {
 
     /// Writes a string to the buffer.
     public Write(str: string): void {
+        if (!str) return; // Nothing to write
+
         // Make sure the string fits in the buffer
         if (this.curr >= this.length) {
             this.Flush();
