@@ -8,10 +8,11 @@ import type Nameable from "./nameable.js";
 import type Typable from "./typable.js";
 import type Context from "./context.js";
 import type Trimmable from "./trimmable.js";
+import type Argv from "./argv/argv.js";
 
 /// A Command interface.
 export default interface Command extends Nameable, Typable, Context, Trimmable {
-    handler: ((cmd: Command) => void) | null;
+    handler: ((cmd: Argv) => void) | null;
 
     /// Set the handler for the command.
     Handler(handler: (cmd: Command) => void): void;
