@@ -8,6 +8,7 @@
 import type Nameable from "./nameable.js";
 import type Context from "./context.js";
 import type Command from "./command.js";
+import type Argv from "./argv/argv.js";
 
 export default interface App extends Nameable, Context {
     /// Commands of the application.
@@ -18,4 +19,7 @@ export default interface App extends Nameable, Context {
 
     /// Add a command to the application.
     Command(name: string): Command;
+
+    /// Parse the given input
+    Parse(input: string): Argv;
 }
