@@ -33,15 +33,26 @@ export default class IArgv implements Argv {
             // Get commands and flags from the app
             let cmds = app.Commands();
             let flags = app.Flags() as Map<string, Flag>;
+            let requiredFlags: Set<string> = new Set();
 
             // Save the value of the command
             let val: any = undefined;
+
+            // Save the name of the command
+            let cmdName: string | undefined = undefined;
 
             // Save the current command
             let cmd: Command | undefined = undefined;
 
             // Save the last parsed flag
             let lastFlag: Flag | undefined= undefined;
+
+            // Fill the required flags
+            flags.forEach((flag: Flag) => {
+                if (flag.Required()) {
+                    requiredFlags.add(flag.Name());
+                }
+            })
 
             // Parse the args
             for (let arg of args) {
@@ -72,6 +83,7 @@ export default class IArgv implements Argv {
                         arg,
                         cmd,
                         flags,
+                        requiredFlags,
                         this.strings,
                         this.bools,
                         this.numbers
@@ -87,7 +99,26 @@ export default class IArgv implements Argv {
 
                 // Parse the command
                 cmd = ParseCommand(cmds, arg);
+                cmdName = cmd.Name();
             }
+
+            // Make sure we have parsed a value
+            if (!val) {
+                throw new ArgvException(ArgvErrorCode.NotParsedCommand, "Never parsed a command value");
+            }
+
+            // Make sure we aren't expecting a value
+            if (cmd || lastFlag) {
+                throw new ArgvException(ArgvErrorCode.ExpectedValue, "Expected a value");
+            }
+
+            // Make sure all required flags are present
+            if (requiredFlags.size != 0) {
+                throw new ArgvException(ArgvErrorCode.MissingRequired, "One or more required flags are missing");
+            }
+
+            // Fire the handler
+            (cmds.get(cmdName as string) as Command).handler?.(this);
         } catch (e) {
             if (e instanceof ArgvException) {
                 // Set the appropriate code
