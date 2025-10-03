@@ -71,8 +71,8 @@ MyTerminalApp.Flags([
 ]);
 
 // Parse the command-line arguments
-const res/*: Argv */ = MyTerminalApp.Parse(Terminal.Args());
-if (res.Error.Has()) {
+const res/*: IArgv */ = MyTerminalApp.Parse(Terminal.Args());
+if (res.Error) {
     // res.Error.Code() -> Error code, look at ErrorCodes from @linezed/terminal for more details
     // res.Error.Message() -> Error message
     // res.Error.Data() -> Additional error data
