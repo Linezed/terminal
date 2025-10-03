@@ -59,8 +59,7 @@ MyTerminalApp
             .Type(Terminal.Types.BOOLEAN) // Flag type
             .Default(false) // Default value for the flag
     ]) // Flags for the command
-    .Handler(greetHandler) // Command handler function
-    .Register(); // Register the command
+    .Handler(greetHandler); // Command handler function
 
 // Register global flags
 MyTerminalApp.Flags([
