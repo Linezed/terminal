@@ -56,14 +56,6 @@ export default class IFlag
         super(); // Offload to super class
         this.name = name;
         this.owner = owner;
-
-        // See if the flag is already registered
-        if (owner.flags.has(name)) {
-            throw Error(`Flag '${name}' is already registered in the context.`);
-        }
-
-        // Attempt to register the flag with the context
-        owner.flags.set(name, this);
     }
 
     /// Setter for the short name of the entity.

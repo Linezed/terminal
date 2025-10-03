@@ -27,6 +27,12 @@ export function _ContextBase<TBase extends Constructor>(Base: TBase) {
         /// Creates a new flag and adds it to the context.
         Flag(name: string): Flag
         {
+            // See if the flag already exists
+            if (this.flags.has(name)) {
+                return this.flags.get(name) as Flag;
+            }
+
+
             // Create a new flag
             let f = new IFlag(this, name);
             this.flags.set(name, f); // Store in map
