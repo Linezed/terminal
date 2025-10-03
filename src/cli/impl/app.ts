@@ -36,7 +36,7 @@ export default class IApp
         }
 
         // Create a new command
-        let inst = new ICommand(name);
+        let inst = new ICommand(this, name);
         this.commands.set(name, inst); // Store in map
 
         // Return the command instance
