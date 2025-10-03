@@ -96,7 +96,7 @@ export default class IArgv implements Argv {
 
                 // Parse command values
                 if (cmd) {
-                    this.val = ConvertToType(cmd.Type(), arg);
+                    this.val = ConvertToType(cmd.Type() as Types, arg);
                     cmd = undefined; // No longer waiting on the value
                     continue;
                 }
