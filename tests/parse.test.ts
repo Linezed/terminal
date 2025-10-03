@@ -6,18 +6,13 @@
 
 import { test } from "uvu";
 import * as assert from "uvu/assert";
-import Terminal from "../src";
+import IArgv from "../src/cli/impl/argv/argv";
+import app from "./app.test";
 
 test("parses argv", () => {
-    let app = Terminal.App("test-app");
-    let cmd = app.Command("test");
-    cmd.Shortcut("t");
-    cmd.Description("test command");
-    cmd.Handler((ctx: any) => {
-        assert.is(ctx.Value(), "value");
-    });
-
-    app.Parse(["t", "value"]);
+    let ctx: IArgv = app.Parse(["t", "-h", "value"]);
+    assert.is(ctx.Value(), "value");
+    assert.is(ctx.Has("help"), true);
 });
 
 test.run();

@@ -6,17 +6,13 @@
 
 import { test } from "uvu";
 import * as assert from "uvu/assert";
-import Terminal from "../src";
+import app from "./app.test";
 
 test("registers an app", () => {
-    let app = Terminal.App("test-app");
     assert.is(app.Name(), "test-app");
 });
 
 test("registers a command", () => {
-    let app = Terminal.App("test-app");
-    let cmd = app.Command("test-command");
-    cmd.Shortcut("t");
     assert.is(app.Commands().has("test-command"), true);
     assert.is(app.Commands().has("t"), true);
 });
