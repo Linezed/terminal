@@ -33,4 +33,16 @@ export class ICommand
     Handler(handler: (ctx: Argv) => void): void {
         this.handler = handler;
     }
+
+    /// Getter and setter for the short name of the command.
+    Shortcut(val?: string): string | undefined {
+        if (val !== undefined) {
+            // Make sure the command isn't already registered
+            if (this.owner?.commands.has(val)) {
+                throw Error("Command already registered");
+            }
+        }
+
+        return super.Shortcut(val);
+    }
 }
