@@ -17,7 +17,7 @@ command-line interactions with a powerful and user-friendly interface.
 To install the package locally, run:
 
 ```bash
-npm install -g @linezed/terminal
+npm install @linezed/terminal
 ```
 
 ---
