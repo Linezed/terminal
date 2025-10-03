@@ -10,11 +10,15 @@ import { _TypableBase } from "./typable.js";
 import { _TrimmableBase } from "./trimmable.js";
 import MatchType from "../../util/type_matcher.js";
 import type Flag from "../interface/flag.js";
+import type Context from "../interface/context.js";
 
 export default class IFlag
     extends _NameableBase(_TypableBase(_TrimmableBase(class{})))
     implements Flag
 {
+    /// The owner of the flag.
+    owner: Context | undefined = undefined;
+
     /// The default value for the flag.
     default: any;
 
@@ -48,8 +52,33 @@ export default class IFlag
     }
 
     /// Constructor
-    constructor(name: string) {
+    constructor(owner: Context, name: string) {
         super(); // Offload to super class
         this.name = name;
+        this.owner = owner;
+
+        // See if the flag is already registered
+        if (owner.flags.has(name)) {
+            throw Error(`Flag '${name}' is already registered in the context.`);
+        }
+
+        // Attempt to register the flag with the context
+        owner.flags.set(name, this);
+    }
+
+    /// Setter for the short name of the entity.
+    Shortcut(val?: string): this | string {
+        // Case 1: setter
+        if (val !== undefined) {
+            // Make sure the flag isn't already registered
+            if (this.owner?.flags.has(val)) {
+                throw Error("Flag already registered");
+            }
+
+            // Register in the context as well
+            this.owner?.flags.set(val, this);
+        }
+
+        return super.Shortcut(val);
     }
 }
