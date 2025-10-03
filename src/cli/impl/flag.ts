@@ -9,8 +9,9 @@ import { _NameableBase } from "./nameable.js";
 import { _TypableBase } from "./typable.js";
 import { _TrimmableBase } from "./trimmable.js";
 import MatchType from "../../util/type_matcher.js";
+import type Flag from "../interface/flag.js";
 
-export default class Flag
+export default class IFlag
     extends _NameableBase(_TypableBase(_TrimmableBase(class{})))
     implements Flag
 {
@@ -35,11 +36,11 @@ export default class Flag
     }
 
     /// Get or set whether the flag is required.
-    Required(val?: boolean): boolean | void {
+    Required(val?: boolean): boolean | this {
         // Case 1: setter
         if (val !== undefined) {
             this.required = val;
-            return;
+            return this;
         }
 
         // Case 2: getter
