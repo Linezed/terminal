@@ -8,6 +8,7 @@ import process from "node:process";
 import IApp from "./impl/app.js";
 import BufferedOStream from "./util/buffered_ostream.js";
 import Types from "./types.js";
+import LineReader from "./util/line_reader.js";
 
 export default class Terminal {
     /// The output stream for the terminal.
@@ -37,6 +38,12 @@ export default class Terminal {
     /// Flush the output stream
     public static Flush(): void {
         this.OStream.Flush();
+    }
+
+    /// Reads a line from standard input
+    public static async Read(): Promise<string> {
+        Terminal.Flush(); // Flush before reading
+        return LineReader.Read();
     }
 }
 
