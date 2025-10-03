@@ -10,6 +10,7 @@ import BufferedOStream from "./util/buffered_ostream.js";
 import Types from "./types.js";
 import LineReader from "./util/line_reader.js";
 import FormatOutput from "./util/format.js";
+import ConvertToType from "./util/converter.js";
 
 export default class Terminal {
     /// The output stream for the terminal.
@@ -80,33 +81,7 @@ export default class Terminal {
     /// Reads a line from standard input
     public static async Read(type: Types): Promise<string | number | boolean> {
         Terminal.Flush(); // Flush before reading
-        let result = await LineReader.Read(); // Read a line
-
-        // Check the type
-        if (type === Types.String) {
-            // String
-            return result;
-        } else if (type === Types.Number) {
-            // Number
-            let num = Number(result);
-            if (isNaN(num)) {
-                throw new Error("Invalid number input");
-            }
-
-            return num;
-        } else if (type === Types.Boolean) {
-            // Boolean
-            let lowered = result.toLowerCase();
-            if (lowered === "true" || lowered === "1") {
-                return true;
-            } else if (lowered === "false" || lowered === "0") {
-                return false;
-            } else {
-                throw new Error("Invalid boolean input");
-            }
-        } else {
-            throw new Error("Unsupported type");
-        }
+        return ConvertToType(type, await LineReader.Read());
     }
 }
 
