@@ -28,15 +28,15 @@ export default class IArgv implements Argv {
     /// Number flags
     numbers: Map<string, number> = new Map();
 
+    /// The value of the command
+    val: any = undefined;
+
     constructor(app: App, args: string[]) {
         try {
             // Get commands and flags from the app
             let cmds = app.Commands();
             let flags = app.Flags() as Map<string, Flag>;
             let requiredFlags: Set<string> = new Set();
-
-            // Save the value of the command
-            let val: any = undefined;
 
             // Save the name of the command
             let cmdName: string | undefined = undefined;
@@ -66,7 +66,7 @@ export default class IArgv implements Argv {
 
                 // Parse command values
                 if (cmd) {
-                    val = ConvertToType(cmd.Type(), val);
+                    this.val = ConvertToType(cmd.Type(), arg);
                     cmd = undefined; // No longer waiting on the value
                     continue;
                 }
@@ -93,7 +93,7 @@ export default class IArgv implements Argv {
                 }
 
                 // Make sure we haven't parsed a command already
-                if (val) {
+                if (this.val) {
                     throw new ArgvException(ArgvErrorCode.AlreadyParsedCommand, "Already parsed a command value");
                 }
 
@@ -103,7 +103,7 @@ export default class IArgv implements Argv {
             }
 
             // Make sure we have parsed a value
-            if (!val) {
+            if (!this.val) {
                 throw new ArgvException(ArgvErrorCode.NotParsedCommand, "Never parsed a command value");
             }
 
