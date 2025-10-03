@@ -9,4 +9,28 @@ import type ArgvError from "./error.js";
 
 export default interface Argv {
     Error: ArgvError | undefined;
+
+    /// The value of the parsed command
+    Value(): any;
+
+    /// Gets a boolean flag
+    Boolean(name: string): boolean;
+
+    /// Gets a string flag
+    String(name: string): string;
+
+    /// Gets a number flag
+    Number(name: string): number;
+
+    /// Checks if a boolean flag is present
+    HasBoolean(name: string): boolean;
+
+    /// Checks if a string flag is present
+    HasString(name: string): boolean;
+
+    /// Checks if a number flag is present
+    HasNumber(name: string): boolean;
+
+    /// Checks if a flag is present
+    Has(name: string): boolean;
 }
