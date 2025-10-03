@@ -9,6 +9,7 @@ enum ArgvErrorCode {
     TypeMismatch,
     ExpectedValue,
     MissingRequired,
+    AlreadyParsedCommand,
     UnknownArgument,
     UnknownFlag,
     InvalidFlag,
