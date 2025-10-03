@@ -11,14 +11,17 @@ import Types from "./types.js";
 import LineReader from "./util/line_reader.js";
 import FormatOutput from "./util/format.js";
 import ConvertToType from "./util/converter.js";
+import type Argv from "./cli/interface/argv/argv.js";
+import type IArgv from "./cli/impl/argv/argv.js";
 
 export default class Terminal {
     /// The output stream for the terminal.
     private static OStream = new BufferedOStream(process.stdout, 1024);
+    private static args = process.argv.slice(2); // Skip the first two arguments (node and script path)
 
     /// Get the command-line arguments passed to the Node.js process.
     public static Args(): string[] {
-        return process.argv;
+        return Terminal.args;
     }
 
     /// Create a new terminal application instance.
