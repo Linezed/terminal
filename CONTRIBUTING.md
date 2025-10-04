@@ -88,21 +88,33 @@ This file should contain a single line with the title of that section or page.
 ```json
 {
     "title": "Getting Started",
-    "priority": 1
+    "after": null
 }
 ```
 
-The `priority` field is optional and can be used to control the order
-of the sections or pages in the navigation menu.
+The `after` field is optional and can be used to specify the
+order of the pages within a section. It specifies after which
+page this page your page should appear.
 
-The allowed priority values are:
-- `0`: Highest priority, appears first
-- `1`: High priority
-- `2`: Medium priority
-- `3`: Low priority
-- `4`: Lowest priority, appears last 
+You may put the name of the folder of the page you want this page to appear after,
+not the title. If you don't want to specify an order, you can set it to `null`.
 
-If no priority is specified, it defaults to `3`.
+For example, take the following structure:
+
+```text
+docs/
+└── contents/
+    └── basics/
+        ├── getting-started/
+        │   ├── index.md
+        │   └── metadata.json  # {"title": "Getting Started", "after": null}
+        ├── installation/
+        │   ├── index.md
+        │   └── metadata.json  # {"title": "Installation", "after": "getting-started"}
+        └── configuration/
+            ├── index.md
+            └── metadata.json  # {"title": "Configuration", "after": "installation"}
+```
 
 **Adding New Documentation Pages**
 
@@ -114,7 +126,7 @@ Inside this folder, create an `index.md` file for the content of the page and a 
 ```bash
 mkdir -p docs/contents/basics/new-feature
 echo "# New Feature" > docs/contents/basics/new-feature/index.md
-echo "{\"title\": \"New Feature\", \"priority\": 2}" > docs/contents/basics/new-feature/metadata.json
+echo "{\"title\": \"New Feature\", \"after\": null}" > docs/contents/basics/new-feature/metadata.json
 ```
 
 This will create a new page titled "New Feature" under the "Basics" section.
@@ -135,7 +147,7 @@ Inside this folder, create a `metadata.json` file for the section title.
 
 ```bash
 mkdir -p docs/contents/new-section
-echo "{\"title\": \"New Section\", \"priority\": 2}" > docs/contents/new-section/metadata.json
+echo "{\"title\": \"New Section\", \"after\": null}" > docs/contents/new-section/metadata.json
 ```
 
 This will create a new section titled "New Section" in the documentation.
