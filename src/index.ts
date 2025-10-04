@@ -9,7 +9,6 @@ import IApp from "./cli/impl/app.js";
 import BufferedOStream from "./util/buffered_ostream.js";
 import Types from "./types.js";
 import LineReader from "./util/line_reader.js";
-import FormatOutput from "./util/format.js";
 import ConvertToType from "./util/converter.js";
 import * as Colors from "./util/colors.js";
 import Formatter from "./util/formatter.js";
