@@ -61,21 +61,21 @@ Each section can contain multiple subdirectories with their own `index.md` files
 
 ```text
 docs/
-├── index.md                # Main entry point for the documentation
-└── contents/               # Directory containing documentation sections
-    ├── basics/             # Section folder
-    │   ├── getting-started # Subdirectory with its own index.md
-    │   │   ├── index.md    # Documentation page for getting started
-    │   │   └── title.txt   # Metadata file for the page title
-    │   ├── installation/   # Another subdirectory
-    │   │   ├── index.md    # Documentation page for installation
-    │   │   └── title.txt   # Metadata file for the page title
-    │   └── title.txt       # Metadata file for the section title
-    └── advanced/           # Another section folder
-        ├── customization/  # Subdirectory
-        │   ├── index.md    # Documentation page for customization
-        │   └── title.txt   # Metadata file for the page title
-        └── title.txt       # Metadata file for the section title
+├── index.md                    # Main entry point for the documentation
+└── contents/                   # Directory containing documentation sections
+    ├── basics/                 # Section folder
+    │   ├── getting-started     # Subdirectory with its own index.md
+    │   │   ├── index.md        # Documentation page for getting started
+    │   │   └── metadata.json   # Metadata file for the page title
+    │   ├── installation/       # Another subdirectory
+    │   │   ├── index.md        # Documentation page for installation
+    │   │   └── metadata.json   # Metadata file for the page title
+    │   └── metadata.json       # Metadata file for the section title
+    └── advanced/               # Another section folder
+        ├── customization/      # Subdirectory
+        │   ├── index.md        # Documentation page for customization
+        │   └── metadata.json   # Metadata file for the page title
+        └── metadata.json       # Metadata file for the section title
 ```
 
 **Metadata Files**
@@ -83,23 +83,38 @@ docs/
 Each folder representing a section or subdirectory should contain a `title.txt` file.
 This file should contain a single line with the title of that section or page.
 
-**Example of a `title.txt` file:**
+**Example of a `metadata.json` file:**
 
-```text
-Getting Started
+```json
+{
+    "title": "Getting Started",
+    "priority": 1
+}
 ```
+
+The `priority` field is optional and can be used to control the order
+of the sections or pages in the navigation menu.
+
+The allowed priority values are:
+- `0`: Highest priority, appears first
+- `1`: High priority
+- `2`: Medium priority
+- `3`: Low priority
+- `4`: Lowest priority, appears last 
+
+If no priority is specified, it defaults to `3`.
 
 **Adding New Documentation Pages**
 
 To add a new documentation page, create a new folder inside the `docs/contents` directory (or an existing section folder).
-Inside this folder, create an `index.md` file for the content of the page and a `title.txt` file for the title.
+Inside this folder, create an `index.md` file for the content of the page and a `metadata.json` file for the title.
 
 **Example of adding a new page with a shell command:**
 
 ```bash
 mkdir -p docs/contents/basics/new-feature
 echo "# New Feature" > docs/contents/basics/new-feature/index.md
-echo "New Feature" > docs/contents/basics/new-feature/title.txt
+echo "{\"title\": \"New Feature\", \"priority\": 2}" > docs/contents/basics/new-feature/metadata.json
 ```
 
 This will create a new page titled "New Feature" under the "Basics" section.
@@ -110,6 +125,20 @@ files manually.
 
 > **Note:** If you already have a documentation server running, the script won't detect
 > new files automatically. You will need to restart the server to see the changes.
+
+**Adding New Documentation Sections**
+
+To add a new section to the documentation, create a new folder inside the `docs/contents` directory.
+Inside this folder, create a `metadata.json` file for the section title.
+
+**Example of adding a new section with a shell command:**
+
+```bash
+mkdir -p docs/contents/new-section
+echo "{\"title\": \"New Section\", \"priority\": 2}" > docs/contents/new-section/metadata.json
+```
+
+This will create a new section titled "New Section" in the documentation.
 
 **Starting the documentation server & building the docs**
 
