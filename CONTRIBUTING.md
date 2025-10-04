@@ -50,6 +50,15 @@ you do not have to include the test files in any other way.
 All features and changes should be documented to help users understand how to use them.
 Please update the documentation in the `docs` directory as needed to reflect your changes.
 
+To write a new documentation page, create a new Markdown file, you have to create a new folder
+in the `docs/contents` directory and add an `index.md` and a `title.txt` file inside it.
+
+The `title.txt` file should contain the title of the page, and the `index.md`
+file should contain the content of the page.
+
+The docs configuration script should detect all folders inside `docs/contents`
+automatically and add them to the sidebar, you do not have to modify any other files.
+
 ---
 
 ### Code of Conduct
