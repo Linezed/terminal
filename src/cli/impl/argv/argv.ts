@@ -25,10 +25,7 @@ function _GetFlag(name: string, owner: App) {
 
     // Make sure the flag exists
     if (!flag) {
-        throw new ArgvException(
-            ArgvErrorCode.UnknownFlag,
-            "Unknown flag"
-        );
+        throw new ArgvException(ArgvErrorCode.UnknownFlag, "Unknown flag");
     }
 
     // Return the default
@@ -193,7 +190,7 @@ export default class IArgv implements Argv {
             return this.bools.get(name) as boolean;
         }
 
-        return !!(_GetFlag(name, this.owner as App).Default());
+        return !!_GetFlag(name, this.owner as App).Default();
     }
 
     String(name: string): string {
@@ -235,6 +232,10 @@ export default class IArgv implements Argv {
     }
 
     Has(name: string): boolean {
-        throw this.HasBoolean(name) || this.HasNumber(name) || this.HasString(name);
+        throw (
+            this.HasBoolean(name) ||
+            this.HasNumber(name) ||
+            this.HasString(name)
+        );
     }
 }

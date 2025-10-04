@@ -36,9 +36,7 @@ export function _NameableBase<TBase extends Constructor>(Base: TBase) {
     };
 }
 
-export default class INameable
-    extends _NameableBase(class{})
-{
+export default class INameable extends _NameableBase(class {}) {
     /// Constructor
     constructor(name: string) {
         super(); // Offload to super class

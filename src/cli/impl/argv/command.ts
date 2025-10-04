@@ -4,7 +4,6 @@
  License: MIT
  */
 
-
 import type Command from "../../interface/command.js";
 import ArgvException from "./exception.js";
 import ArgvErrorCode from "../../interface/argv/codes.js";

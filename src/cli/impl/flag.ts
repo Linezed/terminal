@@ -13,7 +13,7 @@ import type Flag from "../interface/flag.js";
 import type Context from "../interface/context.js";
 
 export default class IFlag
-    extends _NameableBase(_TypableBase(_TrimmableBase(class{})))
+    extends _NameableBase(_TypableBase(_TrimmableBase(class {})))
     implements Flag
 {
     /// The owner of the flag.
@@ -81,8 +81,7 @@ export default class IFlag
         // Forward the message to the base class
         if (val) {
             return super.Shortcut(val);
-        }
-        else {
+        } else {
             return super.Shortcut();
         }
     }

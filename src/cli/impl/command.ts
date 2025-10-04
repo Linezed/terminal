@@ -36,7 +36,7 @@ export class ICommand
 
     /// Getter and setter for the short name of the command.
     Shortcut(): string;
-    Shortcut(val: string): this
+    Shortcut(val: string): this;
     Shortcut(val?: string): string | this {
         if (val !== undefined) {
             // Make sure the command isn't already registered
@@ -51,8 +51,7 @@ export class ICommand
         // Forward the message to the base class
         if (val) {
             return super.Shortcut(val);
-        }
-        else {
+        } else {
             return super.Shortcut();
         }
     }

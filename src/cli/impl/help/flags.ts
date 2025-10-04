@@ -32,10 +32,7 @@ export default function CreateFlagsSection(
 
         // Add shortcuts if available
         if (flag.shortcut) {
-            res += Formatter.Format(
-                ", -{}",
-                flag.shortcut
-            );
+            res += Formatter.Format(", -{}", flag.shortcut);
         }
 
         // Reset colors
@@ -50,10 +47,7 @@ export default function CreateFlagsSection(
 
         // Add whether required or not
         if (flag.Required()) {
-            res += Formatter.Format(
-                " {Bold.Bright.Red}",
-                "[required]"
-            );
+            res += Formatter.Format(" {Bold.Bright.Red}", "[required]");
         }
 
         res += "\n"; // New line

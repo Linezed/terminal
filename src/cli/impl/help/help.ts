@@ -16,7 +16,8 @@ export default function GenerateHelp(
     argv?: Argv,
     color: string = Colors.Blue
 ): string {
-    let resp = Formatter.Format( // Format the name first
+    let resp = Formatter.Format(
+        // Format the name first
         "{}{}{}",
         color,
         app.name,
@@ -46,7 +47,7 @@ export default function GenerateHelp(
         resp += Formatter.Format(
             "{Red}\n  {Bright.Black}\n\n",
             "Error:",
-            argv.Error.message,
+            argv.Error.message
         );
     }
 
@@ -60,19 +61,11 @@ export default function GenerateHelp(
         if (name == cmd.shortcut) continue;
 
         // Add command name and description
-        resp += Formatter.Format(
-            "  {Bright.Black} {}{}",
-            "➥",
-            color,
-            name
-        );
+        resp += Formatter.Format("  {Bright.Black} {}{}", "➥", color, name);
 
         // Add shortcuts if available
         if (cmd.shortcut) {
-            resp += Formatter.Format(
-                ", {}",
-                cmd.shortcut
-            );
+            resp += Formatter.Format(", {}", cmd.shortcut);
         }
 
         resp += Colors.Reset; // Reset colors

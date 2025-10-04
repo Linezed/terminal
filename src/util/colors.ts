@@ -69,8 +69,8 @@ export const Dim = {
             Magenta: "\x1b[1;2;95m",
             Cyan: "\x1b[1;2;96m",
             White: "\x1b[1;2;97m",
-        }
-    }
+        },
+    },
 };
 
 export const Bold = {
@@ -92,7 +92,7 @@ export const Bold = {
         Magenta: "\x1b[1;95m",
         Cyan: "\x1b[1;96m",
         White: "\x1b[1;97m",
-    }
+    },
 };
 
 export const Bg = {
@@ -146,7 +146,7 @@ export const Bg = {
             Magenta: "\x1b[1;2;45m",
             Cyan: "\x1b[1;2;46m",
             White: "\x1b[1;2;47m",
-        }
+        },
     },
 
     Bold: {
@@ -168,6 +168,6 @@ export const Bg = {
             Magenta: "\x1b[1;105m",
             Cyan: "\x1b[1;106m",
             White: "\x1b[1;107m",
-        }
-    }
-}
+        },
+    },
+};

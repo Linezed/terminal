@@ -7,7 +7,6 @@
 import type { Constructor } from "./constructor.js";
 import type Trimmable from "../interface/trimmable.js";
 
-
 export function _TrimmableBase<TBase extends Constructor>(Base: TBase) {
     return class extends Base implements Trimmable {
         /// The shortcut name of the entity.
@@ -29,6 +28,4 @@ export function _TrimmableBase<TBase extends Constructor>(Base: TBase) {
     };
 }
 
-export default class ITrimmable
-    extends _TrimmableBase(class{})
-{}
+export default class ITrimmable extends _TrimmableBase(class {}) {}

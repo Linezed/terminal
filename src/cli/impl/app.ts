@@ -14,10 +14,7 @@ import { Colors } from "../../index.js";
 import type Argv from "../interface/argv/argv.js";
 import GenerateHelp from "./help/help.js";
 
-export default class IApp
-    extends IContext
-    implements App
-{
+export default class IApp extends IContext implements App {
     commands: Map<string, Command> = new Map();
 
     /// Constructor

@@ -16,7 +16,7 @@ export default class LineReader {
             stdin.resume();
 
             // Listen for data on the standard input stream.
-            stdin.once('data', function (data) {
+            stdin.once("data", function (data) {
                 resolve(data.toString().trim());
                 stdin.pause(); // Pause the stream after reading
             });

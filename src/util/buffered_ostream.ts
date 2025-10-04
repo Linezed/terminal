@@ -38,10 +38,7 @@ export default class BufferedOStream {
         if (this.curr == 0) return; // Nothing to flush
 
         // Write the buffer to the stream
-        this.stream.write(
-            this.buffer.slice(0, this.curr)
-            .join('')
-        );
+        this.stream.write(this.buffer.slice(0, this.curr).join(""));
 
         // Reset the buffer
         this.curr = 0;

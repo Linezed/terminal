@@ -14,7 +14,7 @@ enum ArgvErrorCode {
     UnknownArgument,
     UnknownFlag,
     InvalidFlag,
-    None
+    None,
 }
 
 export default ArgvErrorCode;

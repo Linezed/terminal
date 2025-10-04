@@ -27,6 +27,4 @@ export function _TypableBase<TBase extends Constructor>(Base: TBase) {
     };
 }
 
-export default class ITypable
-    extends _TypableBase(class{})
-{}
+export default class ITypable extends _TypableBase(class {}) {}

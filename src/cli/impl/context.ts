@@ -11,27 +11,21 @@ import type Context from "../interface/context.js";
 import { _NameableBase } from "./nameable.js";
 
 export function _ContextBase<TBase extends Constructor>(Base: TBase) {
-    return class
-        extends _NameableBase(Base)
-        implements Context
-    {
+    return class extends _NameableBase(Base) implements Context {
         /// Flags associated with the context.
         flags: Map<string, Flag> = new Map<string, Flag>();
 
         /// Get the flags associated with the context.
-        Flags(): Map<string, Flag>
-        {
+        Flags(): Map<string, Flag> {
             return this.flags;
         }
 
         /// Creates a new flag and adds it to the context.
-        Flag(name: string): Flag
-        {
+        Flag(name: string): Flag {
             // See if the flag already exists
             if (this.flags.has(name)) {
                 return this.flags.get(name) as Flag;
             }
-
 
             // Create a new flag
             let f = new IFlag(this, name);
@@ -43,6 +37,4 @@ export function _ContextBase<TBase extends Constructor>(Base: TBase) {
     };
 }
 
-export default class IContext
-    extends _ContextBase(class{})
-{}
+export default class IContext extends _ContextBase(class {}) {}

@@ -7,7 +7,7 @@
 enum Types {
     String,
     Number,
-    Boolean
+    Boolean,
 }
 
 export default Types;

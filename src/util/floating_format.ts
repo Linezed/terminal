@@ -4,10 +4,16 @@
  License: MIT
  */
 
-export default function Floating_format(arg: any, length: number, specifier: string) {
+export default function Floating_format(
+    arg: any,
+    length: number,
+    specifier: string
+) {
     // Type checking
     if (typeof arg != "number") {
-        throw new Error(`Type mismatch: Expected number for format specifier {${specifier}}, got ${typeof arg}`);
+        throw new Error(
+            `Type mismatch: Expected number for format specifier {${specifier}}, got ${typeof arg}`
+        );
     }
 
     // Format the number

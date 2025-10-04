@@ -19,12 +19,12 @@ const colors: { [key: string]: _ColorFunction } = {};
 // Create an isolated scope to populate colors
 {
     // Get the base colors from the Colors module
-    const baseColors= Object.keys(Colors).filter(c =>
-        typeof (Colors as any)[c] === "string"
+    const baseColors = Object.keys(Colors).filter(
+        (c) => typeof (Colors as any)[c] === "string"
     );
 
     // Populate the colors object with functions
-    baseColors.forEach(color => {
+    baseColors.forEach((color) => {
         // Base colors
         (colors as any)[color] = (val: string) =>
             _FormatColor(val, (Colors as any)[color]);
@@ -83,10 +83,7 @@ const colors: { [key: string]: _ColorFunction } = {};
     });
 }
 
-function _FormatBase(
-    arg_idx: number,
-    args: any[]
-) {
+function _FormatBase(arg_idx: number, args: any[]) {
     // Get the argument
     let arg = args[arg_idx];
 
@@ -159,7 +156,9 @@ export default function FormatOutput(
         else if (specifier.endsWith("s")) {
             // Type checking
             if (typeof arg != "string") {
-                throw new Error(`Type mismatch: Expected number for format specifier {${specifier}}, got ${typeof arg}`);
+                throw new Error(
+                    `Type mismatch: Expected number for format specifier {${specifier}}, got ${typeof arg}`
+                );
             }
 
             // Format the string
