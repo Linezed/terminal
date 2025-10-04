@@ -50,24 +50,76 @@ you do not have to include the test files in any other way.
 All features and changes should be documented to help users understand how to use them.
 Please update the documentation in the `docs` directory as needed to reflect your changes.
 
+**Structure of the Documentation**
+
 We use VitePress for our documentation site. The main entry point for the documentation is the `docs/index.md` file.
 
-To write a new documentation page, create a new Markdown file, you have to create a new folder
-in the `docs/contents` directory and add an `index.md` and a `title.txt` file inside it.
+The documentation structure is organized into sections, each represented by a folder inside the `docs/contents` directory.
+Each section can contain multiple subdirectories with their own `index.md` files and additional metadata files.
 
-The `title.txt` file should contain the title of the page, and the `index.md`
-file should contain the content of the page.
+**Visual representation of the documentation structure:**
 
-The docs configuration script should detect all folders inside `docs/contents`
-automatically and add them to the sidebar, you do not have to modify any other files.
+```text
+docs/
+├── index.md                # Main entry point for the documentation
+└── contents/               # Directory containing documentation sections
+    ├── basics/             # Section folder
+    │   ├── getting-started # Subdirectory with its own index.md
+    │   │   ├── index.md    # Documentation page for getting started
+    │   │   └── title.txt   # Metadata file for the page title
+    │   ├── installation/   # Another subdirectory
+    │   │   ├── index.md    # Documentation page for installation
+    │   │   └── title.txt   # Metadata file for the page title
+    │   └── title.txt       # Metadata file for the section title
+    └── advanced/           # Another section folder
+        ├── customization/  # Subdirectory
+        │   ├── index.md    # Documentation page for customization
+        │   └── title.txt   # Metadata file for the page title
+        └── title.txt       # Metadata file for the section title
+```
 
-To serve the documentation site locally, use the following command:
+**Metadata Files**
+
+Each folder representing a section or subdirectory should contain a `title.txt` file.
+This file should contain a single line with the title of that section or page.
+
+**Example of a `title.txt` file:**
+
+```text
+Getting Started
+```
+
+**Adding New Documentation Pages**
+
+To add a new documentation page, create a new folder inside the `docs/contents` directory (or an existing section folder).
+Inside this folder, create an `index.md` file for the content of the page and a `title.txt` file for the title.
+
+**Example of adding a new page with a shell command:**
+
+```bash
+mkdir -p docs/contents/basics/new-feature
+echo "# New Feature" > docs/contents/basics/new-feature/index.md
+echo "New Feature" > docs/contents/basics/new-feature/title.txt
+```
+
+This will create a new page titled "New Feature" under the "Basics" section.
+
+The configuration script should automatically detect the new page and include it in the
+documentation site in the appropriate section. You do not have to modify any configuration
+files manually.
+
+> **Note:** If you already have a documentation server running, the script won't detect
+> new files automatically. You will need to restart the server to see the changes.
+
+**Starting the documentation server & building the docs**
+
+To start a local server for the documentation, run:
 
 ```bash
 npm run docs:dev
 ```
 
-To build the documentation site for production, use the following command:
+To build the static documentation site, run:
 
 ```bash
 npm run docs:build
