@@ -168,9 +168,8 @@ export default class IArgv implements Argv {
                 );
             }
 
-            // Fire the handler
+            // Set the command
             this.command = cmds.get(cmd_name as string);
-            this.command?.handler?.(this);
         } catch (e) {
             if (e instanceof ArgvException) {
                 // Set the appropriate code
@@ -189,6 +188,9 @@ export default class IArgv implements Argv {
 
             this.Error.code = ArgvErrorCode.TypeMismatch;
         }
+
+        // Fire the handler
+        this.command?.handler?.(this);
     }
 
     Value() {
