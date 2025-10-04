@@ -18,13 +18,18 @@ import IArgvError from "./error.js";
 import Types from "../../../types.js";
 import MatchType from "../../../util/type_matcher.js";
 
-function _GetFlag(name: string, owner: App) {
+function _GetFlag(name: string, owner: App, cmd: Command) {
     // Attempt to get the default value from the owner
     let flag_map = owner?.Flags() as Map<string, Flag>;
     let flag = flag_map.get(name);
 
     // Make sure the flag exists
     if (!flag) {
+        // Last resort: Try to find the flag in the command
+        if (cmd && cmd.flags.has(name as string)) {
+            return cmd.flags.get(name as string) as Flag;
+        }
+
         throw new ArgvException(ArgvErrorCode.UnknownFlag, "Unknown flag");
     }
 
@@ -36,7 +41,11 @@ export default class IArgv implements Argv {
     /// The owner of the argv
     owner: App | undefined = undefined;
 
+    /// The error that occurred while parsing the argv
     Error: ArgvError | undefined;
+
+    /// The parsed command
+    command: Command | undefined = undefined;
 
     /// String flags
     strings: Map<string, string> = new Map();
@@ -160,7 +169,8 @@ export default class IArgv implements Argv {
             }
 
             // Fire the handler
-            (cmds.get(cmd_name as string) as Command).handler?.(this);
+            this.command = cmds.get(cmd_name as string);
+            this.command?.handler?.(this);
         } catch (e) {
             if (e instanceof ArgvException) {
                 // Set the appropriate code
@@ -180,6 +190,7 @@ export default class IArgv implements Argv {
             this.Error.code = ArgvErrorCode.TypeMismatch;
         }
     }
+
     Value() {
         return this.val;
     }
@@ -190,7 +201,7 @@ export default class IArgv implements Argv {
             return this.bools.get(name) as boolean;
         }
 
-        return !!_GetFlag(name, this.owner as App).Default();
+        return !!_GetFlag(name, this.owner as App, this.command!).Default();
     }
 
     String(name: string): string {
@@ -200,7 +211,7 @@ export default class IArgv implements Argv {
         }
 
         // Perform type checking
-        let flag = _GetFlag(name, this.owner as App);
+        let flag = _GetFlag(name, this.owner as App, this.command!);
         MatchType(Types.String, flag.Default());
 
         return flag.Default();
@@ -213,7 +224,7 @@ export default class IArgv implements Argv {
         }
 
         // Perform type checking
-        let flag = _GetFlag(name, this.owner as App);
+        let flag = _GetFlag(name, this.owner as App, this.command!);
         MatchType(Types.Number, flag.Default());
 
         return flag.Default();
