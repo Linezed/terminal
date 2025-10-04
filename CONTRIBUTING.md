@@ -45,6 +45,13 @@ you do not have to include the test files in any other way.
 
 ---
 
+### Documentation
+
+All features and changes should be documented to help users understand how to use them.
+Please update the documentation in the `docs` directory as needed to reflect your changes.
+
+---
+
 ### Code of Conduct
 
 We expect all contributors to adhere to our [Code of Conduct](CODE_OF_CONDUCT.md).
