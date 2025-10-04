@@ -8,6 +8,7 @@ import path from "path";
 import { fileURLToPath } from "node:url";
 import GetSections from "./populate";
 import ConvertSections from "./convert";
+import SortByAfter from "./sort";
 
 // Get the current dir
 const current_dir = fileURLToPath(import.meta.url);
