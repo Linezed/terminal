@@ -20,8 +20,8 @@ import MatchType from "../../../util/type_matcher.js";
 
 function _GetFlag(name: string, owner: App) {
     // Attempt to get the default value from the owner
-    let flagMap = owner?.Flags() as Map<string, Flag>;
-    let flag = flagMap.get(name);
+    let flag_map = owner?.Flags() as Map<string, Flag>;
+    let flag = flag_map.get(name);
 
     // Make sure the flag exists
     if (!flag) {
@@ -60,13 +60,13 @@ export default class IArgv implements Argv {
             let requiredFlags: Set<string> = new Set();
 
             // Save the name of the command
-            let cmdName: string | undefined = undefined;
+            let cmd_name: string | undefined = undefined;
 
             // Save the current command
             let cmd: Command | undefined = undefined;
 
             // Save the last parsed flag
-            let lastFlag: Flag | undefined = undefined;
+            let last_flag: Flag | undefined = undefined;
 
             // Fill the required flags
             flags.forEach((flag: Flag) => {
@@ -78,23 +78,23 @@ export default class IArgv implements Argv {
             // Parse the args
             for (let arg of args) {
                 // Parse flag values
-                if (lastFlag) {
+                if (last_flag) {
                     // Parse directly
                     SetFlagValue(
-                        lastFlag,
+                        last_flag,
                         arg,
                         this.strings,
                         this.bools,
                         this.numbers
                     );
-                    lastFlag = undefined; // No longer waiting on the value
+                    last_flag = undefined; // No longer waiting on the value
                     continue;
                 }
 
                 // Check if we have a flag
                 if (arg.startsWith("-")) {
                     // Check if we're waiting for a value
-                    if (lastFlag) {
+                    if (last_flag) {
                         throw new ArgvException(
                             ArgvErrorCode.ExpectedValue,
                             "Expected a value, not a flag"
@@ -102,7 +102,7 @@ export default class IArgv implements Argv {
                     }
 
                     // Set the last flag
-                    lastFlag = ParseFlag(
+                    last_flag = ParseFlag(
                         arg,
                         cmd,
                         flags,
@@ -132,7 +132,7 @@ export default class IArgv implements Argv {
 
                 // Parse the command
                 cmd = ParseCommand(cmds, arg);
-                cmdName = cmd.Name();
+                cmd_name = cmd.Name();
             }
 
             // Make sure we have parsed a value
@@ -144,7 +144,7 @@ export default class IArgv implements Argv {
             }
 
             // Make sure we aren't expecting a value
-            if (cmd || lastFlag) {
+            if (cmd || last_flag) {
                 throw new ArgvException(
                     ArgvErrorCode.ExpectedValue,
                     "Expected a value"
@@ -160,7 +160,7 @@ export default class IArgv implements Argv {
             }
 
             // Fire the handler
-            (cmds.get(cmdName as string) as Command).handler?.(this);
+            (cmds.get(cmd_name as string) as Command).handler?.(this);
         } catch (e) {
             if (e instanceof ArgvException) {
                 // Set the appropriate code
