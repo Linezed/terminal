@@ -140,8 +140,6 @@ export default function FormatOutput(
         idx++;
     }
 
-    idx++; // Move past the '}'
-
     // Get the argument
     let arg = args[arg_idx];
 
