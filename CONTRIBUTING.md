@@ -50,6 +50,8 @@ you do not have to include the test files in any other way.
 All features and changes should be documented to help users understand how to use them.
 Please update the documentation in the `docs` directory as needed to reflect your changes.
 
+We use VitePress for our documentation site. The main entry point for the documentation is the `docs/index.md` file.
+
 To write a new documentation page, create a new Markdown file, you have to create a new folder
 in the `docs/contents` directory and add an `index.md` and a `title.txt` file inside it.
 
@@ -58,6 +60,18 @@ file should contain the content of the page.
 
 The docs configuration script should detect all folders inside `docs/contents`
 automatically and add them to the sidebar, you do not have to modify any other files.
+
+To serve the documentation site locally, use the following command:
+
+```bash
+npm run docs:dev
+```
+
+To build the documentation site for production, use the following command:
+
+```bash
+npm run docs:build
+```
 
 ---
 
