@@ -24,7 +24,7 @@ export default class Formatter {
                 // Write the formatted argument
                 resp += res;
                 arg_idx++; // Move to the next argument
-                i += skipped; // Skip the processed characters
+                i = skipped; // Skip the processed characters
             } else {
                 // Write the character as is
                 resp += char;

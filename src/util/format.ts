@@ -128,12 +128,11 @@ export default function FormatOutput(
 
     // See if we don't have any format
     if (format[idx + 1] == "}") {
-        return [_FormatBase(arg_idx, args), 1]; // Default format
+        return [_FormatBase(arg_idx, args), idx + 1]; // Default format
     }
 
     // Collect the format specifier
     let specifier = "";
-    let start_idx = idx;
     idx++; // Move past the '{'
 
     while (idx < format.length && format[idx] !== "}") {
@@ -154,7 +153,7 @@ export default function FormatOutput(
 
         // Floating point precision
         if (specifier.endsWith("f")) {
-            return [Floating_format(arg, length, specifier), idx - start_idx + 1];
+            return [Floating_format(arg, length, specifier), idx];
         }
         // String slicing
         else if (specifier.endsWith("s")) {
@@ -164,7 +163,7 @@ export default function FormatOutput(
             }
 
             // Format the string
-            return [arg.slice(0, length), idx - start_idx + 1];
+            return [arg.slice(0, length), idx];
         }
     }
 
@@ -174,7 +173,7 @@ export default function FormatOutput(
         let basic = _FormatBase(arg_idx, args);
 
         // Format the color
-        return [(colors[specifier] as _ColorFunction)(basic), idx - start_idx + 1];
+        return [(colors[specifier] as _ColorFunction)(basic), idx];
     }
 
     // Unknown specifier
