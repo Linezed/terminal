@@ -3,7 +3,7 @@
 In this example, we'll go over how to use the `Terminal.Print*` functions to print
 formatted or plain output to the terminal.
 
-### `Terminal.Print`
+## `Terminal.Print`
 
 This function prints a plain message to the terminal.
 It does not add a newline at the end.
@@ -18,7 +18,7 @@ Terminal.Print("world!");
 // Output: Hello, world!
 ```
 
-### `Terminal.Println`
+## `Terminal.Println`
 
 This function prints a message to the terminal and adds a newline at the end.
 
@@ -30,7 +30,7 @@ Terminal.Println("Hello, world!");
 // Output: Hello, world!
 ```
 
-### `Terminal.Printf`
+## `Terminal.Printf`
 
 This function prints a formatted message to the terminal.
 It uses `{}` as a placeholder for values, which will be
@@ -59,7 +59,7 @@ Terminal.Printf("This is a {Red}.", "word");
 // Output: This is a word. (with "word" in red color)
 ```
 
-### `Terminal.Printfln`
+## `Terminal.Printfln`
 
 This function is similar to `Terminal.Printf`, but it adds a newline at the end.
 
