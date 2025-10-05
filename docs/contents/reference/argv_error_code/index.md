@@ -3,7 +3,7 @@
 The `ArgvErrorCode` enum represents an error code
 that identifies the error type present in [`ArgvError`](/contents/reference/argv_error/).
 
-**Types of Errors:**
+## Types of Errors
 
 - `ArgvErrorCode.TypeMismatch`
 - `ArgvErrorCode.ExpectedValue`
