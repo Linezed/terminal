@@ -3,11 +3,11 @@
 The `Context` interface defines functionality for any object that
 accepts local or global flags.
 
-**Implements**
+## Implements
 
 - [**`Nameable`**](/contents/reference/nameable/)
 
-**API Documentation:**
+## API Documentation
 
 - [**`Context.Flag(name: string): Flag`**](/contents/reference/flag/): Defines a new flag for the context.
 - [**`Context.Flags(): Flag[]`**](/contents/reference/flag/): Gets the list of flags defined in the context.
