@@ -5,13 +5,13 @@ that can be used for command and flag arguments in a
 terminal application. Each type corresponds to a specific
 kind of input that the application can accept.
 
-**Available Types:**
+## Available Types
 
 - `Types.String`: Represents a string input.
 - `Types.Number`: Represents a numeric input.
 - `Types.Boolean`: Represents a boolean input (true/false).
 
-**Numerical Representations:**
+## Numerical Representations
 
 - `Types.String` becomes `0` after compilation.
 - `Types.Number` becomes `1` after compilation.
