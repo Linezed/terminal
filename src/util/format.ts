@@ -19,12 +19,12 @@ const colors: { [key: string]: _ColorFunction } = {};
 // Create an isolated scope to populate colors
 {
     // Get the base colors from the Colors module
-    const baseColors = Object.keys(Colors).filter(
+    const base_colors = Object.keys(Colors).filter(
         (c) => typeof (Colors as any)[c] === "string"
     );
 
     // Populate the colors object with functions
-    baseColors.forEach((color) => {
+    base_colors.forEach((color) => {
         // Base colors
         (colors as any)[color] = (val: string) =>
             _FormatColor(val, (Colors as any)[color]);
