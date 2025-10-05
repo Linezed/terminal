@@ -35,7 +35,7 @@ Terminal.Flush(); // Manually flush the output buffer
 // Now the output is guaranteed to be written to the terminal.
 ```
 
-### Benchmark results
+## Benchmark results
 
 The following benchmark compares the performance of `console.log`
 with Linezed Terminal's `Terminal.Print` method when printing
