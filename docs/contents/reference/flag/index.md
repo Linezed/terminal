@@ -4,12 +4,13 @@ The `Flag` class represents a command-line flag that can be associated
 with commands or applications. Flags are used to modify the behavior of
 commands or to provide additional options.
 
-**Implements**
+## Implements
+
 - [**`Nameable`**](/contents/reference/nameable/)
 - [**`Trimmable`**](/contents/reference/trimmable/)
 - [**`Typable`**](/contents/reference/typable/)
 
-**API Documentation:**
+## API Documentation
 
 - [**`Flag.Name(): string`**](#): Gets the name of the flag.
 - [**`Flag.Description(desc: string): Flag`**](#): Sets the description for the flag.
