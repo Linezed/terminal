@@ -11,16 +11,8 @@ kind of input that the application can accept.
 - `Types.Number`: Represents a numeric input.
 - `Types.Boolean`: Represents a boolean input (true/false).
 
-**Example Usage:**
+**Numerical Representations:**
 
-```javascript
-import Terminal, { Types } from "@linezed/terminal";
-
-Terminal.Read(Types.String)
-    .then((input) => {
-        Terminal.Printfln("You entered a string: {}", input);
-    });
-```
-
-This reads a line of input from the user and parses it as a string,
-then prints it back to the terminal.
+- `Types.String` becomes `0` after compilation.
+- `Types.Number` becomes `1` after compilation.
+- `Types.Boolean` becomes `2` after compilation.
