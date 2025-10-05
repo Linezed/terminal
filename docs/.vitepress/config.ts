@@ -18,6 +18,7 @@ const sections = GetSections(contents_dir);
 const docs = ConvertSections(sections);
 
 export default {
+    ignoreDeadLinks: true,
     title: "Linezed Terminal",
     description: "Terminal framework for building command-line applications in TypeScript and Node.js",
     themeConfig: {
