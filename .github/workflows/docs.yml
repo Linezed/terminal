@@ -1,8 +1,9 @@
 name: Deploy Docs
 
 on:
-  release:
-    types: [published] # only trigger when a release is published
+  push:
+    branches:
+      - main
 
 jobs:
   build-and-deploy:
