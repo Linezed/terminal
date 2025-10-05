@@ -1,6 +1,6 @@
 # Nameable
 
-The Nameable interface defines functionality for any object that has a name
+The `Nameable` interface defines functionality for any object that has a name
 and a description.
 
 **API Documentation:**
