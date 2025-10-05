@@ -17,4 +17,9 @@ test("registers a command", () => {
     assert.is(app.Commands().has("t"), true);
 });
 
+test("registers a flag", () => {
+    assert.is(app.Command("test-command").Flags().has("help"), true);
+    assert.is(app.Command("test-command").Flags().has("h"), true);
+});
+
 test.run();
