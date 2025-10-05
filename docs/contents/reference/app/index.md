@@ -1,6 +1,6 @@
 # App
 
-The App class allows you to create command-line applications with support
+The `App` class allows you to create command-line applications with support
 for commands, flags, and argument parsing. It provides a structured way
 to define the behavior of your CLI application.
 
