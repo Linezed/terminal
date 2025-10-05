@@ -1,6 +1,6 @@
 # Context
 
-The Context interface defines functionality for any object that
+The `Context` interface defines functionality for any object that
 accepts local or global flags.
 
 **Implements**
