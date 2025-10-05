@@ -3,7 +3,14 @@
     <h2>Linezed</h2>
     <p>Empowering the Web with modern technologies.</p>
     <hr>
+
+
+[Getting started] | [Documentation] | [Contributing]
 </div>
+
+[Getting Started]: https://docs.terminal.linezed.dev/
+[Documentation]: https://docs.terminal.linezed.dev/contents/basic/welcome/
+[Contributing]: CONTRIBUTING.md
 
 ### Welcome!
 
