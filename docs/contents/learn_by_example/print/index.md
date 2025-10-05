@@ -42,7 +42,7 @@ replaced by the provided arguments.
 - `{.<number>s}`: Truncates a string to the specified length
 - `{<Color>}`: Colors the text using the specified color (e.g., `{Red}`, `{Green}`, `{Bright.Blue}`, etc.)
 
-For a complete list of colors, refer to [Colors](/contents/util/colors).
+For a complete list of colors, refer to [Colors](/contents/reference/colors).
 
 **Example:**
 
