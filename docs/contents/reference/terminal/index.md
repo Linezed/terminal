@@ -18,7 +18,7 @@ Reads a line of input from the user and parses it into the specified type.
 Creates a new command-line application instance.
 - [**`Terminal.Read(t: Types): Promise<?>`**](/contents/learn_by_example/read_line/):
 Reads a line of input from the user and parses it into the specified type.
-- [**`Terminal.Flush(): void`**](/contents/advenced/io/):
+- [**`Terminal.Flush(): void`**](/contents/advanced/io/):
 Flushes the output buffer, ensuring all pending output is written to the terminal.
 
 
