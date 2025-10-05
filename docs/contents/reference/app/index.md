@@ -4,11 +4,11 @@ The `App` class allows you to create command-line applications with support
 for commands, flags, and argument parsing. It provides a structured way
 to define the behavior of your CLI application.
 
-**Implements**
+## Implements
 
 - [**`Context`**](/contents/reference/context/)
 
-**API Documentation:**
+## API Documentation
 
 - [**`App.Command(name: string): Command`**](/contents/reference/command): Defines a new command for the application.
 - [**`App.Commands(): Command[]`**](/contents/reference/command): Gets the list of commands defined in the application.
