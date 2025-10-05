@@ -9,7 +9,6 @@ import type Command from "../interface/command.js";
 import IContext from "./context.js";
 import { ICommand } from "./command.js";
 import IArgv from "./argv/argv.js";
-import Formatter from "../../util/formatter.js";
 import { Colors } from "../../index.js";
 import type Argv from "../interface/argv/argv.js";
 import GenerateHelp from "./help/help.js";
