@@ -5,3 +5,4 @@ node_modules/
 docs/.vitepress/cache
 assets/
 .github/
+package-lock.json
