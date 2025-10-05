@@ -19,6 +19,9 @@ Please read through the following sections to understand how you can contribute 
 3. **Code Reviews**: All pull requests will be reviewed by the maintainers. Please be patient while we review your changes. We may request changes or provide feedback to help improve your contribution
 4. **Coding Standards**: Please follow the existing coding style and conventions used in the project. This includes using meaningful variable names, writing clear and concise comments, and adhering to the project's formatting guidelines.
 
+Additionally, you must push all changes to the `dev` branch, never the `master` branch directly.
+We push changes to the `master` branch only when releasing a new version.
+
 ---
 
 ### Code Style
