@@ -4,13 +4,13 @@ The `Command` class represents a command in a command-line application.
 It allows you to define the behavior of the command, including its
 name, description, type, flags, and handler function.
 
-**Implements**
+## Implements
 
 - [**`Context`**](/contents/reference/context/)
 - [**`Typable`**](/contents/reference/typable/)
 - [**`Trimmable`**](/contents/reference/trimmable/)
 
-**API Documentation:**
+## API Documentation
 
 - [**`Command.Name(): string`**](#): Gets the name of the command.
 - [**`Command.Description(desc: string): Command`**](#): Sets the description for the command.
