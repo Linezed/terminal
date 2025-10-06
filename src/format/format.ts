@@ -5,7 +5,7 @@
  */
 
 import Floating_format from "./floating_format.js";
-import * as Colors from "../util/colors.js";
+import * as Colors from "../colors/colors.js";
 
 type _ColorFunction = (val: string) => string;
 

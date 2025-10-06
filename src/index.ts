@@ -10,7 +10,7 @@ import BufferedOStream from "./stream/buffered_ostream.js";
 import Types from "./types.js";
 import LineReader from "./util/line_reader.js";
 import ConvertToType from "./util/converter.js";
-import * as Colors from "./util/colors.js";
+import * as Colors from "./colors/colors.js";
 import Formatter from "./format/formatter.js";
 import ArgvErrorCode from "./cli/interface/argv/codes.js";
 
