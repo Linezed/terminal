@@ -8,6 +8,7 @@
 import type Context from "./context.js";
 import type Command from "./command.js";
 import type Argv from "./argv/argv.js";
+import type Config from "./config/config.js";
 
 export default interface App extends Context {
     /// Commands of the application.
@@ -15,6 +16,9 @@ export default interface App extends Context {
 
     /// The version of the application.
     version: string;
+
+    /// The configuration for the application.
+    config: Config;
 
     /// Get the commands of the application.
     Commands(): Map<string, Command>;
@@ -33,4 +37,7 @@ export default interface App extends Context {
 
     /// Generates a help message for the application.
     Help(argv?: Argv, color?: string): string;
+
+    /// Gets the configuration.
+    Config(): Config;
 }
