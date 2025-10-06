@@ -15,10 +15,10 @@ export default interface App extends Context {
     commands: Map<string, Command>;
 
     /// The version of the application.
-    version: string | null;
+    version: string | undefined;
 
     /// The configuration for the application.
-    config: Config | null;
+    config: Config | undefined;
 
     /// Get the commands of the application.
     Commands(): Map<string, Command>;
@@ -30,7 +30,7 @@ export default interface App extends Context {
     Parse(input: string[]): Argv;
 
     /// Get the version of the application.
-    Version(): string;
+    Version(): string | undefined;
 
     /// Set the version of the application.
     Version(version: string): this;
