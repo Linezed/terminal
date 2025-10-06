@@ -19,9 +19,10 @@ export default class IApp extends IContext implements App {
     config: Config | undefined = undefined;
 
     /// Constructor
-    constructor(name: string) {
+    constructor(name: string, config: Config) {
         super(); // Offload to super class
         this.name = name;
+        this.config = config;
     }
 
     /// Get the commands of the application.
