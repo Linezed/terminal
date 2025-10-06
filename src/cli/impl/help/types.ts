@@ -4,7 +4,7 @@
  License: MIT
  */
 
-import Formatter from "../../../util/formatter.js";
+import Formatter from "../../../format/formatter.js";
 import StringifyType from "../../../util/type_stringify.js";
 import Types from "../../../types.js";
 
