@@ -15,10 +15,10 @@ export default interface App extends Context {
     commands: Map<string, Command>;
 
     /// The version of the application.
-    version: string;
+    version: string | null;
 
     /// The configuration for the application.
-    config: Config;
+    config: Config | null;
 
     /// Get the commands of the application.
     Commands(): Map<string, Command>;
