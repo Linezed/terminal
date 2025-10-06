@@ -6,7 +6,7 @@
 
 import process from "node:process";
 import IApp from "./cli/impl/app.js";
-import BufferedOStream from "./util/buffered_ostream.js";
+import BufferedOStream from "./stream/buffered_ostream.js";
 import Types from "./types.js";
 import LineReader from "./util/line_reader.js";
 import ConvertToType from "./util/converter.js";
