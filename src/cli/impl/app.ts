@@ -12,10 +12,12 @@ import IArgv from "./argv/argv.js";
 import { Colors } from "../../index.js";
 import type Argv from "../interface/argv/argv.js";
 import GenerateHelp from "./help/help.js";
+import type Config from "../interface/config/config.js";
 
 export default class IApp extends IContext implements App {
     commands: Map<string, Command> = new Map();
-    version: string = "1.0.0";
+    version: string | undefined = undefined;
+    config: Config | undefined = undefined;
 
     /// Constructor
     constructor(name: string) {
@@ -53,9 +55,9 @@ export default class IApp extends IContext implements App {
         return GenerateHelp(this, argv, color);
     }
 
-    Version(): string;
+    Version(): string | undefined;
     Version(version: string): this;
-    Version(version?: string): string | this {
+    Version(version?: string): string | undefined | this {
         // Case 1: setter
         if (version !== undefined) {
             this.version = version;
@@ -64,5 +66,9 @@ export default class IApp extends IContext implements App {
 
         // Case 2: getter
         return this.version;
+    }
+
+    Config(): Config {
+        return this.config!;
     }
 }
