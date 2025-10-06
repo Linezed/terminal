@@ -4,7 +4,7 @@
  License: MIT
  */
 
-import Types from "../types.js";
+import Types from "./types.js";
 
 export default function StringifyType(type: Types): string {
     switch (type) {

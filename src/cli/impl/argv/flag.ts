@@ -8,8 +8,8 @@ import type Flag from "../flag.js";
 import type Command from "../../interface/command.js";
 import ArgvException from "./exception.js";
 import ArgvErrorCode from "../../interface/argv/codes.js";
-import Types from "../../../types.js";
-import ConvertToType from "../../../util/converter.js";
+import Types from "../../../types/types.js";
+import ConvertToType from "../../../types/converter.js";
 
 function _ThrowUnknownFlag() {
     throw new ArgvException(ArgvErrorCode.UnknownFlag, "Unknown flag");

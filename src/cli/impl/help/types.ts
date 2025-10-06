@@ -5,8 +5,8 @@
  */
 
 import Formatter from "../../../format/formatter.js";
-import StringifyType from "../../../util/type_stringify.js";
-import Types from "../../../types.js";
+import StringifyType from "../../../types/type_stringify.js";
+import Types from "../../../types/types.js";
 
 export default function CreateTypeText(t: Types) {
     return Formatter.Format(

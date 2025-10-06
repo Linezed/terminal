@@ -4,7 +4,7 @@
  License: MIT
  */
 
-import type Types from "../../types.js";
+import type Types from "../../types/types.js";
 
 export default interface Typable {
     /// The type of the entity.

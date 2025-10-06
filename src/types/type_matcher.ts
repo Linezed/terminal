@@ -4,7 +4,7 @@
  License: MIT
  */
 
-import Types from "../types.js";
+import Types from "./types.js";
 
 export default function MatchType(expected: Types, got: any) {
     if (typeof got == "string" && expected != Types.String) {
