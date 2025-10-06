@@ -15,6 +15,7 @@ import GenerateHelp from "./help/help.js";
 
 export default class IApp extends IContext implements App {
     commands: Map<string, Command> = new Map();
+    version: string = "1.0.0";
 
     /// Constructor
     constructor(name: string) {
@@ -50,5 +51,18 @@ export default class IApp extends IContext implements App {
     /// Generates a help message for the application
     Help(argv?: Argv, color: string = Colors.Blue): string {
         return GenerateHelp(this, argv, color);
+    }
+
+    Version(): string;
+    Version(version: string): this;
+    Version(version?: string): string | this {
+        // Case 1: setter
+        if (version !== undefined) {
+            this.version = version;
+            return this;
+        }
+
+        // Case 2: getter
+        return this.version;
     }
 }
