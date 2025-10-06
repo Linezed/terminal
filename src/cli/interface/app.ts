@@ -13,6 +13,9 @@ export default interface App extends Context {
     /// Commands of the application.
     commands: Map<string, Command>;
 
+    /// The version of the application.
+    version: string;
+
     /// Get the commands of the application.
     Commands(): Map<string, Command>;
 
@@ -21,6 +24,12 @@ export default interface App extends Context {
 
     /// Parse the given input
     Parse(input: string[]): Argv;
+
+    /// Get the version of the application.
+    Version(): string;
+
+    /// Set the version of the application.
+    Version(version: string): this;
 
     /// Generates a help message for the application.
     Help(argv?: Argv, color?: string): string;
