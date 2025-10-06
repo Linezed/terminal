@@ -9,7 +9,6 @@ import type Command from "../interface/command.js";
 import IContext from "./context.js";
 import { ICommand } from "./command.js";
 import IArgv from "./argv/argv.js";
-import { Colors } from "../../index.js";
 import type Argv from "../interface/argv/argv.js";
 import GenerateHelp from "./help/help.js";
 import type Config from "../interface/config/config.js";
@@ -51,8 +50,8 @@ export default class IApp extends IContext implements App {
     }
 
     /// Generates a help message for the application
-    Help(argv?: Argv, color: string = Colors.Blue): string {
-        return GenerateHelp(this, argv, color);
+    Help(argv?: Argv): string {
+        return GenerateHelp(this, argv);
     }
 
     Version(): string | undefined;
