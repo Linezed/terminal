@@ -36,7 +36,7 @@ export default interface App extends Context {
     Version(version: string): this;
 
     /// Generates a help message for the application.
-    Help(argv?: Argv, color?: string): string;
+    Help(argv?: Argv): string;
 
     /// Gets the configuration.
     Config(): Config;
