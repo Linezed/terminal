@@ -34,7 +34,7 @@ export default function FormatBase(
 
         // Parse the range
         if (between.startsWith("(")) {
-            // Make sure it ends with "}"
+            // Make sure it ends with ")"
             if (!between.endsWith(")")) {
                 throw new Error(`Invalid range format: ${pref}`);
             }
