@@ -25,10 +25,7 @@ export default interface Config {
         name: Section;
 
         /// The usage message format.
-        usage: {
-            format: Section;
-            sample: Section
-        };
+        usage: Section;
 
         /// The help message format.
         description: Section;
