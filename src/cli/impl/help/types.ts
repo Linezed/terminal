@@ -5,13 +5,16 @@
  */
 
 import Formatter from "../../../format/formatter.js";
-import StringifyType from "../../../types/type_stringify.js";
 import Types from "../../../types/types.js";
+import type TypesSection from "../../interface/config/types.js";
 
-export default function CreateTypeText(t: Types) {
-    return Formatter.Format(
-        "{Bright.Black} {Bright.Green}\n",
-        "➠ Type:",
-        StringifyType(t)
-    );
+export default function CreateTypeText(t: Types, s: TypesSection) {
+    switch (t) {
+        case Types.String:
+            return Formatter.Format(s.string.format, ...s.string.args);
+        case Types.Number:
+            return Formatter.Format(s.number.format, ...s.number.args);
+        default:
+            return Formatter.Format(s.boolean.format, ...s.boolean.args);
+    }
 }
