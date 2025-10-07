@@ -46,19 +46,23 @@ export default class DefaultConfig extends IConfig {
             "~",
             "["
         ];
+        this.format.command.shortcut.format = ", {:Bright.Black | Command.shortcut}";
 
         // Default flag list format
         this.format.flag.header.format = "{:Bright.Green}"
         this.format.flag.header.args = [ "available flags:" ];
         this.format.flag.item.format = "{:Bright.Black} " +
-            "{:Cyan | Flag.name} {:Bright.Black}" +
+            "{:Cyan}{:Cyan | Flag.name} {:Bright.Black}" +
             "{:Bright.Black | Flag.description}";
 
         this.format.flag.item.args = [
             "▶",
+            "--",
             "~",
             "["
         ];
+        this.format.flag.shortcut.format = ", {:Bright.Black}{:Bright.Black | Flag.shortcut}";
+        this.format.flag.shortcut.args = [ "-" ];
     }
 
 }
