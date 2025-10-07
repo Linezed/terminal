@@ -19,3 +19,9 @@ export default function MatchType(expected: Types, got: any) {
         throw new Error("Expected a boolean");
     }
 }
+
+export function MatchInstance(expected: any, got: any) {
+    if (!(got instanceof expected)) {
+        throw new Error(`Expected instance of ${expected.name}`);
+    }
+}
