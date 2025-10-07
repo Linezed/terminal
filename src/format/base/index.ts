@@ -84,10 +84,19 @@ export default function FormatBase(
         return;
     }
 
+    // Check if it ends in "?"
+    if (pref.endsWith("?")) {
+        // Remove the "?"
+        pref = pref.slice(0, -1);
+
+        // Set as optional
+        state.prop.optional = true;
+    }
+
     // Consider this a prop access
-    if (state.prop) {
+    if (state.prop.name) {
         throw new Error("Multiple property accesses in a single format specifier are not allowed");
     }
 
-    state.prop = pref;
+    state.prop.name = pref;
 }
