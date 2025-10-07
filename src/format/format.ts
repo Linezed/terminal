@@ -5,118 +5,16 @@
  */
 
 import Floating_format from "./floating_format.js";
-import * as Colors from "../colors/colors.js";
 import JSON_format from "./json_format.js";
-
-type _ColorFunction = (val: string) => string;
-
-function _FormatColor(val: string, color: string): string {
-    return `${color}${val}${Colors.Reset}`;
-}
-
-// Supported colors for formatting
-const colors: { [key: string]: _ColorFunction } = {};
-
-// Create an isolated scope to populate colors
-{
-    // Get the base colors from the Colors module
-    const base_colors = Object.keys(Colors).filter(
-        (c) => typeof (Colors as any)[c] === "string"
-    );
-
-    // Populate the colors object with functions
-    base_colors.forEach((color) => {
-        // Base colors
-        (colors as any)[color] = (val: string) =>
-            _FormatColor(val, (Colors as any)[color]);
-
-        // Bright colors
-        (colors as any)[`Bright.${color}`] = (val: string) =>
-            _FormatColor(val, (Colors.Bright as any)[color]);
-
-        // Dim colors
-        (colors as any)[`Dim.${color}`] = (val: string) =>
-            _FormatColor(val, (Colors.Dim as any)[color]);
-
-        // Dim bright colors
-        (colors as any)[`Dim.Bright.${color}`] = (val: string) =>
-            _FormatColor(val, (Colors.Dim.Bright as any)[color]);
-
-        // Dim bold colors
-        (colors as any)[`Dim.Bold.${color}`] = (val: string) =>
-            _FormatColor(val, (Colors.Dim.Bold as any)[color]);
-
-        // Bold colors
-        (colors as any)[`Bold.${color}`] = (val: string) =>
-            _FormatColor(val, (Colors.Bold as any)[color]);
-
-        // Bold bright colors
-        (colors as any)[`Bold.Bright.${color}`] = (val: string) =>
-            _FormatColor(val, (Colors.Bold.Bright as any)[color]);
-
-        // Backgrounds
-        (colors as any)[`Bg.${color}`] = (val: string) =>
-            _FormatColor(val, (Colors.Bg as any)[color]);
-
-        // Bright backgrounds
-        (colors as any)[`Bg.Bright.${color}`] = (val: string) =>
-            _FormatColor(val, (Colors.Bg.Bright as any)[color]);
-
-        // Dim backgrounds
-        (colors as any)[`Bg.Dim.${color}`] = (val: string) =>
-            _FormatColor(val, (Colors.Bg.Dim as any)[color]);
-
-        // Dim bright backgrounds
-        (colors as any)[`Bg.Dim.Bright.${color}`] = (val: string) =>
-            _FormatColor(val, (Colors.Bg.Dim.Bright as any)[color]);
-
-        // Dim bold backgrounds
-        (colors as any)[`Bg.Dim.Bold.${color}`] = (val: string) =>
-            _FormatColor(val, (Colors.Bg.Dim.Bold as any)[color]);
-
-        // Bold backgrounds
-        (colors as any)[`Bg.Bold.${color}`] = (val: string) =>
-            _FormatColor(val, (Colors.Bg.Bold as any)[color]);
-
-        // Bold bright backgrounds
-        (colors as any)[`Bg.Bold.Bright.${color}`] = (val: string) =>
-            _FormatColor(val, (Colors.Bg.Bold.Bright as any)[color]);
-    });
-}
-
-function _FormatBase(arg_idx: number, args: any[]) {
-    // Get the argument
-    let arg = args[arg_idx];
-
-    // Handle null and undefined explicitly
-    if (arg === null) {
-        return "(null)";
-    } else if (arg === undefined) {
-        return "(undefined)";
-    } else if (!arg) {
-        return "(empty)";
-    } else {
-        // Check if we have an object
-        if (typeof arg === "object") {
-            // Try to JSON stringify it
-            try {
-                return JSON.stringify(arg);
-            } catch {
-                // Fallback to toString
-                return arg.toString();
-            }
-        }
-
-        // Write the argument
-        return args[arg_idx].toString();
-    }
-}
+import ColorKeys from "./format_color.js";
+import FormatBase, { FormatValue } from "./base.js";
 
 /// Output formatter utility.
 export default function FormatOutput(
     format: string,
     idx: number,
     arg_idx: number,
+    props: Record<string, any> | null,
     args: any[]
 ): [string, number] {
     // Ensure there's a corresponding argument
@@ -126,7 +24,7 @@ export default function FormatOutput(
 
     // See if we don't have any format
     if (format[idx + 1] == "}") {
-        return [_FormatBase(arg_idx, args), idx + 1]; // Default format
+        return [FormatBase(arg_idx, args), idx + 1]; // Default format
     }
 
     // Collect the format specifier
@@ -172,12 +70,32 @@ export default function FormatOutput(
     }
 
     // Handle colors
-    if (specifier in colors) {
+    if (specifier in ColorKeys) {
         // Use basic formatting
-        let basic = _FormatBase(arg_idx, args);
+        let basic = FormatBase(arg_idx, args);
 
         // Format the color
-        return [(colors[specifier] as _ColorFunction)(basic), idx];
+        return [(ColorKeys[specifier] as Function)(basic), idx];
+    }
+
+    // Check if it's a property access
+    if (props) {
+        // Split the specifier by dots
+        let parts = specifier.split(".");
+
+        // Traverse the properties
+        let current: any = props;
+
+        for (let part of parts) {
+            if (part in current) {
+                current = current[part];
+            } else {
+                throw new Error(`Property not found: ${part} in {${specifier}}`);
+            }
+        }
+
+        // Return the found property as string
+        return [FormatValue(current), idx];
     }
 
     // Unknown specifier
