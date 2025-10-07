@@ -23,7 +23,7 @@ export default class IApp extends IContext implements App {
     constructor(name: string, config?: Config) {
         super(); // Offload to super class
         this.name = name;
-        this.config = config ?? new DefaultConfig(this);
+        this.config = config ?? new DefaultConfig();
     }
 
     /// Get the commands of the application.
@@ -69,16 +69,7 @@ export default class IApp extends IContext implements App {
         return this.version;
     }
 
-    Config(): Config;
-    Config(config: Config): this;
-    Config(config?: Config): Config | this {
-        // Case 1: setter
-        if (config !== undefined) {
-            this.config = config;
-            return this;
-        }
-
-        // Case 2: getter
+    Config(): Config {
         return this.config!;
     }
 }

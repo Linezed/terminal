@@ -40,7 +40,4 @@ export default interface App extends Context {
 
     /// Gets the configuration.
     Config(): Config;
-
-    /// Sets the configuration.
-    Config(config: Config): this;
 }
