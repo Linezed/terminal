@@ -43,7 +43,7 @@ export default class IConfig implements Config {
         flag: new IList(),
     };
 
-    /// The application instance.
+    /// The constructor for the config.
     constructor(app: App) {
         this.owner = app; // Set the owner to the provided app instance.
     }
