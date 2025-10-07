@@ -10,4 +10,5 @@ import ISection from "./section.js";
 export default class IList implements List {
     header = new ISection();
     item = new ISection();
+    shortcut = new ISection();
 }
