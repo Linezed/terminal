@@ -36,11 +36,7 @@ This function prints a formatted message to the terminal.
 It uses `{}` as a placeholder for values, which will be
 replaced by the provided arguments.
 
-**Supported placeholders:**
-- `{}`: Directly replaces a positional argument
-- `{.<number>f}`: Formats a floating-point number to the specified number of decimal places
-- `{.<number>s}`: Truncates a string to the specified length
-- `{<Color>}`: Colors the text using the specified color (e.g., `{Red}`, `{Green}`, `{Bright.Blue}`, etc.)
+For a complete list of format specifiers, refer to [Formatter](/contents/reference/formatter).
 
 For a complete list of colors, refer to [Colors](/contents/reference/colors).
 
