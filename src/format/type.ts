@@ -4,6 +4,6 @@
  License: MIT
  */
 
-import type { State } from "../state.js";
+import type { State } from "./state.js";
 
-export type PrefixFunction = (pref: string, state: State) => void;
+export type FormatFunction = (pref: string, state: State) => void;
