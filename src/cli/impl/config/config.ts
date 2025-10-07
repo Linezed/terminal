@@ -15,9 +15,9 @@ export default class IConfig implements Config {
     owner: App | undefined;
 
     /// Whether to add help flags automatically to commands and apps.
-    auto_help: boolean = true;
+    auto_help: boolean = false;
     /// Whether to add version flags automatically to commands and apps.
-    auto_version: boolean = true;
+    auto_version: boolean = false;
 
     /// The formats for messages.
     format = {
