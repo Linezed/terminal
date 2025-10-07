@@ -51,6 +51,7 @@ export default function FormatOutput(
         if (specifier.endsWith("f")) {
             return [Floating_format(arg, length, specifier), idx];
         }
+
         // String slicing
         else if (specifier.endsWith("s")) {
             // Type checking
