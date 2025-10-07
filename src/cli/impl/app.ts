@@ -12,6 +12,7 @@ import IArgv from "./argv/argv.js";
 import type Argv from "../interface/argv/argv.js";
 import GenerateHelp from "./help/help.js";
 import type Config from "../interface/config/config.js";
+import DefaultConfig from "./config/style/default.js";
 
 export default class IApp extends IContext implements App {
     commands: Map<string, Command> = new Map();
@@ -19,10 +20,10 @@ export default class IApp extends IContext implements App {
     config: Config | undefined = undefined;
 
     /// Constructor
-    constructor(name: string, config: Config) {
+    constructor(name: string, config?: Config) {
         super(); // Offload to super class
         this.name = name;
-        this.config = config;
+        this.config = config ?? new DefaultConfig(this);
     }
 
     /// Get the commands of the application.
@@ -68,7 +69,16 @@ export default class IApp extends IContext implements App {
         return this.version;
     }
 
-    Config(): Config {
+    Config(): Config;
+    Config(config: Config): this;
+    Config(config?: Config): Config | this {
+        // Case 1: setter
+        if (config !== undefined) {
+            this.config = config;
+            return this;
+        }
+
+        // Case 2: getter
         return this.config!;
     }
 }
