@@ -25,10 +25,7 @@ export default class IConfig implements Config {
         name: new ISection(),
 
         /// The usage message format.
-        usage: {
-            format: new ISection(),
-            sample: new ISection()
-        },
+        usage: new ISection(),
 
         /// The help message format.
         description: new ISection(),
