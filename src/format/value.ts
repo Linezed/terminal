@@ -4,7 +4,7 @@
  License: MIT
  */
 
-export function FormatValue(arg: any): string {
+export default function FormatValue(arg: any): string {
     // Handle null and undefined explicitly
     if (arg === null) {
         return "(null)";
@@ -27,9 +27,4 @@ export function FormatValue(arg: any): string {
         // Write the argument
         return arg.toString();
     }
-}
-
-export default function FormatBase(arg_idx: number, args: any[]) {
-    // Format the argument
-    return FormatValue(args[arg_idx]);
 }
