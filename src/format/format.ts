@@ -17,7 +17,7 @@ export default function FormatOutput(
     arg_idx: number,
     props: Record<string, any> | null,
     args: any[]
-): [string, number] {
+): [string, number, boolean] {
     // Ensure there's a corresponding argument
     if (arg_idx >= args.length) {
         throw new Error("Insufficient arguments for format string");
@@ -25,7 +25,7 @@ export default function FormatOutput(
 
     // See if we don't have any format
     if (format[idx + 1] == "}") {
-        return [FormatValue(args[arg_idx]), idx + 1]; // Default format
+        return [FormatValue(args[arg_idx]), idx + 1, true]; // Default format
     }
 
     // Collect the format specifier
@@ -56,5 +56,5 @@ export default function FormatOutput(
     }
 
     // Apply the formatting based on the state
-    return [ConvertState(arg_idx, props, state, args), idx];
+    return [ConvertState(arg_idx, props, state, args), idx, !state.prop];
 }

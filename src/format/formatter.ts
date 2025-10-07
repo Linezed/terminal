@@ -23,11 +23,11 @@ export default class Formatter {
             // Check if it's a format specifier ("{}")
             if (char === "{") {
                 // Format the argument
-                let [res, skipped] = FormatOutput(format, i, arg_idx, props, args);
+                let [res, skipped, move_arg] = FormatOutput(format, i, arg_idx, props, args);
 
                 // Write the formatted argument
                 resp += res;
-                arg_idx++; // Move to the next argument
+                if (move_arg) arg_idx++; // Move to the next argument
                 i = skipped; // Skip the processed characters
             } else {
                 // Write the character as is
