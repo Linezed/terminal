@@ -4,8 +4,6 @@
  License: MIT
  */
 
-import FormatValue from "../value.js";
-
 export default function ConvertProp(
     prop: string,
     props: Record<string, any> | null
