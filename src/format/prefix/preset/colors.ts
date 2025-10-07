@@ -4,7 +4,7 @@
  License: MIT
  */
 
-import type { FormatFunction } from "../../type.js";
+import type { FormatFunction } from "../type.js";
 import ColorKeys from "../../color_keys.js";
 import type { State } from "../../state.js";
 

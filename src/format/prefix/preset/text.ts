@@ -4,7 +4,7 @@
  License: MIT
  */
 
-import type { FormatFunction } from "../../type.js";
+import type { FormatFunction } from "../type.js";
 import type { State } from "../../state.js";
 
 export default function FillTextPrefixes(map: Map<string, FormatFunction>) {

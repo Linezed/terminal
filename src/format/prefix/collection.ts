@@ -4,7 +4,7 @@
  License: MIT
  */
 
-import type { FormatFunction } from "../type.js";
+import type { FormatFunction } from "./type.js";
 import FillColorPrefixes from "./preset/colors.js";
 import FillTextPrefixes from "./preset/text.js";
 import FillDatePrefixes from "./preset/date.js";
