@@ -4,13 +4,13 @@
  License: MIT
  */
 
-import FloatingFormat from "./floating_format.js";
-import JSONFormat from "./json_format.js";
-import ColorKeys from "./format_color.js";
-import FormatBase from "./base.js";
-import PropFormat from "./prop_format.js";
-
 /// Output formatter utility.
+import FormatValue from "./value.js";
+import { State } from "./state.js";
+import FormatPrefix from "./prefix/index.js";
+import FormatBase from "./base/index.js";
+import ConvertState from "./convert/index.js";
+
 export default function FormatOutput(
     format: string,
     idx: number,
@@ -25,11 +25,12 @@ export default function FormatOutput(
 
     // See if we don't have any format
     if (format[idx + 1] == "}") {
-        return [FormatBase(arg_idx, args), idx + 1]; // Default format
+        return [FormatValue(args[arg_idx]), idx + 1]; // Default format
     }
 
     // Collect the format specifier
     let specifier = "";
+    let state = new State();
     idx++; // Move past the '{'
 
     while (idx < format.length && format[idx] !== "}") {
@@ -37,55 +38,23 @@ export default function FormatOutput(
         idx++;
     }
 
-    // Get the argument
-    let arg = args[arg_idx];
+    // Split the parts of the specifier
+    let parts = specifier.split("|");
 
-    // Handle different specifiers
-    if (specifier.startsWith(".")) {
-        // Get the number of decimal places
-        let length = parseInt(specifier.slice(1));
-        if (isNaN(length)) {
-            throw new Error(`Invalid format specifier: {${length}}`);
-        }
+    // Iterate through the parts
+    for (let part of parts) {
+        // Trim whitespace
+        part = part.trim();
 
-        // Floating point precision
-        if (specifier.endsWith("f")) {
-            return [FloatingFormat(arg, length, specifier), idx];
-        }
-
-        // String slicing
-        else if (specifier.endsWith("s")) {
-            // Type checking
-            if (typeof arg != "string") {
-                throw new Error(
-                    `Type mismatch: Expected number for format specifier {${specifier}}, got ${typeof arg}`
-                );
-            }
-
-            // Format the string
-            return [arg.slice(0, length), idx];
-        }
-
-        // JSON object formatting
-        else if (specifier.endsWith("j")) {
-            return [JSONFormat(arg, length, specifier), idx];
+        // Check if we have a prefix formatter
+        if (part.startsWith(":")) {
+            FormatPrefix(part, state);
+        } else {
+            // Use the base formatter
+            FormatBase(part, state);
         }
     }
 
-    // Handle colors
-    if (specifier in ColorKeys) {
-        // Use basic formatting
-        let basic = FormatBase(arg_idx, args);
-
-        // Format the color
-        return [(ColorKeys[specifier] as Function)(basic), idx];
-    }
-
-    // Check if it's a property access
-    if (props) {
-        return [PropFormat(props, specifier), idx];
-    }
-
-    // Unknown specifier
-    throw new Error(`Unknown format specifier: {${specifier}}`);
+    // Apply the formatting based on the state
+    return [ConvertState(arg_idx, props, state, args), idx];
 }
