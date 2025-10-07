@@ -5,13 +5,12 @@
  */
 
 import IConfig from "../config.js";
-import type App from "../../../interface/app.js";
 
 export default class DefaultConfig extends IConfig {
 
     /// The constructor for the config.
-    constructor(app: App) {
-        super(app);
+    constructor() {
+        super();
 
         // Set default values
         this.auto_help = true;
