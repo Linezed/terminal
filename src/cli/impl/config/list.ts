@@ -9,9 +9,5 @@ import ISection from "./section.js";
 
 export default class IList implements List {
     header = new ISection();
-
-    item = {
-        header: new ISection(),
-        desc: new ISection()
-    };
+    item = new ISection();
 }

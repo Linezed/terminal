@@ -7,7 +7,6 @@
 import type Config from "../../interface/config/config.js";
 import ISection from "./section.js";
 import IList from "./list.js";
-import IHeader from "./header.js";
 import type App from "../../interface/app.js";
 
 export default class IConfig implements Config {
@@ -31,7 +30,7 @@ export default class IConfig implements Config {
         description: new ISection(),
 
         /// The command section format.
-        error: new IHeader(),
+        error: new ISection(),
 
         /// The command section format.
         command: new IList(),
