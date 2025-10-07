@@ -4,7 +4,7 @@
  License: MIT
  */
 
-export default function JSON_format(
+export default function JSONFormat(
     arg: any,
     length: number,
     specifier: string

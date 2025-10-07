@@ -4,7 +4,7 @@
  License: MIT
  */
 
-export default function Floating_format(
+export default function FloatingFormat(
     arg: any,
     length: number,
     specifier: string
