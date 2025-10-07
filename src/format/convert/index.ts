@@ -18,11 +18,11 @@ export default function ConvertState(
     args: any[]
 ) {
     // Define the base value
-    let base: any  = undefined;
+    let base: any;
 
     // Check if we have a prop access
     if (state.prop) {
-        base = ConvertProp(state.prop, state);
+        base = ConvertProp(state.prop, props);
     } else {
         // Otherwise, use the argument at the specified index
         base = args[arg_idx];
