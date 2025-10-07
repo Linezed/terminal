@@ -24,6 +24,9 @@ export class State {
         title: false,
         trim: false,
 
+        /// Text appended before the string.
+        prefix: undefined as string | undefined,
+
         /// Padding for text.
         padding: {
             left: 0,
