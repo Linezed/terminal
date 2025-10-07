@@ -39,7 +39,7 @@ export default class DefaultConfig extends IConfig {
         this.format.command.header.format = "{:Bright.Green}"
         this.format.command.header.args = [ "available commands:" ];
         this.format.command.item.format = "{:Bright.Black} " +
-            "{:Cyan | Command.name} {', -' | :Cyan | Command.shortcut?}" +
+            "{:Cyan | Command.name}{', -' | :Cyan | Command.shortcut?} " +
             "{:Bright.Black} {:Bright.Black | Command.description}";
 
         this.format.command.item.args = [
