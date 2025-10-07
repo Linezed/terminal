@@ -5,9 +5,9 @@
  */
 
 import type { PrefixFunction } from "./type.js";
-import FillPrefixColors from "./preset/colors.js";
+import FillColorPrefixes from "./preset/colors.js";
 
 const prefixes = new Map<string, PrefixFunction>();
-FillPrefixColors(prefixes);
+FillColorPrefixes(prefixes);
 
 export default prefixes;
