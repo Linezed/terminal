@@ -11,6 +11,4 @@ export default interface List {
     header: Section,
     /// The format for each item.
     item: Section
-    /// The format for the shortcut display.
-    shortcut: Section
 }
