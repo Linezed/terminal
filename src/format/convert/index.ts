@@ -22,10 +22,13 @@ export default function ConvertState(
 
     // Check if we have a prop access
     if (state.prop.name) {
-        base = ConvertProp(state.prop.name, state.prop.optional, props);
-        if (!base) {
+        let b = ConvertProp(state.prop.name, state.prop.optional, props);
+        if (!b) {
             return ""; // Return empty string if prop is not found and optional
         }
+
+        if (base) base += b;
+        else base = b;
     } else {
         // Otherwise, use the argument at the specified index
         base = args[arg_idx];
