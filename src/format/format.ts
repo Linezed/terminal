@@ -7,7 +7,8 @@
 import FloatingFormat from "./floating_format.js";
 import JSONFormat from "./json_format.js";
 import ColorKeys from "./format_color.js";
-import FormatBase, { FormatValue } from "./base.js";
+import FormatBase from "./base.js";
+import PropFormat from "./prop_format.js";
 
 /// Output formatter utility.
 export default function FormatOutput(
@@ -82,7 +83,7 @@ export default function FormatOutput(
 
     // Check if it's a property access
     if (props) {
-
+        return [PropFormat(props, specifier), idx];
     }
 
     // Unknown specifier
