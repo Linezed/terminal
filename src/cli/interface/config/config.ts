@@ -6,6 +6,7 @@
 
 import type Section from "./section.js";
 import type List from "./list.js";
+import type TypesSection from "./types.js";
 
 export default interface Config {
     /// Whether to add help flags automatically to commands and apps.
@@ -41,10 +42,6 @@ export default interface Config {
         flag: List;
 
         /// The format for types.
-        types: {
-            string: Section;
-            number: Section;
-            boolean: Section;
-        }
+        types: TypesSection
     };
 }
