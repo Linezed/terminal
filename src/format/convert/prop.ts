@@ -6,6 +6,7 @@
 
 export default function ConvertProp(
     prop: string,
+    optional: boolean,
     props: Record<string, any> | null
 ) {
     if (!props) {
@@ -21,6 +22,11 @@ export default function ConvertProp(
         if (current && typeof current === "object" && part in current) {
             current = current[part];
         } else {
+            // Property not found
+            if (optional) {
+                return undefined; // Return undefined for optional props
+            }
+
             throw new Error(`Property not found: ${prop}`); // Property not found
         }
     }
