@@ -58,6 +58,16 @@ export default class DefaultConfig extends IConfig {
             "▶",
             "~"
         ];
+
+        // Default type formats
+        this.format.types.string.format = "{:Bright.Magenta}";
+        this.format.types.string.args = [ "<string>" ];
+
+        this.format.types.number.format = "{:Bright.Magenta}";
+        this.format.types.number.args = [ "<number>" ];
+
+        this.format.types.boolean.format = "{:Bright.Magenta}";
+        this.format.types.boolean.args = [ "<boolean>" ];
     }
 
 }
