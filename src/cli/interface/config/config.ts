@@ -39,5 +39,12 @@ export default interface Config {
 
         /// The flag section format.
         flag: List;
+
+        /// The format for types.
+        types: {
+            string: Section;
+            number: Section;
+            boolean: Section;
+        }
     };
 }
