@@ -20,14 +20,12 @@ export default function ConvertState(
     // Define the base value
     let base: any;
 
-    // Add prefix if needed
-    if (state.text.prefix) {
-        base = state.text.prefix + " ";
-    }
-
     // Check if we have a prop access
-    if (state.prop) {
-        base = ConvertProp(state.prop, props);
+    if (state.prop.name) {
+        base = ConvertProp(state.prop.name, state.prop.optional, props);
+        if (!base) {
+            return ""; // Return empty string if prop is not found and optional
+        }
     } else {
         // Otherwise, use the argument at the specified index
         base = args[arg_idx];
@@ -61,6 +59,11 @@ export default function ConvertState(
     // Use default value if base is null or undefined
     else {
         base = FormatValue(base);
+    }
+
+    // Add prefix if needed
+    if (state.text.prefix) {
+        base = state.text.prefix + base;
     }
 
     // Honor text formatting
