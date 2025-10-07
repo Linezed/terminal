@@ -4,10 +4,10 @@
  License: MIT
  */
 
-import type { FormatFunction } from "../type.js";
+import type { PrefixFunction } from "../type.js";
 import type { State } from "../../state.js";
 
-export default function FillDatePrefixes(map: Map<string, FormatFunction>) {
+export default function FillDatePrefixes(map: Map<string, PrefixFunction>) {
     map.set("ISO", (_: string, state: State) => {
         state.date.iso = true;
     });

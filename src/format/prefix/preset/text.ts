@@ -4,10 +4,10 @@
  License: MIT
  */
 
-import type { FormatFunction } from "../type.js";
+import type { PrefixFunction } from "../type.js";
 import type { State } from "../../state.js";
 
-export default function FillTextPrefixes(map: Map<string, FormatFunction>) {
+export default function FillTextPrefixes(map: Map<string, PrefixFunction>) {
     // Lowercase
     map.set("Lower", (_: string, state: State) => {
         state.text.lower = true;

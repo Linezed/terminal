@@ -6,4 +6,4 @@
 
 import type { State } from "../state.js";
 
-export type FormatFunction = (pref: string, state: State) => void;
+export type PrefixFunction = (pref: string, state: State) => void;
