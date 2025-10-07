@@ -39,5 +39,12 @@ export default class IConfig implements Config {
 
         /// The flag section format.
         flag: new IList(),
+
+        /// The format for types.
+        types: {
+            string: new ISection(),
+            number: new ISection(),
+            boolean: new ISection(),
+        }
     };
 }
