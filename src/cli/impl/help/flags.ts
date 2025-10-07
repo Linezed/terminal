@@ -24,17 +24,17 @@ export default function CreateFlagsSection(
         args.Flag = flag;
 
         // Add flag name and description
+        res += sp;
         res += Formatter.FormatWithProps(
-            config.format.flag.header.format,
+            config.format.flag.item.format,
             args,
-            ...config.format.flag.header.args
+            ...config.format.flag.item.args
         );
-        res += "\n"; // New line
 
         // Add type
-        res += sp;
         res += "   "; // Indent a bit
         res += CreateTypeText(flag.type, config.format.types);
+        res += "\n"; // New line
     }
 
     return res;
