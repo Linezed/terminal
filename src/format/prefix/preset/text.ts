@@ -4,11 +4,10 @@
  License: MIT
  */
 
-import type { PrefixFunction } from "../type.js";
-import ColorKeys from "../../color_keys.js";
+import type { FormatFunction } from "../../type.js";
 import type { State } from "../../state.js";
 
-export default function FillTextPrefixes(map: Map<string, PrefixFunction>) {
+export default function FillTextPrefixes(map: Map<string, FormatFunction>) {
     // Lowercase
     map.set("Lower", (_: string, state: State) => {
         state.text.lower = true;

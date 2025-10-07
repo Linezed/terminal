@@ -4,11 +4,11 @@
  License: MIT
  */
 
-import type { PrefixFunction } from "../type.js";
+import type { FormatFunction } from "../../type.js";
 import ColorKeys from "../../color_keys.js";
 import type { State } from "../../state.js";
 
-export default function FillColorPrefixes(map: Map<string, PrefixFunction>) {
+export default function FillColorPrefixes(map: Map<string, FormatFunction>) {
     // Iterate over all color keys
     for (const key in ColorKeys) {
         map.set(key, (_: string, state: State) => {
