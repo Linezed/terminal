@@ -6,12 +6,8 @@
 
 import type Section from "./section.js";
 import type List from "./list.js";
-import type App from "../app.js";
 
 export default interface Config {
-    /// The app that owns this config.
-    owner: App | undefined;
-
     /// Whether to add help flags automatically to commands and apps.
     auto_help: boolean;
 
