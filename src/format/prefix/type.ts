@@ -4,6 +4,6 @@
  License: MIT
  */
 
-import type { State } from "./state.js";
+import type { State } from "../state.js";
 
 export type FormatFunction = (pref: string, state: State) => void;
