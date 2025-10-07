@@ -18,6 +18,12 @@ export default class IConfig implements Config {
     /// Whether to add version flags automatically to commands and apps.
     auto_version: boolean = false;
 
+    /// The number of spaces to use for indentation.
+    indent: number = 0;
+
+    /// The characters to use to separate sections.
+    spacing: string = "";
+
     /// The formats for messages.
     format = {
         /// The name format.
