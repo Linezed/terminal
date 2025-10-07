@@ -38,31 +38,26 @@ export default class DefaultConfig extends IConfig {
         this.format.command.header.format = "{:Bright.Green}"
         this.format.command.header.args = [ "available commands:" ];
         this.format.command.item.format = "{:Bright.Black} " +
-            "{:Cyan | Command.name} {:Bright.Black}" +
-            "{:Bright.Black | Command.description}";
+            "{:Cyan | Command.name} {', -' | :Cyan | Command.shortcut?}" +
+            "{:Bright.Black} {:Bright.Black | Command.description}";
 
         this.format.command.item.args = [
             "▶",
             "~",
             "["
         ];
-        this.format.command.shortcut.format = ", {:Bright.Black | Command.shortcut}";
 
         // Default flag list format
         this.format.flag.header.format = "{:Bright.Green}"
         this.format.flag.header.args = [ "available flags:" ];
         this.format.flag.item.format = "{:Bright.Black} " +
-            "{:Cyan}{:Cyan | Flag.name} {:Bright.Black}" +
-            "{:Bright.Black | Flag.description}";
+            "{'--' | :Cyan | Flag.name}{', -' | :Cyan | Flag.shortcut?} " +
+            "{:Bright.Black} {:Bright.Black | Flag.description?}";
 
         this.format.flag.item.args = [
             "▶",
-            "--",
-            "~",
-            "["
+            "~"
         ];
-        this.format.flag.shortcut.format = ", {:Bright.Black}{:Bright.Black | Flag.shortcut}";
-        this.format.flag.shortcut.args = [ "-" ];
     }
 
 }
