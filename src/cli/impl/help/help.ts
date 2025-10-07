@@ -5,7 +5,6 @@
  */
 
 import type Argv from "../../interface/argv/argv.js";
-import { Colors } from "../../../index.js";
 import Formatter from "../../../format/formatter.js";
 import type App from "../../interface/app.js";
 import CreateTypeText from "./types.js";
