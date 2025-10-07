@@ -32,7 +32,7 @@ export class State {
 
         /// Slicing for text.
         slice: {
-            start: 0,
+            start: Infinity,
             end: Infinity
         }
     };
