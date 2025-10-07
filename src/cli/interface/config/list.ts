@@ -5,11 +5,10 @@
  */
 
 import type Section from "./section.js";
-import type Header from "./header.js";
 
 export default interface List {
     /// The header format.
     header: Section,
     /// The format for each item.
-    item: Header
+    item: Section
 }

@@ -5,7 +5,6 @@
  */
 
 import type Section from "./section.js";
-import type Header from "./header.js";
 import type List from "./list.js";
 import type App from "../app.js";
 
@@ -31,7 +30,7 @@ export default interface Config {
         description: Section;
 
         /// The command section format.
-        error: Header;
+        error: Section;
 
         /// The command section format.
         command: List;
