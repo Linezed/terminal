@@ -15,7 +15,10 @@ export class State {
     json: undefined | number = undefined;
 
     /// Prop access.
-    prop: string | undefined = undefined;
+    prop = {
+        name: undefined as string | undefined,
+        optional: false
+    };
 
     /// Text formatting.
     text = {
