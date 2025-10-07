@@ -7,7 +7,11 @@
 import FormatOutput from "./format.js";
 
 export default class Formatter {
-    public static Format(format: string, ...args: any[]): string {
+    public static FormatWithProps(
+        format: string,
+        props: Record<string, any> | null,
+        ...args: any[]
+    ): string {
         let resp = "";
 
         // Print each character of the format string
@@ -19,7 +23,7 @@ export default class Formatter {
             // Check if it's a format specifier ("{}")
             if (char === "{") {
                 // Format the argument
-                let [res, skipped] = FormatOutput(format, i, arg_idx, args);
+                let [res, skipped] = FormatOutput(format, i, arg_idx, props, args);
 
                 // Write the formatted argument
                 resp += res;
@@ -32,5 +36,9 @@ export default class Formatter {
         }
 
         return resp;
+    }
+
+    public static Format(format: string, ...args: any[]): string {
+        return this.FormatWithProps(format, null, ...args);
     }
 }
