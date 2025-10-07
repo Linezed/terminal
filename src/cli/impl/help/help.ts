@@ -95,6 +95,7 @@ export default function GenerateHelp(
                 args,
                 ...config.format.flag.header.args
             );
+            resp += "\n"; // New line
 
             resp += CreateFlagsSection(
                 config.indent * 3,
