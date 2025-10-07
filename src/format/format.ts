@@ -6,6 +6,7 @@
 
 import Floating_format from "./floating_format.js";
 import * as Colors from "../colors/colors.js";
+import JSON_format from "./json_format.js";
 
 type _ColorFunction = (val: string) => string;
 
@@ -163,6 +164,10 @@ export default function FormatOutput(
 
             // Format the string
             return [arg.slice(0, length), idx];
+        }
+        // JSON object formatting
+        else if (specifier.endsWith("j")) {
+            return [JSON_format(arg, length, specifier), idx];
         }
     }
 
