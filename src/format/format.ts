@@ -4,8 +4,8 @@
  License: MIT
  */
 
-import Floating_format from "./floating_format.js";
-import JSON_format from "./json_format.js";
+import FloatingFormat from "./floating_format.js";
+import JSONFormat from "./json_format.js";
 import ColorKeys from "./format_color.js";
 import FormatBase, { FormatValue } from "./base.js";
 
@@ -49,7 +49,7 @@ export default function FormatOutput(
 
         // Floating point precision
         if (specifier.endsWith("f")) {
-            return [Floating_format(arg, length, specifier), idx];
+            return [FloatingFormat(arg, length, specifier), idx];
         }
 
         // String slicing
@@ -67,7 +67,7 @@ export default function FormatOutput(
 
         // JSON object formatting
         else if (specifier.endsWith("j")) {
-            return [JSON_format(arg, length, specifier), idx];
+            return [JSONFormat(arg, length, specifier), idx];
         }
     }
 
@@ -82,22 +82,7 @@ export default function FormatOutput(
 
     // Check if it's a property access
     if (props) {
-        // Split the specifier by dots
-        let parts = specifier.split(".");
 
-        // Traverse the properties
-        let current: any = props;
-
-        for (let part of parts) {
-            if (part in current) {
-                current = current[part];
-            } else {
-                throw new Error(`Property not found: ${part} in {${specifier}}`);
-            }
-        }
-
-        // Return the found property as string
-        return [FormatValue(current), idx];
     }
 
     // Unknown specifier
