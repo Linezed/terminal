@@ -33,9 +33,9 @@ export default function FormatBase(
         const range = [];
 
         // Parse the range
-        if (between.startsWith("{")) {
+        if (between.startsWith("(")) {
             // Make sure it ends with "}"
-            if (!between.endsWith("}")) {
+            if (!between.endsWith(")")) {
                 throw new Error(`Invalid range format: ${pref}`);
             }
 
