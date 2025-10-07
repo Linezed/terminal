@@ -64,6 +64,26 @@ export default function FormatBase(
         return;
     }
 
+    // Check for string literal (enclosed in single quotes)
+    if (pref[0] == "'") {
+        // Make sure it ends with a single quote
+        if (!pref.endsWith("'") || pref.length < 2) {
+            throw new Error(`Invalid string literal format: ${pref}`);
+        }
+
+        // Extract the string content
+        const str_content = pref.slice(1, -1);
+
+        // Append to existing prefix if it exists
+        if (state.text.prefix) {
+            state.text.prefix += str_content;
+        } else {
+            state.text.prefix = str_content;
+        }
+
+        return;
+    }
+
     // Consider this a prop access
     if (state.prop) {
         throw new Error("Multiple property accesses in a single format specifier are not allowed");
