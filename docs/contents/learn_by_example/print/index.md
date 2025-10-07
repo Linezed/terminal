@@ -51,7 +51,7 @@ Terminal.Printf("Pi is approximately {.2f}", 3.14159);
 // Output: Pi is approximately 3.14
 Terminal.Printf("Truncated string: {.5s}", "Hello, world!");
 // Output: Truncated string: Hello
-Terminal.Printf("This is a {Red}.", "word");
+Terminal.Printf("This is a {:Red}.", "word");
 // Output: This is a word. (with "word" in red color)
 ```
 
@@ -68,6 +68,6 @@ Terminal.Printfln("Hello, {}!", "world");
 // Output: Hello, world!
 Terminal.Printfln("Pi is approximately {:.2f}", 3.14159);
 // Output: Pi is approximately 3.14
-Terminal.Printfln("This is a {Red}.", "word");
+Terminal.Printfln("This is a {:Red}.", "word");
 // Output: This is a word. (with "word" in red color)
 ```
