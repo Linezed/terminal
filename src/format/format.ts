@@ -64,6 +64,7 @@ export default function FormatOutput(
             // Format the string
             return [arg.slice(0, length), idx];
         }
+
         // JSON object formatting
         else if (specifier.endsWith("j")) {
             return [JSON_format(arg, length, specifier), idx];
