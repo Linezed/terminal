@@ -18,11 +18,6 @@ export default function FormatOutput(
     props: Record<string, any> | null,
     args: any[]
 ): [string, number, boolean] {
-    // Ensure there's a corresponding argument
-    if (arg_idx >= args.length) {
-        throw new Error("Insufficient arguments for format string");
-    }
-
     // See if we don't have any format
     if (format[idx + 1] == "}") {
         return [FormatValue(args[arg_idx]), idx + 1, true]; // Default format
