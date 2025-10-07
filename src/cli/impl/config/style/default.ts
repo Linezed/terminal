@@ -19,8 +19,9 @@ export default class DefaultConfig extends IConfig {
         this.spacing = "\n\n"; // Default spacing between sections
 
         // Default name format
-        this.format.name.format = "{:Bright.Green | name} {:Bright.Black}{:Bright.Black | version}";
-        this.format.name.args = [ "v" ];
+        this.format.name.format = "{:Bright.Green | name} {:Bright.Black}" +
+            "{'v' | :Bright.Black | version?}";
+        this.format.name.args = [];
         // No need for positional args here, since we are using props
 
         // Default usage format
