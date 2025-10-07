@@ -89,11 +89,15 @@ export default function ConvertState(
     }
 
     // Slice the string if needed
-    if (state.text.slice.start !== 0) {
-        base = base.slice(
-            state.text.slice.start ?? undefined,
-            state.text.slice.end ?? undefined
-        );
+    if (state.text.slice.start !== Infinity) {
+        if (state.text.slice.end == Infinity) {
+            base = base.slice(0, state.text.slice.start);
+        } else {
+            base = base.slice(
+                state.text.slice.start ?? undefined,
+                state.text.slice.end ?? undefined
+            );
+        }
     }
 
     // Apply colors
