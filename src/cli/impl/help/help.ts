@@ -117,6 +117,7 @@ export default function GenerateHelp(
             app,
             ...config.format.flag.header.args
         );
+        resp += "\n"; // New line
 
         resp += CreateFlagsSection(
             config.indent,
