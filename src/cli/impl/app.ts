@@ -27,14 +27,14 @@ export default class IApp extends IContext implements App {
         this.config = config ?? new DefaultConfig();
 
         // Honor the config
-        if (config?.auto_version) {
+        if (this.config!.auto_version) {
             this.Flag("version")
                 .Shortcut("v")
                 .Description("Show the application version")
                 .Type(Types.Boolean);
         }
 
-        if (config?.auto_help) {
+        if (this.config!.auto_help) {
             this.Flag("help")
                 .Shortcut("h")
                 .Description("Show help for the application")
