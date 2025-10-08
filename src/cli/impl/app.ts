@@ -58,6 +58,14 @@ export default class IApp extends IContext implements App {
         let inst = new ICommand(this, name);
         this.commands.set(name, inst); // Store in map
 
+        // Honor the config
+        if (this.config?.auto_help) {
+            inst.Flag("help")
+                .Shortcut("h")
+                .Description("Show help for the command")
+                .Type(Types.Boolean);
+        }
+
         // Return the command instance
         return inst;
     }
