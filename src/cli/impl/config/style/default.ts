@@ -33,7 +33,7 @@ export default class DefaultConfig extends IConfig {
 
         // Default error format
         this.format.error.format = "{:Bold.Bright.Red} {:Bright.Red | Error.message}";
-        this.format.error.args = [ "error: " ];
+        this.format.error.args = [ "error:" ];
 
         // Default command list format
         this.format.command.header.format = "{:Bright.Green}"
