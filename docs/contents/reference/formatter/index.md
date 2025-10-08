@@ -154,3 +154,8 @@ Formatter.FormatWithProps("This is a {:Blue | name}.", props);
 Formatter.FormatWithProps("Truncated name: {.3s | name}", props);
 // Output: Truncated name: Ali
 ```
+
+## Error Handling
+
+If an invalid format specifier is used, the Formatter will throw an error.
+Make sure to use valid format specifiers as described in this documentation.
