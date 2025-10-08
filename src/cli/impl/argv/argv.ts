@@ -12,11 +12,11 @@ import type Command from "../../interface/command.js";
 import ParseFlag, { SetFlagValue } from "./flag.js";
 import ArgvException from "./exception.js";
 import ArgvErrorCode from "../../interface/argv/codes.js";
-import ConvertToType from "../../../util/converter.js";
+import ConvertToType from "../../../types/converter.js";
 import ParseCommand from "./command.js";
 import IArgvError from "./error.js";
-import Types from "../../../types.js";
-import MatchType from "../../../util/type_matcher.js";
+import Types from "../../../types/types.js";
+import MatchType from "../../../types/type_matcher.js";
 
 function _GetFlag(name: string, owner: App, cmd: Command) {
     // Attempt to get the default value from the owner

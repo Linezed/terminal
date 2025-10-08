@@ -8,7 +8,7 @@
 import { _NameableBase } from "./nameable.js";
 import { _TypableBase } from "./typable.js";
 import { _TrimmableBase } from "./trimmable.js";
-import MatchType from "../../util/type_matcher.js";
+import MatchType from "../../types/type_matcher.js";
 import type Flag from "../interface/flag.js";
 import type Context from "../interface/context.js";
 

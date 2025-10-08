@@ -4,6 +4,9 @@ The `App` class allows you to create command-line applications with support
 for commands, flags, and argument parsing. It provides a structured way
 to define the behavior of your CLI application.
 
+It takes a [`Config`](/contents/reference/config) object as an argument to
+customize the application's settings. If none provided, it uses predefined defaults.
+
 ## Implements
 
 - [**`Context`**](/contents/reference/context/)

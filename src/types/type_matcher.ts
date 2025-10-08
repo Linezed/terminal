@@ -4,7 +4,7 @@
  License: MIT
  */
 
-import Types from "../types.js";
+import Types from "./types.js";
 
 export default function MatchType(expected: Types, got: any) {
     if (typeof got == "string" && expected != Types.String) {
@@ -17,5 +17,11 @@ export default function MatchType(expected: Types, got: any) {
 
     if (typeof got == "boolean" && expected != Types.Boolean) {
         throw new Error("Expected a boolean");
+    }
+}
+
+export function MatchInstance(expected: any, got: any) {
+    if (!(got instanceof expected)) {
+        throw new Error(`Expected instance of ${expected.name}`);
     }
 }

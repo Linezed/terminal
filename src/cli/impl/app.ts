@@ -9,17 +9,37 @@ import type Command from "../interface/command.js";
 import IContext from "./context.js";
 import { ICommand } from "./command.js";
 import IArgv from "./argv/argv.js";
-import { Colors } from "../../index.js";
 import type Argv from "../interface/argv/argv.js";
 import GenerateHelp from "./help/help.js";
+import type Config from "../interface/config/config.js";
+import DefaultConfig from "./config/style/default.js";
+import Types from "../../types/types.js";
 
 export default class IApp extends IContext implements App {
     commands: Map<string, Command> = new Map();
+    version: string | undefined = undefined;
+    config: Config | undefined = undefined;
 
     /// Constructor
-    constructor(name: string) {
+    constructor(name: string, config?: Config) {
         super(); // Offload to super class
         this.name = name;
+        this.config = config ?? new DefaultConfig();
+
+        // Honor the config
+        if (config?.auto_version) {
+            this.Flag("version")
+                .Shortcut("v")
+                .Description("Show the application version")
+                .Type(Types.Boolean);
+        }
+
+        if (config?.auto_help) {
+            this.Flag("help")
+                .Shortcut("h")
+                .Description("Show help for the application")
+                .Type(Types.Boolean);
+        }
     }
 
     /// Get the commands of the application.
@@ -38,6 +58,14 @@ export default class IApp extends IContext implements App {
         let inst = new ICommand(this, name);
         this.commands.set(name, inst); // Store in map
 
+        // Honor the config
+        if (this.config?.auto_help) {
+            inst.Flag("help")
+                .Shortcut("h")
+                .Description("Show help for the command")
+                .Type(Types.Boolean);
+        }
+
         // Return the command instance
         return inst;
     }
@@ -48,7 +76,24 @@ export default class IApp extends IContext implements App {
     }
 
     /// Generates a help message for the application
-    Help(argv?: Argv, color: string = Colors.Blue): string {
-        return GenerateHelp(this, argv, color);
+    Help(argv?: Argv): string {
+        return GenerateHelp(this, argv);
+    }
+
+    Version(): string | undefined;
+    Version(version: string): this;
+    Version(version?: string): string | undefined | this {
+        // Case 1: setter
+        if (version !== undefined) {
+            this.version = version;
+            return this;
+        }
+
+        // Case 2: getter
+        return this.version;
+    }
+
+    Config(): Config {
+        return this.config!;
     }
 }

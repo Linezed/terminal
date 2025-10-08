@@ -5,14 +5,15 @@
  */
 
 import type Flag from "../../interface/flag.js";
-import Formatter from "../../../util/formatter.js";
-import { Colors } from "../../../index.js";
+import Formatter from "../../../format/formatter.js";
 import CreateTypeText from "./types.js";
+import type Config from "../../interface/config/config.js";
 
 export default function CreateFlagsSection(
     spaces: number,
     flags: Map<string, Flag>,
-    color: string
+    args: Record<string, any>,
+    config: Config
 ): string {
     let res = "";
     const sp = " ".repeat(spaces);
@@ -20,42 +21,20 @@ export default function CreateFlagsSection(
     for (let [name, flag] of flags) {
         // Ignore aliases
         if (name == flag.shortcut) continue;
+        args.Flag = flag;
 
         // Add flag name and description
-        res += Formatter.Format(
-            "{}{Bright.Black} {}--{}",
-            sp,
-            "➥",
-            color,
-            name
+        res += sp;
+        res += Formatter.FormatWithProps(
+            config.format.flag.item.format,
+            args,
+            ...config.format.flag.item.args
         );
-
-        // Add shortcuts if available
-        if (flag.shortcut) {
-            res += Formatter.Format(", -{}", flag.shortcut);
-        }
-
-        // Reset colors
-        res += Colors.Reset;
-
-        // Add description
-        res += Formatter.Format(
-            " {Bright.Black} {Bright.Black}",
-            "→",
-            flag.description ?? "(No description provided)"
-        );
-
-        // Add whether required or not
-        if (flag.Required()) {
-            res += Formatter.Format(" {Bold.Bright.Red}", "[required]");
-        }
-
-        res += "\n"; // New line
 
         // Add type
-        res += sp;
         res += "   "; // Indent a bit
-        res += CreateTypeText(flag.type);
+        res += CreateTypeText(flag.type, config.format.types);
+        res += "\n"; // New line
     }
 
     return res;

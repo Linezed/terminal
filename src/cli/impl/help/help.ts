@@ -5,95 +5,120 @@
  */
 
 import type Argv from "../../interface/argv/argv.js";
-import { Colors } from "../../../index.js";
-import Formatter from "../../../util/formatter.js";
+import Formatter from "../../../format/formatter.js";
 import type App from "../../interface/app.js";
 import CreateTypeText from "./types.js";
 import CreateFlagsSection from "./flags.js";
 
 export default function GenerateHelp(
     app: App,
-    argv?: Argv,
-    color: string = Colors.Blue
+    argv?: Argv
 ): string {
-    let resp = Formatter.Format(
-        // Format the name first
-        "{}{}{}",
-        color,
-        app.name,
-        Colors.Reset
+    // Get config
+    let config = app.Config();
+    let space = " ".repeat(config.indent);
+
+    let resp = Formatter.FormatWithProps(
+        config.format.name.format,
+        app,
+        ...config.format.name.args
     );
 
     // Add description if available
     if (app.description) {
         resp += "\n"; // Add some spacing
-        resp += app.description;
+        resp += Formatter.FormatWithProps(
+            config.format.description.format,
+            app,
+            ...config.format.description.args
+        );
     }
 
-    resp += "\n\n"; // Add some spacing
+    resp += config.spacing; // Add spacing
 
     // Add usage
-    resp += Formatter.Format(
-        "{Yellow}\n  {}{}{} {Bright.Black}\n\n",
-        "Usage:",
-        color,
-        app.name,
-        Colors.Reset,
-        "[--global-flags] <command> [--cmd-flags] [--global-flags]"
+    resp += Formatter.FormatWithProps(
+        config.format.usage.format,
+        app,
+        ...config.format.usage.args
     );
+    resp += config.spacing; // Add spacing
 
     // Add possible errors
     if (argv && argv.Error) {
-        resp += Formatter.Format(
-            "{Red}\n  {Bright.Black}\n\n",
-            "Error:",
-            argv.Error.message
+        resp += Formatter.FormatWithProps(
+            config.format.error.format,
+            app,
+            ...config.format.error.args
         );
+
+        resp += config.spacing; // Add spacing
     }
 
     // Add available commands
     if (app.Commands().size > 0) {
-        resp += Formatter.Format("{Yellow}\n", "Available Commands:");
+        resp += Formatter.FormatWithProps(
+            config.format.command.header.format,
+            app,
+            ...config.format.command.header.args
+        );
+
+        resp += "\n"; // New line
     }
 
     for (let [name, cmd] of app.Commands()) {
         // Ignore aliases
         if (name == cmd.shortcut) continue;
+        let args = {...app, Command: cmd};
 
         // Add command name and description
-        resp += Formatter.Format("  {Bright.Black} {}{}", "➥", color, name);
-
-        // Add shortcuts if available
-        if (cmd.shortcut) {
-            resp += Formatter.Format(", {}", cmd.shortcut);
-        }
-
-        resp += Colors.Reset; // Reset colors
-        resp += Formatter.Format(
-            " {Bright.Black} {Bright.Black}\n",
-            "→",
-            cmd.description ?? "(No description provided)"
+        resp += space; // Indent
+        resp += Formatter.FormatWithProps(
+            config.format.command.item.format,
+            args,
+            ...config.format.command.item.args
         );
 
         // Add type
-        resp += "    "; // Indent a bit
-        resp += CreateTypeText(cmd.type);
+        resp += " ";
+        resp += CreateTypeText(cmd.type, config.format.types);
+        resp += "\n"; // New line
 
         // Add flags
         if (cmd.Flags().size > 0) {
-            resp += Formatter.Format(
-                "    {Bright.Black}\n",
-                "➠ Available flags:"
-            );
+            resp += space; // Indent
+            resp += space; // Indent
 
-            resp += CreateFlagsSection(6, cmd.Flags(), color);
+            resp += Formatter.FormatWithProps(
+                config.format.flag.header.format,
+                args,
+                ...config.format.flag.header.args
+            );
+            resp += "\n"; // New line
+
+            resp += CreateFlagsSection(
+                config.indent * 3,
+                cmd.Flags(),
+                args,
+                config
+            );
         }
     }
 
     // Add available flags
     if (app.Flags().size > 0) {
-        resp += Formatter.Format("{Yellow}\n", "Global Flags:");
-        resp += CreateFlagsSection(2, app.Flags(), color);
+        resp += Formatter.FormatWithProps(
+            config.format.flag.header.format,
+            app,
+            ...config.format.flag.header.args
+        );
+
+        resp += CreateFlagsSection(
+            config.indent,
+            app.Flags(),
+            app,
+            config
+        );
     }
 
     return resp.trim(); // Trim any extra new lines

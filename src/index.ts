@@ -6,12 +6,20 @@
 
 import process from "node:process";
 import IApp from "./cli/impl/app.js";
-import BufferedOStream from "./util/buffered_ostream.js";
-import Types from "./types.js";
-import LineReader from "./util/line_reader.js";
-import ConvertToType from "./util/converter.js";
-import * as Colors from "./util/colors.js";
-import Formatter from "./util/formatter.js";
+import BufferedOStream from "./stream/buffered_ostream.js";
+import Types from "./types/types.js";
+import LineReader from "./stream/line_reader.js";
+import ConvertToType from "./types/converter.js";
+import * as Colors from "./colors/colors.js";
+import Formatter from "./format/formatter.js";
+import ArgvErrorCode from "./cli/interface/argv/codes.js";
+import IArgv from "./cli/impl/argv/argv.js";
+import IFlag from "./cli/impl/flag.js";
+import { ICommand } from "./cli/impl/command.js";
+import type Config from "./cli/interface/config/config.js";
+import DefaultConfig from "./cli/impl/config/config.js";
+import IConfig from "./cli/impl/config/config.js";
+import { State } from "./format/state.js";
 
 export default class Terminal {
     /// The output stream for the terminal.
@@ -24,8 +32,8 @@ export default class Terminal {
     }
 
     /// Create a new terminal application instance.
-    public static App(name: string): IApp {
-        return new IApp(name);
+    public static App(name: string, config?: Config): IApp {
+        return new IApp(name, config);
     }
 
     /// Prints a line to the standard output
@@ -74,4 +82,16 @@ process.on("beforeExit", () => {
 });
 
 // Other exports
-export { Types, Colors };
+export {
+    ArgvErrorCode,
+    Colors,
+    DefaultConfig,
+    Formatter,
+    IApp,
+    IArgv,
+    IConfig,
+    ICommand,
+    IFlag,
+    State,
+    Types
+};

@@ -7,10 +7,6 @@ app.Command("test-command")
     .Shortcut("t")
     .Type(Types.String)
     .Description("test command")
-    .Handler((ctx: Argv) => {})
-    .Flag("help")
-    .Shortcut("h")
-    .Type(Types.Boolean)
-    .Description("display help");
+    .Handler((ctx: Argv) => {});
 
 export default app;

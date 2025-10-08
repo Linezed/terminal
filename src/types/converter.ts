@@ -4,7 +4,7 @@
  License: MIT
  */
 
-import Types from "../types.js";
+import Types from "./types.js";
 
 export default function ConvertToType(type: Types, result: string) {
     // Check the type

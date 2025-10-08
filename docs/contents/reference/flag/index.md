@@ -22,4 +22,4 @@ commands or to provide additional options.
 - [**`Flag.Default(): any`**](#): Gets the default value of the flag.
 - [**`Flag.Default(value: any): Flag`**](#): Sets the default
 - [**`Flag.Required(): boolean`**](#): Checks if the flag is required.
-- [**`Flag.Required(required: boolean): Flag`**](#): Sets whether the
+- [**`Flag.Required(required: boolean): Flag`**](#): Sets whether the flag is required.

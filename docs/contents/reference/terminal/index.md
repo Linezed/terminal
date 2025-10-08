@@ -14,8 +14,8 @@ Prints a message to the terminal with a newline.
 Prints a formatted message to the terminal.
 - [**`Terminal.Read(type: Types): Promise<any>`**](/contents/learn_by_example/read_line/):
 Reads a line of input from the user and parses it into the specified type.
-- [**`Terminal.App(name: string): App`**](/contents/reference/app/):
-Creates a new command-line application instance.
+- [**`Terminal.App(name: string, config?: Config): App`**](/contents/reference/app/):
+Creates a new command-line application instance with the given name and optional configuration.
 - [**`Terminal.Read(t: Types): Promise<?>`**](/contents/learn_by_example/read_line/):
 Reads a line of input from the user and parses it into the specified type.
 - [**`Terminal.Flush(): void`**](/contents/advanced/io/):
