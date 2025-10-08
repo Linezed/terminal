@@ -11,6 +11,20 @@ with various styles and colors for terminal output.
 - **`Formatter.FormatWithProps(format: string, props: Record<string, any>, ...args: any[]): string`**:
   Formats a string using the specified format and arguments.
 
+- [**`Formatter.AddPrefix(name: string, fn: PrefixFunction): void`**](/contents/advanced/custom_formats/):
+  Adds a custom prefix sub-formatter function to the Formatter. Throws an error if the prefix already exists.
+
+- [**`Formatter.AddFormat(name: string, fn: BaseFormatFunction): void`**](/contents/advanced/custom_formats/):
+  Adds a custom base sub-formatter function to the Formatter. Throws an error if the sub-formatter already exists.
+
+- [**`Formatter.RemovePrefix(name: string): void`**](/contents/advanced/custom_formats/):
+  Removes a custom prefix sub-formatter function from the Formatter. 
+  Throws an error if the sub-formatter does not exist.
+
+- [**`Formatter.RemoveFormat(name: string): void`**](/contents/advanced/custom_formats/):
+  Removes a custom base sub-formatter function from the Formatter.
+  Throws an error if the sub-formatter does not exist.
+
 ## Format Specifiers
 
 The Formatter supports two main types of sub-formatters:
