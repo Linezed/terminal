@@ -147,7 +147,7 @@ positional arguments.
 const props = { name: "Alice", age: 30 };
 Formatter.FormatWithProps("Name: {name}, Age: {age}", props);
 // Output: Name: Alice, Age: 30
-Formatter.FormatWithProps("Name: {name}, Age: {.2f age}", props);
+Formatter.FormatWithProps("Name: {name}, Age: {.2f | age}", props);
 // Output: Name: Alice, Age: 30.00
 Formatter.FormatWithProps("This is a {:Blue | name}.", props);
 // Output: This is a Alice. (with "Alice" in blue color)
