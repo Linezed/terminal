@@ -13,6 +13,7 @@ import type Argv from "../interface/argv/argv.js";
 import GenerateHelp from "./help/help.js";
 import type Config from "../interface/config/config.js";
 import DefaultConfig from "./config/style/default.js";
+import Types from "../../types/types.js";
 
 export default class IApp extends IContext implements App {
     commands: Map<string, Command> = new Map();
@@ -24,6 +25,21 @@ export default class IApp extends IContext implements App {
         super(); // Offload to super class
         this.name = name;
         this.config = config ?? new DefaultConfig();
+
+        // Honor the config
+        if (config?.auto_version) {
+            this.Flag("version")
+                .Shortcut("v")
+                .Description("Show the application version")
+                .Type(Types.Boolean);
+        }
+
+        if (config?.auto_help) {
+            this.Flag("help")
+                .Shortcut("h")
+                .Description("Show help for the application")
+                .Type(Types.Boolean);
+        }
     }
 
     /// Get the commands of the application.
