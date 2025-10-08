@@ -32,9 +32,6 @@ export default interface Flag extends Nameable, Typable, Trimmable {
     /// Getter for whether the flag is required.
     Required(): boolean;
 
-    /// Setter for whether the flag is local.
-    Local(val: boolean): this;
-
     /// Getter for whether the flag is local.
     Local(): boolean;
 }
