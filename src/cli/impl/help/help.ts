@@ -110,7 +110,7 @@ export default function GenerateHelp(
 
     // Add available flags
     if (app.Flags().size > 0) {
-        resp += config.spacing; // Add spacing
+        resp += "\n"; // New line
 
         resp += Formatter.FormatWithProps(
             config.format.flag.header.format,
