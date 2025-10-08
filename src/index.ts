@@ -88,7 +88,6 @@ process.on("uncaughtException", (_) => {
     _FlushOnExit();
 });
 
-
 // Other exports
 export {
     ArgvErrorCode,
