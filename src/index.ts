@@ -19,6 +19,7 @@ import { ICommand } from "./cli/impl/command.js";
 import type Config from "./cli/interface/config/config.js";
 import DefaultConfig from "./cli/impl/config/config.js";
 import IConfig from "./cli/impl/config/config.js";
+import { State } from "./format/state.js";
 
 export default class Terminal {
     /// The output stream for the terminal.
@@ -91,5 +92,6 @@ export {
     IConfig,
     ICommand,
     IFlag,
+    State,
     Types
 };
