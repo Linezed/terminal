@@ -178,6 +178,7 @@ export default class IArgv implements Argv {
                 }
 
                 this.Error.code = e.code;
+                this.Error.message = e.message;
                 return;
             }
 
@@ -187,6 +188,7 @@ export default class IArgv implements Argv {
             }
 
             this.Error.code = ArgvErrorCode.TypeMismatch;
+            this.Error.message = (e as Error).message;
         }
 
         // Fire the handler
