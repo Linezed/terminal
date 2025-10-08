@@ -98,3 +98,40 @@ They start with a colon (`:`) and contain a single identifier.
     Formatter.Format("'{:>10}'", "text");
     // Output: 'text      '
     ```
+
+## Combining Sub-Formatters
+
+You can combine multiple sub-formatters in a single placeholder.
+This can be done by piping them together.
+
+For example, to format a string to be uppercase and red, you can use:
+```js
+Formatter.Format("This is a {:Upper | :Red} word.", "important");
+// Output: This is a IMPORTANT word. (with "IMPORTANT" in red color)
+```
+
+You can pipe base and prefix sub-formatters together as well:
+```js
+Formatter.Format("Truncated and colored: {.5s | :Green}", "Hello, world!");
+// Output: Truncated and colored: Hello (with "Hello" in green color)
+```
+
+## Adding prefixes
+
+The Formatter can also add prefixes to formatted strings.
+Prefixes should be enclosed in single quotes.
+
+There is no specific order as to where you can palce them,
+but it is recommended that they're placed at the start of
+the format specifier for better readability.
+
+**Example**:
+```js
+Formatter.Format("This is a {:Red | '>>'} word.", "word");
+// Output: This is a >>word. (with ">>word" in red color)
+Formatter.Format("This is a {.5s | '...'}", "Hello, world!");
+// Output: This is a ...Hello
+```
+
+The prefix will be added before the formatted value, and it will share
+the same styles and colors as the formatted value.
