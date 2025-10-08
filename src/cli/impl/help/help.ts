@@ -48,7 +48,10 @@ export default function GenerateHelp(
     if (argv && argv.Error) {
         resp += Formatter.FormatWithProps(
             config.format.error.format,
-            app,
+            {
+                ...app,
+                Error: argv.Error
+            },
             ...config.format.error.args
         );
 
