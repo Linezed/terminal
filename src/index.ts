@@ -82,14 +82,14 @@ process.on("beforeExit", () => {
 
 // Other exports
 export {
-    Types,
-    Colors,
     ArgvErrorCode,
+    Colors,
+    DefaultConfig,
+    Formatter,
     IApp,
     IArgv,
-    IFlag,
-    ICommand,
     IConfig,
-    DefaultConfig,
-    Formatter
+    ICommand,
+    IFlag,
+    Types
 };
