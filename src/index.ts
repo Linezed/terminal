@@ -76,10 +76,18 @@ export default class Terminal {
     }
 }
 
-// Flush on exit
-process.on("beforeExit", () => {
+function _FlushOnExit() {
     Terminal.Flush();
+}
+
+// Flush on exit
+process.on("exit", _FlushOnExit);
+process.on("SIGINT", _FlushOnExit);
+process.on("SIGTERM", _FlushOnExit);
+process.on("uncaughtException", (_) => {
+    _FlushOnExit();
 });
+
 
 // Other exports
 export {
