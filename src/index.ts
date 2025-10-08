@@ -18,6 +18,7 @@ import IFlag from "./cli/impl/flag.js";
 import { ICommand } from "./cli/impl/command.js";
 import type Config from "./cli/interface/config/config.js";
 import DefaultConfig from "./cli/impl/config/config.js";
+import IConfig from "./cli/impl/config/config.js";
 
 export default class Terminal {
     /// The output stream for the terminal.
@@ -88,6 +89,7 @@ export {
     IArgv,
     IFlag,
     ICommand,
+    IConfig,
     DefaultConfig,
     Formatter
 };
