@@ -110,6 +110,8 @@ export default function GenerateHelp(
 
     // Add available flags
     if (app.Flags().size > 0) {
+        resp += "\n"; // New line
+
         resp += Formatter.FormatWithProps(
             config.format.flag.header.format,
             app,
