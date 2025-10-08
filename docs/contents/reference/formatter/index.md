@@ -135,3 +135,22 @@ Formatter.Format("This is a {.5s | '...'}", "Hello, world!");
 
 The prefix will be added before the formatted value, and it will share
 the same styles and colors as the formatted value.
+
+## Formatting with property maps
+
+The `Formatter.FormatWithProps` method allows you to format strings
+using a property map for named arguments, in addition to the standard
+positional arguments.
+
+**Example**:
+```js
+const props = { name: "Alice", age: 30 };
+Formatter.FormatWithProps("Name: {name}, Age: {age}", props);
+// Output: Name: Alice, Age: 30
+Formatter.FormatWithProps("Name: {name}, Age: {.2f age}", props);
+// Output: Name: Alice, Age: 30.00
+Formatter.FormatWithProps("This is a {:Blue | name}.", props);
+// Output: This is a Alice. (with "Alice" in blue color)
+Formatter.FormatWithProps("Truncated name: {.3s | name}", props);
+// Output: Truncated name: Ali
+```
