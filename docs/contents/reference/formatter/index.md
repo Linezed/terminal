@@ -169,6 +169,33 @@ Formatter.FormatWithProps("Truncated name: {.3s | name}", props);
 // Output: Truncated name: Ali
 ```
 
+## Optional prop formatting
+
+A prop may not always be present in the property map. To handle such cases,
+you can use the `?` operator to make the formatting optional.
+
+In the case the property is not found, the Formatter will replace
+the placeholder with an empty string, and will ignore all prefixes.
+
+**Example**:
+```js
+const props = { name: "Alice" };
+Formatter.FormatWithProps("Name: {name}, Age: {age?}", props);
+// Output: Name: Alice, Age: 
+```
+
+It is also possible to pipe optional props with other sub-formatters.
+In this case, if the prop is not found, the entire placeholder
+will be replaced with an empty string.
+
+**Example**:
+```js
+const props = { name: "Alice" };
+
+Formatter.FormatWithProps("Name: {name}, Age: {:Red | .2f | age?}", props);
+// Output: Name: Alice, Age: 
+```
+
 ## Error Handling
 
 If an invalid format specifier is used, the Formatter will throw an error.
