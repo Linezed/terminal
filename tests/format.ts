@@ -19,6 +19,22 @@ test("formats text", () => {
 
     str = Formatter.Format("No placeholders here.");
     assert.is(str, "No placeholders here.");
+
+    str = Formatter.FormatWithProps(
+        "Hello, {curr.name}",
+        {
+            curr: {
+                name: "world!"
+            }
+        }
+    );
+    assert.is(str, "Hello, world!");
+
+    str = Formatter.FormatWithProps(
+        "Hello, {:Upper | curr.name?}",
+        {}
+    );
+    assert.is(str, "Hello, ");
 });
 
 test.run();
