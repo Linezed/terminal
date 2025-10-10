@@ -9,7 +9,7 @@ import type Command from "../../interface/command.js";
 import ArgvException from "./exception.js";
 import ArgvErrorCode from "../../interface/argv/codes.js";
 import Types from "../../../types/types.js";
-import ConvertToType from "../../../types/converter.js";
+import SetFlagValue from "./flag_value.js";
 
 function _ThrowUnknownFlag() {
     throw new ArgvException(ArgvErrorCode.UnknownFlag, "Unknown flag");
@@ -35,32 +35,6 @@ function _FindFlag(
     let flag = flags.get(name as string) as Flag;
     flag.local = false; // Mark as non-local flag
     return flag;
-}
-
-export function SetFlagValue(
-    flag: Flag,
-    val: string,
-    strings: Map<string, string> = new Map(),
-    bools: Map<string, boolean> = new Map(),
-    numbers: Map<string, number> = new Map()
-) {
-    // Try to parse the value's type
-    let result = ConvertToType(flag.Type() as Types, val);
-
-    // Put the correct flag in the correct map
-    switch (flag.Type()) {
-        case Types.String:
-            strings.set(flag.Name(), result as string);
-            break;
-
-        case Types.Number:
-            numbers.set(flag.Name(), result as number);
-            break;
-
-        case Types.Boolean:
-            bools.set(flag.Name(), result as boolean);
-            break;
-    }
 }
 
 export default function ParseFlag(
