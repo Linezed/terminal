@@ -25,15 +25,6 @@ export class State {
         optional: false
     };
 
-    /// Custom handlers
-    custom = {
-        highest: undefined as CustomHandlerFunction[] | undefined,
-        high: undefined as CustomHandlerFunction[] | undefined,
-        medium: undefined as CustomHandlerFunction[] | undefined,
-        low: undefined as CustomHandlerFunction[] | undefined,
-        lowest: undefined as CustomHandlerFunction[] | undefined
-    };
-
     /// Text formatting.
     text = {
         upper: false,

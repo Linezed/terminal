@@ -31,17 +31,6 @@ export default function ConvertState(
         base = args[arg_idx];
     }
 
-    // Run all custom handlers
-    for (const key in state.custom) {
-        let handlers = state.custom[key];
-        if (!handlers) continue;
-
-        for (const handler of handlers) {
-            base = handler(base, state);
-            MatchType(Types.String, base);
-        }
-    }
-
     // Check if we are supposed to format floats
     if (state.precision) {
         // Ensure the base is a number
