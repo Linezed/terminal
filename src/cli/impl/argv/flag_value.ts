@@ -7,29 +7,58 @@
 import type Flag from "../../interface/flag.js";
 import ConvertToType from "../../../types/converter.js";
 import Types from "../../../types/types.js";
+import type FlagCollection from "./flag_collection.js";
+
+function _SetValue(
+    flag: Flag,
+    local: FlagCollection,
+    val: any,
+    global: FlagCollection
+) {
+    let map: Map<string, any>;
+
+    if (flag.local) {
+        switch (flag.Type()) {
+            case Types.String:
+                map = local.strings;
+                break;
+
+            case Types.Number:
+                map = local.numbers;
+                break;
+
+            case Types.Boolean:
+                map = local.bools;
+                break;
+        }
+    } else {
+        switch (flag.Type()) {
+            case Types.String:
+                map = global.strings;
+                break;
+
+            case Types.Number:
+                map = global.numbers;
+                break;
+
+            case Types.Boolean:
+                map = global.bools;
+                break
+        }
+    }
+
+    map.set(flag.Name(), val);
+}
 
 export default function SetFlagValue(
     flag: Flag,
     val: string,
-    strings: Map<string, string> = new Map(),
-    bools: Map<string, boolean> = new Map(),
-    numbers: Map<string, number> = new Map()
+    local: FlagCollection,
+    global: FlagCollection
 ) {
     // Try to parse the value's type
     let result = ConvertToType(flag.Type() as Types, val);
 
     // Put the correct flag in the correct map
-    switch (flag.Type()) {
-        case Types.String:
-            strings.set(flag.Name(), result as string);
-            break;
-
-        case Types.Number:
-            numbers.set(flag.Name(), result as number);
-            break;
-
-        case Types.Boolean:
-            bools.set(flag.Name(), result as boolean);
-            break;
-    }
+    _SetValue(flag, local, result, global);
 }
