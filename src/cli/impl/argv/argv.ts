@@ -40,6 +40,26 @@ function _GetFlag(name: string, owner: App, cmd: Command) {
     return flag;
 }
 
+function _HandleError(
+    argv: Argv,
+    code: ArgvErrorCode | undefined,
+    message: string
+) {
+    // Create the error if it doesn't exist
+    if (!argv.Error) {
+        argv.Error = new IArgvError();
+    }
+
+    if (code) {
+        argv.Error.code = code;
+        argv.Error.message = message;
+        return;
+    }
+
+    argv.Error.code = ArgvErrorCode.TypeMismatch;
+    argv.Error.message = message;
+}
+
 export default class IArgv implements Argv {
     /// The owner of the argv
     owner: App | undefined = undefined;
@@ -107,10 +127,13 @@ export default class IArgv implements Argv {
                 if (arg.startsWith("-")) {
                     // Check if we're waiting for a value
                     if (last_flag) {
-                        throw new ArgvException(
+                        _HandleError(
+                            this,
                             ArgvErrorCode.ExpectedValue,
                             "Expected a value, not a flag"
                         );
+
+                        return;
                     }
 
                     // Set the last flag
@@ -136,10 +159,13 @@ export default class IArgv implements Argv {
 
                 // Make sure we haven't parsed a command already
                 if (this.val) {
-                    throw new ArgvException(
+                    _HandleError(
+                        this,
                         ArgvErrorCode.AlreadyParsedCommand,
                         "Already parsed a command value"
                     );
+
+                    return;
                 }
 
                 // Parse the command
@@ -149,25 +175,32 @@ export default class IArgv implements Argv {
 
             // Make sure we have parsed a value
             if (!this.val) {
-                throw new ArgvException(
+                _HandleError(
+                    this,
                     ArgvErrorCode.NotParsedCommand,
-                    "Never parsed a command value"
+                    "Missing command"
                 );
+
+                return;
             }
 
             // Make sure we aren't expecting a value
             if (cmd || last_flag) {
-                throw new ArgvException(
+                _HandleError(
+                    this,
                     ArgvErrorCode.ExpectedValue,
-                    "Expected a value"
+                    "Expected a value, not the end of input"
                 );
+
+                return;
             }
 
             // Make sure all required flags are present
             if (required_flags.size != 0) {
-                throw new ArgvException(
+                _HandleError(
+                    this,
                     ArgvErrorCode.MissingRequired,
-                    "One or more required flags are missing"
+                    `Missing required flag: ${[...required_flags].join(", ")}`
                 );
             }
 
@@ -175,23 +208,12 @@ export default class IArgv implements Argv {
             this.command = cmds.get(cmd_name as string);
         } catch (e) {
             if (e instanceof ArgvException) {
-                // Set the appropriate code
-                if (!this.Error) {
-                    this.Error = new IArgvError();
-                }
-
-                this.Error.code = e.code;
-                this.Error.message = e.message;
+                _HandleError(this, e.code, e.message);
                 return;
             }
 
-            // Formatting exception
-            if (!this.Error) {
-                this.Error = new IArgvError();
-            }
-
-            this.Error.code = ArgvErrorCode.TypeMismatch;
-            this.Error.message = (e as Error).message;
+            _HandleError(this, undefined, (e as Error).message);
+            return;
         }
 
         // Fire the handler
