@@ -14,6 +14,9 @@ export class State {
     /// Spaces for JSON formatting.
     json: undefined | number = undefined;
 
+    /// Boolean formatting.
+    boolean: boolean = false;
+
     /// Prop access.
     prop = {
         name: undefined as string | undefined,
