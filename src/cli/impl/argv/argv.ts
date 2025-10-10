@@ -27,12 +27,15 @@ function _GetFlag(name: string, owner: App, cmd: Command) {
     if (!flag) {
         // Last resort: Try to find the flag in the command
         if (cmd && cmd.flags.has(name as string)) {
-            return cmd.flags.get(name as string) as Flag;
+            let local_flag = cmd.flags.get(name as string) as Flag;
+            local_flag.local = true; // Mark as a local flag
+            return local_flag;
         }
 
         throw new ArgvException(ArgvErrorCode.UnknownFlag, "Unknown flag");
     }
 
+    flag.local = false; // Not a local flag
     // Return the default
     return flag;
 }
