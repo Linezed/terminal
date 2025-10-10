@@ -35,6 +35,9 @@ test("formats text", () => {
         {}
     );
     assert.is(str, "Hello, ");
+
+    str = Formatter.Format("Pi is approximately {.2f}", 3.14159);
+    assert.is(str, "Pi is approximately 3.14");
 });
 
 test.run();
