@@ -6,6 +6,7 @@
 
 /// The parsed arguments from the command line.
 import type ArgvError from "./error.js";
+import type LookupOrder from "./lookup_order.js";
 
 export default interface Argv {
     Error: ArgvError | undefined;
@@ -14,30 +15,23 @@ export default interface Argv {
     Value(): any;
 
     /// Gets a boolean flag
-    /// @param local_first If true, checks local flags before global flags
-    Boolean(name: string, local_first: boolean): boolean;
+    Boolean(name: string, order: LookupOrder): boolean;
 
     /// Gets a string flag
-    /// @param local_first If true, checks local flags before global flags
-    String(name: string, local_first: boolean): string;
+    String(name: string, order: LookupOrder): string;
 
     /// Gets a number flag
-    /// @param local_first If true, checks local flags before global flags
-    Number(name: string, local_first: boolean): number;
+    Number(name: string, order: LookupOrder): number;
 
     /// Checks if a boolean flag is present
-    /// @param local_first If true, checks local flags before global flags
-    HasBoolean(name: string, local_first: boolean): boolean;
+    HasBoolean(name: string, order: LookupOrder): boolean;
 
     /// Checks if a string flag is present
-    /// @param local_first If true, checks local flags before global flags
-    HasString(name: string, local_first: boolean): boolean;
+    HasString(name: string, order: LookupOrder): boolean;
 
     /// Checks if a number flag is present
-    /// @param local_first If true, checks local flags before global flags
-    HasNumber(name: string, local_first: boolean): boolean;
+    HasNumber(name: string, order: LookupOrder): boolean;
 
     /// Checks if a flag is present
-    /// @param local_first If true, checks local flags before global flags
-    Has(name: string, local_first: boolean): boolean;
+    Has(name: string, order: LookupOrder): boolean;
 }
