@@ -28,4 +28,9 @@ export default class FlagCollection {
     Number(name: string): number | undefined {
         return this.numbers.get(name);
     }
+
+    /// Checks if a flag is present, regardless of type
+    Has(name: string): boolean {
+        return this.strings.has(name) || this.bools.has(name) || this.numbers.has(name);
+    }
 }
