@@ -24,13 +24,17 @@ function _FindFlag(
     if (!flags.has(name as string)) {
         // Last resort: Try to find the flag in the command
         if (cmd && cmd.flags.has(name as string)) {
-            return cmd.flags.get(name as string) as Flag;
+            let f = cmd.flags.get(name as string) as Flag;
+            f.local = true; // Mark as local flag
+            return f;
         }
 
         _ThrowUnknownFlag();
     }
 
-    return flags.get(name as string) as Flag;
+    let flag = flags.get(name as string) as Flag;
+    flag.local = false; // Mark as non-local flag
+    return flag;
 }
 
 export function SetFlagValue(
