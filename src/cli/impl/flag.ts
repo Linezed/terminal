@@ -60,11 +60,10 @@ export default class IFlag
     }
 
     /// Constructor
-    constructor(owner: Context, name: string, local: boolean) {
+    constructor(owner: Context, name: string) {
         super(); // Offload to super class
         this.name = name;
         this.owner = owner;
-        this.local = local;
     }
 
     /// Setter for the short name of the entity.
