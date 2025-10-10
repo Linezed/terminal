@@ -21,15 +21,14 @@ function _FindFlag(
     cmd: Command | undefined,
     flags: Map<string, Flag>
 ): Flag {
-    // Make sure the flag has been found
-    if (!flags.has(name as string)) {
-        // Last resort: Try to find the flag in the command
-        if (cmd && cmd.flags.has(name as string)) {
-            let f = cmd.flags.get(name as string) as Flag;
-            f.local = true; // Mark as local flag
-            return f;
-        }
+    // Prioritize local flags
+    if (cmd && cmd.flags.has(name as string)) {
+        let f = cmd.flags.get(name as string) as Flag;
+        f.local = true; // Mark as local flag
+        return f;
+    }
 
+    if (!flags.has(name as string)) {
         _ThrowUnknownFlag();
     }
 
