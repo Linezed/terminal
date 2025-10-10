@@ -19,6 +19,7 @@ import Types from "../../../types/types.js";
 import MatchType from "../../../types/type_matcher.js";
 import FlagCollection from "./flag_collection.js";
 import SetFlagValue from "./flag_value.js";
+import LookupOrder from "../../interface/argv/lookup_order.js";
 
 function _GetFlag(name: string, owner: App, cmd: Command) {
     // Attempt to get the default value from the owner
@@ -39,9 +40,13 @@ function _GetFlag(name: string, owner: App, cmd: Command) {
     return flag;
 }
 
-function _LookupValue<T>(name: string, local_first: boolean, localMap: Map<string, T>, globalMap: Map<string, T>): T | undefined {
+function _LookupValue<T>(name: string, order: LookupOrder, localMap: Map<string, T>, globalMap: Map<string, T>): T | undefined {
     // Determine the order of lookup
-    const sources = local_first ? [localMap, globalMap] : [globalMap, localMap];
+    const sources =
+        order == LookupOrder.LocalThenGlobal ? [localMap, globalMap]
+            : order == LookupOrder.GlobalThenLocal ? [globalMap, localMap]
+            : order == LookupOrder.LocalOnly ? [localMap]
+                : [globalMap];
 
     // Lookup the value in the specified order
     for (const src of sources) {
@@ -232,8 +237,8 @@ export default class IArgv implements Argv {
         return this.val;
     }
 
-    Boolean(name: string, local_first = true): boolean {
-        let first_attempt = _LookupValue<boolean>(name, local_first, this.local.bools, this.global.bools);
+    Boolean(name: string, order: LookupOrder = LookupOrder.LocalThenGlobal): boolean {
+        let first_attempt = _LookupValue<boolean>(name, order, this.local.bools, this.global.bools);
         if (first_attempt !== undefined) {
             return first_attempt;
         }
@@ -242,10 +247,10 @@ export default class IArgv implements Argv {
         return !!_GetFlag(name, this.owner as App, this.command!).Default();
     }
 
-    String(name: string, local_first = true): string {
+    String(name: string, order: LookupOrder = LookupOrder.LocalThenGlobal): string {
         let first_attempt = _LookupValue<string>(
             name,
-            local_first,
+            order,
             this.local.strings,
             this.global.strings
         );
@@ -261,10 +266,10 @@ export default class IArgv implements Argv {
         return flag.Default();
     }
 
-    Number(name: string, local_first = true): number {
+    Number(name: string, order: LookupOrder = LookupOrder.LocalThenGlobal): number {
         let first_attempt = _LookupValue<number>(
             name,
-            local_first,
+            order,
             this.local.numbers,
             this.global.numbers
         );
@@ -280,36 +285,40 @@ export default class IArgv implements Argv {
         return flag.Default();
     }
 
-    HasBoolean(name: string, local_first = true): boolean {
+    HasBoolean(name: string, order: LookupOrder = LookupOrder.LocalThenGlobal): boolean {
         return _LookupValue<boolean>(
             name,
-            local_first,
+            order,
             this.local.bools,
             this.global.bools
         ) !== undefined;
     }
 
-    HasString(name: string, local_first = true): boolean {
+    HasString(name: string, order: LookupOrder = LookupOrder.LocalThenGlobal): boolean {
         return _LookupValue<string>(
             name,
-            local_first,
+            order,
             this.local.strings,
             this.global.strings
         ) !== undefined;
     }
 
-    HasNumber(name: string, local_first = true): boolean {
+    HasNumber(name: string, order: LookupOrder = LookupOrder.LocalThenGlobal): boolean {
         return _LookupValue<number>(
             name,
-            local_first,
+            order,
             this.local.numbers,
             this.global.numbers
         ) !== undefined;
     }
 
-    Has(name: string, local_first = true): boolean {
-        const order = local_first ? [this.local, this.global] : [this.global, this.local];
-        for (const src of order) {
+    Has(name: string, order: LookupOrder = LookupOrder.LocalThenGlobal): boolean {
+        const collections = order == LookupOrder.LocalThenGlobal ? [this.local, this.global]
+            : order == LookupOrder.GlobalThenLocal ? [this.global, this.local]
+                : order == LookupOrder.LocalOnly ? [this.local]
+                    : [this.global];
+
+        for (const src of collections) {
             if (src.Has(name)) return true;
         }
 
