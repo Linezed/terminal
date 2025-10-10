@@ -10,6 +10,7 @@ import ArgvException from "./exception.js";
 import ArgvErrorCode from "../../interface/argv/codes.js";
 import Types from "../../../types/types.js";
 import SetFlagValue from "./flag_value.js";
+import type FlagCollection from "./flag_collection.js";
 
 function _ThrowUnknownFlag() {
     throw new ArgvException(ArgvErrorCode.UnknownFlag, "Unknown flag");
@@ -42,9 +43,8 @@ export default function ParseFlag(
     cmd: Command | undefined,
     flags: Map<string, Flag>,
     required_flags: Set<string>,
-    strings: Map<string, string> = new Map(),
-    bools: Map<string, boolean> = new Map(),
-    numbers: Map<string, number> = new Map()
+    local: FlagCollection,
+    global: FlagCollection
 ): Flag | undefined {
     let name: string | undefined;
     let val: string | undefined;
@@ -95,7 +95,11 @@ export default function ParseFlag(
             }
 
             // Set the flag to true in boolean flags
-            bools.set(flag.Name(), true);
+            if (flag.local) {
+                local.bools.set(flag.Name(), true);
+            } else {
+                global.bools.set(flag.Name(), true);
+            }
 
             // Remove from required flags
             required_flags.delete(flag.Name());
@@ -119,7 +123,11 @@ export default function ParseFlag(
         }
 
         // Set in the boolean flags
-        bools.set(flag.Name(), true);
+        if (flag.local) {
+            local.bools.set(flag.Name(), true);
+        } else {
+            global.bools.set(flag.Name(), true);
+        }
         return;
     }
 
@@ -128,7 +136,7 @@ export default function ParseFlag(
         // Remove from required flags
         required_flags.delete(flag.Name());
 
-        SetFlagValue(flag, val, strings, bools, numbers);
+        SetFlagValue(flag, val, local, global);
         return; // No return value
     }
 
