@@ -6,4 +6,4 @@
 
 import type { State } from "../state.js";
 
-export type CustomHandlerFunction = (text: string, state: State) => string;
+export type CustomHandlerFunction = (obj: any, state: State) => string;
