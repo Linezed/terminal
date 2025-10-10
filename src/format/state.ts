@@ -4,6 +4,8 @@
  License: MIT
  */
 
+import type { CustomHandlerFunction } from "./custom/type.js";
+
 export class State {
     /// The color of the string.
     color: string | undefined = undefined;
@@ -21,6 +23,15 @@ export class State {
     prop = {
         name: undefined as string | undefined,
         optional: false
+    };
+
+    /// Custom handlers
+    custom = {
+        highest: undefined as CustomHandlerFunction[] | undefined,
+        high: undefined as CustomHandlerFunction[] | undefined,
+        medium: undefined as CustomHandlerFunction[] | undefined,
+        low: undefined as CustomHandlerFunction[] | undefined,
+        lowest: undefined as CustomHandlerFunction[] | undefined
     };
 
     /// Text formatting.
