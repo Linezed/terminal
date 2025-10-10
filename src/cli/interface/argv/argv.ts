@@ -14,23 +14,30 @@ export default interface Argv {
     Value(): any;
 
     /// Gets a boolean flag
-    Boolean(name: string): boolean;
+    /// @param local_first If true, checks local flags before global flags
+    Boolean(name: string, local_first: boolean): boolean;
 
     /// Gets a string flag
-    String(name: string): string;
+    /// @param local_first If true, checks local flags before global flags
+    String(name: string, local_first: boolean): string;
 
     /// Gets a number flag
-    Number(name: string): number;
+    /// @param local_first If true, checks local flags before global flags
+    Number(name: string, local_first: boolean): number;
 
     /// Checks if a boolean flag is present
-    HasBoolean(name: string): boolean;
+    /// @param local_first If true, checks local flags before global flags
+    HasBoolean(name: string, local_first: boolean): boolean;
 
     /// Checks if a string flag is present
-    HasString(name: string): boolean;
+    /// @param local_first If true, checks local flags before global flags
+    HasString(name: string, local_first: boolean): boolean;
 
     /// Checks if a number flag is present
-    HasNumber(name: string): boolean;
+    /// @param local_first If true, checks local flags before global flags
+    HasNumber(name: string, local_first: boolean): boolean;
 
     /// Checks if a flag is present
-    Has(name: string): boolean;
+    /// @param local_first If true, checks local flags before global flags
+    Has(name: string, local_first: boolean): boolean;
 }
