@@ -56,6 +56,10 @@ export default function ConvertState(
         MatchInstance(Date, base);
         base = (base as Date).toUTCString();
     }
+    else if (state.boolean) {
+        MatchType(Types.Boolean, base);
+        base = base ? "true" : "false";
+    }
     // Use default value if base is null or undefined
     else {
         base = FormatValue(base);
