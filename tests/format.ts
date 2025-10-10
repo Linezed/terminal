@@ -6,8 +6,6 @@
 
 import { test } from "uvu";
 import * as assert from "uvu/assert";
-import IArgv from "../src/cli/impl/argv/argv";
-import app from "./app.test";
 import { Formatter } from "../src";
 
 test("formats text", () => {
