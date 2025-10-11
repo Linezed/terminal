@@ -20,7 +20,13 @@ export class State {
     boolean: boolean = false;
 
     /// Selected custom formats
-    custom: CustomHandlerFunction[] = undefined as [] | undefined;
+    custom = {
+        highest: [] as CustomHandlerFunction[],
+        high: [] as CustomHandlerFunction[],
+        medium: [] as CustomHandlerFunction[],
+        low: [] as CustomHandlerFunction[],
+        lowest: [] as CustomHandlerFunction[]
+    };
 
     /// Prop access.
     prop = {
