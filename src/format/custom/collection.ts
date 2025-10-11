@@ -17,12 +17,14 @@ function _SearchCustomPrefix(
     prefix: string,
     obj: OrderedNamedListenerCollection,
     priority: CustomHandlerPriority
-) {
+): [CustomHandlerFunction, CustomHandlerPriority, CustomHandlerOrder]
+    | undefined
+{
     const levels = [obj.pre, obj.post];
     let is_pre = false;
 
     for (const level of levels) {
-        let map: Map<string, CustomHandlerFunction[]>;
+        let map: Map<string, CustomHandlerFunction>;
 
         switch (priority) {
             case CustomHandlerPriority.Highest:
@@ -46,7 +48,7 @@ function _SearchCustomPrefix(
 
         if (map.has(prefix)) {
             return [
-                map.get(prefix),
+                map.get(prefix)!,
                 priority,
                 is_pre ? CustomHandlerOrder.Pre :
                     CustomHandlerOrder.Post
