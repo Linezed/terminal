@@ -22,7 +22,7 @@ export default function FormatPrefix(
     // Padding
     if (pref.startsWith(">") || pref.startsWith("<")) {
         FormatPadding(pref, state);
-        return; // Exit after handling padding
+        return false; // Exit after handling padding
     }
 
     // Custom prefixes
@@ -34,7 +34,9 @@ export default function FormatPrefix(
             throw new UnknownFormat(pref);
         }
 
+        const custom_fn = custom_combo[0];
         const priority = custom_combo[1];
+
         // Add the custom handler to the state
         switch (priority) {
             case CustomHandlerPriority.Highest:
@@ -54,7 +56,7 @@ export default function FormatPrefix(
                 break;
         }
 
-        return; // Exit after handling custom prefix
+        return true; // Exit after handling custom prefix
     }
 
     // Determine what to do based on the prefix
@@ -67,4 +69,5 @@ export default function FormatPrefix(
 
     // Call the prefix function
     fn(pref, state);
+    return false;
 }
