@@ -20,6 +20,9 @@ import type Config from "./cli/interface/config/config.js";
 import DefaultConfig from "./cli/impl/config/config.js";
 import IConfig from "./cli/impl/config/config.js";
 import { State } from "./format/state.js";
+import UnknownFormat from "./format/unknown_format.js";
+import CustomHandlerPriority from "./format/custom/priority.js";
+import CustomHandlerOrder from "./format/custom/order.js";
 
 export default class Terminal {
     /// The output stream for the terminal.
@@ -100,5 +103,9 @@ export {
     ICommand,
     IFlag,
     State,
-    Types
+    Types,
+    BufferedOStream,
+    UnknownFormat,
+    CustomHandlerPriority,
+    CustomHandlerOrder
 };
