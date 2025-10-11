@@ -4,7 +4,6 @@
  License: MIT
  */
 
-import type { CustomHandlerFunction } from "./custom/type.js";
 import ListenerCollection from "./listener_collection.js";
 
 export class State {
