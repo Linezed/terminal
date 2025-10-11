@@ -35,7 +35,6 @@ export default function FormatOutput(
 
     // Split the parts of the specifier
     let parts = specifier.split("|");
-    let never_move = false;
 
     // Iterate through the parts
     for (let part of parts) {
@@ -45,9 +44,7 @@ export default function FormatOutput(
         // Check if we have a prefix formatter
         if (part.startsWith(":")) {
             // true = Parsed custom handler
-            if (FormatPrefix(part, state)) {
-                never_move = true; // We parsed a custom handler, so don't move the arg index
-            }
+            FormatPrefix(part, state);
         } else {
             // Use the base formatter
             FormatBase(part, state);
@@ -58,6 +55,6 @@ export default function FormatOutput(
     return [
         ConvertState(arg_idx, props, state, args),
         idx,
-        !state.prop.name || never_move
+        !state.prop.name
     ];
 }
