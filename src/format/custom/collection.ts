@@ -9,6 +9,7 @@ import CustomHandlerPriority from "./priority.js";
 import {
     OrderedNamedListenerCollection,
 } from "../listener_collection.js";
+import CustomHandlerOrder from "./order.js";
 
 const custom_prefixes = new OrderedNamedListenerCollection();
 
@@ -18,6 +19,7 @@ function _SearchCustomPrefix(
     priority: CustomHandlerPriority
 ) {
     const levels = [obj.pre, obj.post];
+    let is_pre = false;
 
     for (const level of levels) {
         let map: Map<string, CustomHandlerFunction[]>;
@@ -43,15 +45,23 @@ function _SearchCustomPrefix(
         }
 
         if (map.has(prefix)) {
-            return [map.get(prefix), priority];
+            return [
+                map.get(prefix),
+                priority,
+                is_pre ? CustomHandlerOrder.Pre :
+                    CustomHandlerOrder.Post
+            ];
         }
+
+        is_pre = false; // Switch to post level for next iteration
     }
 }
 
 export function SearchCustomPrefix(
     prefix: string,
     priority?: CustomHandlerPriority
-): [CustomHandlerFunction, CustomHandlerPriority] | undefined {
+): [CustomHandlerFunction, CustomHandlerPriority, CustomHandlerOrder]
+    | undefined {
     // Search in specified priority level first
     if (priority) {
         let res = _SearchCustomPrefix(
