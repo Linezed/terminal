@@ -94,7 +94,10 @@ process.on("uncaughtException", (_) => {
 // Other exports
 export {
     ArgvErrorCode,
+    BufferedOStream,
     Colors,
+    CustomHandlerOrder,
+    CustomHandlerPriority,
     DefaultConfig,
     Formatter,
     IApp,
@@ -104,8 +107,5 @@ export {
     IFlag,
     State,
     Types,
-    BufferedOStream,
-    UnknownFormat,
-    CustomHandlerPriority,
-    CustomHandlerOrder
+    UnknownFormat
 };
