@@ -30,7 +30,7 @@ export default function FormatPrefix(
         const custom_pref = pref.slice(1);
         const custom_combo = SearchCustomPrefix(custom_pref);
 
-        if (!custom_fn) {
+        if (!custom_combo) {
             throw new UnknownFormat(pref);
         }
 
