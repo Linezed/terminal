@@ -10,6 +10,18 @@ import FormatValue from "../value.js";
 import MatchType, { MatchInstance } from "../../types/type_matcher.js";
 import Types from "../../types/types.js";
 import ColorKeys from "../color_keys.js";
+import type { CustomHandlerFunction } from "../custom/type.js";
+
+function _RunHandlers(handlers: CustomHandlerFunction[] | undefined, obj: any, state: State) {
+    if (handlers) {
+        for (const handler of handlers) {
+            obj = handler(obj, state);
+            MatchType(Types.String, obj);
+        }
+    }
+
+    return obj;
+}
 
 export default function ConvertState(
     arg_idx: number,
@@ -30,6 +42,13 @@ export default function ConvertState(
         // Otherwise, use the argument at the specified index
         base = args[arg_idx];
     }
+
+    // Run all custom handlers
+    base = _RunHandlers(state.custom.highest, base, state);
+    base = _RunHandlers(state.custom.high, base, state);
+    base = _RunHandlers(state.custom.medium, base, state);
+    base = _RunHandlers(state.custom.low, base, state);
+    base = _RunHandlers(state.custom.lowest, base, state);
 
     // Check if we are supposed to format floats
     if (state.precision) {
