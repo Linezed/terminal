@@ -60,6 +60,12 @@ There are several basic sub-formatters available:
     Formatter.Format("Pi is approximately {.2f}", 3.14159);
     // Output: Pi is approximately 3.14
     ```
+- **Booleans (`b`)**: Formats the argument as a boolean.
+    - **Example**:
+      ```js
+      Formatter.Format("Is active: {.b}", true);
+      // Output: Is active: true
+      ```
 - **JSON (`j`)**: Formats the argument as a JSON string.
   - `.Nj`: Pretty-prints the JSON with an indentation of `N` spaces.
   - **Example**:
