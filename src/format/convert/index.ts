@@ -11,7 +11,7 @@ import MatchType, { MatchInstance } from "../../types/type_matcher.js";
 import Types from "../../types/types.js";
 import ColorKeys from "../color_keys.js";
 import type { CustomHandlerFunction } from "../custom/type.js";
-import type ListenerCollection from "../listener_collection.js";
+import { ListenerCollection } from "../listener_collection.js";
 
 function _RunHandlers(handlers: CustomHandlerFunction[] | undefined, obj: any, state: State) {
     if (handlers) {
@@ -26,11 +26,12 @@ function _RunHandlers(handlers: CustomHandlerFunction[] | undefined, obj: any, s
 
 function _IterateAndRunCollection(
     base: any,
-    coll: ListenerCollection
+    coll: ListenerCollection,
+    state: State
 ) {
     base = _RunHandlers(coll.highest, base, state);
     base = _RunHandlers(coll.high, base, state);
-    base = _RunHandlers(coll.medium, base, state);
+    base = _RunHandlers(coll.normal, base, state);
     base = _RunHandlers(coll.low, base, state);
     base = _RunHandlers(coll.lowest, base, state);
 
@@ -70,7 +71,7 @@ export default function ConvertState(
     }
 
     // Run all pre custom handlers
-    base = _IterateAndRunCollection(base, state.custom.pre);
+    base = _IterateAndRunCollection(base, state.custom.pre, state);
 
     // Check if we are supposed to format floats
     if (state.precision) {
@@ -154,7 +155,7 @@ export default function ConvertState(
     }
 
     // Run all post custom handlers
-    base = _IterateAndRunCollection(base, state.custom.post);
+    base = _IterateAndRunCollection(base, state.custom.post, state);
 
     // Apply colors
     if (state.color) {
