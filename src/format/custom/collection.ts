@@ -6,12 +6,9 @@
 
 import type { CustomHandlerFunction } from "./type.js";
 import CustomHandlerPriority from "./priority.js";
-import ListenerCollection from "../listener_collection.js";
+import OrderedListenerCollection from "../listener_collection.js";
 
-const custom_prefixes = {
-    pre: new ListenerCollection(),
-    post: new ListenerCollection(),
-};
+const custom_prefixes = new OrderedListenerCollection();
 
 function _SearchCustomPrefix(
     prefix: string,
@@ -41,7 +38,7 @@ export function SearchCustomPrefix(
 
     let highest = _SearchCustomPrefix(
         prefix,
-        custom_prefixes.highest,
+        custom_prefixes,
         CustomHandlerPriority.Highest
     );
 
@@ -49,7 +46,7 @@ export function SearchCustomPrefix(
 
     let high = _SearchCustomPrefix(
         prefix,
-        custom_prefixes.high,
+        custom_prefixes,
         CustomHandlerPriority.High
     );
 
@@ -57,7 +54,7 @@ export function SearchCustomPrefix(
 
     let medium = _SearchCustomPrefix(
         prefix,
-        custom_prefixes.medium,
+        custom_prefixes,
         CustomHandlerPriority.Normal
     );
 
@@ -65,7 +62,7 @@ export function SearchCustomPrefix(
 
     let low = _SearchCustomPrefix(
         prefix,
-        custom_prefixes.low,
+        custom_prefixes,
         CustomHandlerPriority.Low
     );
 
@@ -73,7 +70,7 @@ export function SearchCustomPrefix(
 
     let lowest = _SearchCustomPrefix(
         prefix,
-        custom_prefixes.lowest,
+        custom_prefixes,
         CustomHandlerPriority.Lowest
     );
 

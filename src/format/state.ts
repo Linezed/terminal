@@ -4,7 +4,7 @@
  License: MIT
  */
 
-import ListenerCollection from "./listener_collection.js";
+import OrderedListenerCollection from "./listener_collection.js";
 
 export class State {
     /// The color of the string.
@@ -20,10 +20,7 @@ export class State {
     boolean: boolean = false;
 
     /// Selected custom formats
-    custom = {
-        pre: new ListenerCollection(),
-        post: new ListenerCollection()
-    };
+    custom = new OrderedListenerCollection();
 
     /// Prop access.
     prop = {
