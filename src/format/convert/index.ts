@@ -41,6 +41,18 @@ export default function ConvertState(
     } else {
         // Otherwise, use the argument at the specified index
         base = args[arg_idx];
+
+        // Detect other cases
+        if (!base && state.text.prefix) {
+            throw new Error(
+                `A prefix with no positional argument is not allowed. Either provide an argument or remove the prefix.`
+            ); // Prefix with no argument
+        }
+
+        // Base case
+        if (!base) {
+            throw new Error(`Argument at index ${arg_idx} is undefined or null`); // Argument not found
+        }
     }
 
     // Run all custom handlers
