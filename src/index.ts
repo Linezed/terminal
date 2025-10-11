@@ -11,7 +11,7 @@ import Types from "./types/types.js";
 import LineReader from "./stream/line_reader.js";
 import ConvertToType from "./types/converter.js";
 import * as Colors from "./colors/colors.js";
-import Formatter from "./format/formatter.js";
+import Formatter from "./format/index.js";
 import ArgvErrorCode from "./cli/interface/argv/codes.js";
 import IArgv from "./cli/impl/argv/argv.js";
 import IFlag from "./cli/impl/flag.js";

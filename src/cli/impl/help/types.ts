@@ -4,7 +4,7 @@
  License: MIT
  */
 
-import Formatter from "../../../format/formatter.js";
+import Formatter from "../../../format/index.js";
 import Types from "../../../types/types.js";
 import type TypesSection from "../../interface/config/types.js";
 

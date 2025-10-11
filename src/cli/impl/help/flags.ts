@@ -5,7 +5,7 @@
  */
 
 import type Flag from "../../interface/flag.js";
-import Formatter from "../../../format/formatter.js";
+import Formatter from "../../../format/index.js";
 import CreateTypeText from "./types.js";
 import type Config from "../../interface/config/config.js";
 
