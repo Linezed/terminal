@@ -12,7 +12,7 @@ import base_fns from "./base/collection.js";
 import type { CustomHandlerFunction } from "./custom/type.js";
 import custom_prefixes, {SearchCustomPrefix} from "./custom/collection.js";
 import Priority from "./custom/priority.js";
-import type CustomHandlerOrder from "./custom/order.js";
+import CustomHandlerOrder from "./custom/order.js";
 
 export default class Formatter {
     public static FormatWithProps(
@@ -104,7 +104,7 @@ export default class Formatter {
         const collection = order === CustomHandlerOrder.Pre ?
             custom_prefixes.pre :
             custom_prefixes.post;
-        
+
         switch (priority) {
             case Priority.Highest:
                 collection.highest.set(name, fn);
