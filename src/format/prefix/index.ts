@@ -10,6 +10,7 @@ import UnknownFormat from "../unknown_format.js";
 import FormatPadding from "./preset/padding.js";
 import { SearchCustomPrefix } from "../custom/collection.js";
 import CustomHandlerPriority from "../custom/priority.js";
+import CustomHandlerOrder from "../custom/order.js";
 
 export default function FormatPrefix(
     pref: string,
@@ -36,23 +37,27 @@ export default function FormatPrefix(
 
         const custom_fn = custom_combo[0];
         const priority = custom_combo[1];
+        const order = custom_combo[2];
+        const obj = order == CustomHandlerOrder.Pre ?
+            state.custom.pre :
+            state.custom.post;
 
         // Add the custom handler to the state
         switch (priority) {
             case CustomHandlerPriority.Highest:
-                state.custom.highest.push(custom_fn);
+                obj.highest.push(custom_fn);
                 break;
             case CustomHandlerPriority.High:
-                state.custom.high.push(custom_fn);
+                obj.high.push(custom_fn);
                 break;
             case CustomHandlerPriority.Normal:
-                state.custom.normal.push(custom_fn);
+                obj.normal.push(custom_fn);
                 break;
             case CustomHandlerPriority.Low:
-                state.custom.low.push(custom_fn);
+                obj.low.push(custom_fn);
                 break;
             case CustomHandlerPriority.Lowest:
-                state.custom.lowest.push(custom_fn);
+                obj.lowest.push(custom_fn);
                 break;
         }
 
