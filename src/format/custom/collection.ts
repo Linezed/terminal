@@ -44,7 +44,7 @@ export function SearchCustomPrefix(
     let highest = _SearchCustomPrefix(
         prefix,
         custom_prefixes.highest,
-        CustomHandlerPriority.highest
+        CustomHandlerPriority.Highest
     );
 
     if (highest) return highest;
@@ -52,7 +52,7 @@ export function SearchCustomPrefix(
     let high = _SearchCustomPrefix(
         prefix,
         custom_prefixes.high,
-        CustomHandlerPriority.high
+        CustomHandlerPriority.High
     );
 
     if (high) return high;
@@ -60,7 +60,7 @@ export function SearchCustomPrefix(
     let medium = _SearchCustomPrefix(
         prefix,
         custom_prefixes.medium,
-        CustomHandlerPriority.medium
+        CustomHandlerPriority.Normal
     );
 
     if (medium) return medium;
@@ -68,7 +68,7 @@ export function SearchCustomPrefix(
     let low = _SearchCustomPrefix(
         prefix,
         custom_prefixes.low,
-        CustomHandlerPriority.low
+        CustomHandlerPriority.Low
     );
 
     if (low) return low;
@@ -76,7 +76,7 @@ export function SearchCustomPrefix(
     let lowest = _SearchCustomPrefix(
         prefix,
         custom_prefixes.lowest,
-        CustomHandlerPriority.lowest
+        CustomHandlerPriority.Lowest
     );
 
     if (lowest) return lowest;
