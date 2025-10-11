@@ -25,6 +25,13 @@ with various styles and colors for terminal output.
   Removes a custom base sub-formatter function from the Formatter.
   Throws an error if the sub-formatter does not exist.
 
+- [**`Formatter.AddCustomPrefix(name: string, ...): void`**](/contents/advanced/custom_formats/):
+  Adds a user-defined format that can perform text operations beyond
+  the built-in capabilities of the Formatter.
+
+- [**`Formatter.RemoveCustomPrefix(name: string, ...): void`**](/contents/advanced/custom_formats/):
+  Removes a user-defined format from the Formatter.
+
 ## Format Specifiers
 
 The Formatter supports two main types of sub-formatters:
