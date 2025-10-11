@@ -15,11 +15,11 @@ export class ListenerCollection {
 }
 
 export class NamedListenerCollection {
-    highest = new Map<string, CustomHandlerFunction[]>();
-    high = new Map<string, CustomHandlerFunction[]>();
-    normal = new Map<string, CustomHandlerFunction[]>()
-    low = new Map<string, CustomHandlerFunction[]>();
-    lowest = new Map<string, CustomHandlerFunction[]>();
+    highest = new Map<string, CustomHandlerFunction>();
+    high = new Map<string, CustomHandlerFunction>();
+    normal = new Map<string, CustomHandlerFunction>()
+    low = new Map<string, CustomHandlerFunction>();
+    lowest = new Map<string, CustomHandlerFunction>();
 }
 
 export class OrderedNamedListenerCollection {
