@@ -6,13 +6,11 @@
 
 import type { CustomHandlerFunction } from "./type.js";
 import CustomHandlerPriority from "./priority.js";
+import ListenerCollection from "../listener_collection.js";
 
 const custom_prefixes = {
-    highest: new Map<string, CustomHandlerFunction>(),
-    high: new Map<string, CustomHandlerFunction>(),
-    medium: new Map<string, CustomHandlerFunction>(),
-    low: new Map<string, CustomHandlerFunction>(),
-    lowest: new Map<string, CustomHandlerFunction>(),
+    pre: new ListenerCollection(),
+    post: new ListenerCollection(),
 };
 
 function _SearchCustomPrefix(
