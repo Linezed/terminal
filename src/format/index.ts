@@ -9,6 +9,8 @@ import type { PrefixFunction } from "./prefix/type.js";
 import prefixes from "./prefix/collection.js";
 import type { BaseFormatFunction } from "./base/type.js";
 import base_fns from "./base/collection.js";
+import type { CustomHandlerFunction } from "./custom/type.js";
+import custom_prefixes from "./custom/collection.js";
 
 export default class Formatter {
     public static FormatWithProps(
@@ -48,7 +50,7 @@ export default class Formatter {
 
     public static AddPrefix(name: string, fn: PrefixFunction) {
         // Make sure the prefix doesn't already exist
-        if (name in prefixes) {
+        if (prefixes.has(name)) {
             throw new Error(`Prefix "${name}" already exists.`);
         }
 
@@ -58,7 +60,7 @@ export default class Formatter {
 
     public static RemovePrefix(name: string) {
         // Make sure the prefix exists
-        if (!(name in prefixes)) {
+        if (!(prefixes.has(name))) {
             throw new Error(`Prefix "${name}" does not exist.`);
         }
 
@@ -68,7 +70,7 @@ export default class Formatter {
 
     public static AddFormat(name: string, fn: BaseFormatFunction) {
         // Make sure the format doesn't already exist
-        if (name in base_fns) {
+        if (base_fns.has(name)) {
             throw new Error(`Format "${name}" already exists.`);
         }
 
@@ -78,11 +80,27 @@ export default class Formatter {
 
     public static RemoveFormat(name: string) {
         // Make sure the format exists
-        if (!(name in base_fns)) {
+        if (!(base_fns.has(name))) {
             throw new Error(`Format "${name}" does not exist.`);
         }
 
         // Remove the format
         base_fns.delete(name);
+    }
+
+    public static AddCustomPrefix(name: string, fn: CustomHandlerFunction) {
+        if (custom_prefixes.has(name)) {
+            throw new Error(`Custom format "${name}" already exists.`);
+        }
+
+        custom_prefixes.set(name, fn);
+    }
+
+    public static RemoveCustomPrefix(name: string) {
+        if (!(custom_prefixes.has(name))) {
+            throw new Error(`Custom format "${name}" does not exist.`);
+        }
+
+        custom_prefixes.delete(name);
     }
 }
