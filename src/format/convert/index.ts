@@ -11,6 +11,7 @@ import MatchType, { MatchInstance } from "../../types/type_matcher.js";
 import Types from "../../types/types.js";
 import ColorKeys from "../color_keys.js";
 import type { CustomHandlerFunction } from "../custom/type.js";
+import type ListenerCollection from "../listener_collection.js";
 
 function _RunHandlers(handlers: CustomHandlerFunction[] | undefined, obj: any, state: State) {
     if (handlers) {
@@ -21,6 +22,19 @@ function _RunHandlers(handlers: CustomHandlerFunction[] | undefined, obj: any, s
     }
 
     return obj;
+}
+
+function _IterateAndRunCollection(
+    base: any,
+    coll: ListenerCollection
+) {
+    base = _RunHandlers(coll.highest, base, state);
+    base = _RunHandlers(coll.high, base, state);
+    base = _RunHandlers(coll.medium, base, state);
+    base = _RunHandlers(coll.low, base, state);
+    base = _RunHandlers(coll.lowest, base, state);
+
+    return base;
 }
 
 export default function ConvertState(
@@ -55,12 +69,8 @@ export default function ConvertState(
         }
     }
 
-    // Run all custom handlers
-    base = _RunHandlers(state.custom.highest, base, state);
-    base = _RunHandlers(state.custom.high, base, state);
-    base = _RunHandlers(state.custom.medium, base, state);
-    base = _RunHandlers(state.custom.low, base, state);
-    base = _RunHandlers(state.custom.lowest, base, state);
+    // Run all pre custom handlers
+    base = _IterateAndRunCollection(base, state.custom.pre);
 
     // Check if we are supposed to format floats
     if (state.precision) {
@@ -142,6 +152,9 @@ export default function ConvertState(
             );
         }
     }
+
+    // Run all post custom handlers
+    base = _IterateAndRunCollection(base, state.custom.post);
 
     // Apply colors
     if (state.color) {
