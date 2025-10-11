@@ -5,6 +5,7 @@
  */
 
 import type { CustomHandlerFunction } from "./custom/type.js";
+import ListenerCollection from "./listener_collection.js";
 
 export class State {
     /// The color of the string.
@@ -21,11 +22,8 @@ export class State {
 
     /// Selected custom formats
     custom = {
-        highest: [] as CustomHandlerFunction[],
-        high: [] as CustomHandlerFunction[],
-        medium: [] as CustomHandlerFunction[],
-        low: [] as CustomHandlerFunction[],
-        lowest: [] as CustomHandlerFunction[]
+        pre: new ListenerCollection(),
+        post: new ListenerCollection()
     };
 
     /// Prop access.
