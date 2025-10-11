@@ -12,6 +12,7 @@ import base_fns from "./base/collection.js";
 import type { CustomHandlerFunction } from "./custom/type.js";
 import custom_prefixes, {SearchCustomPrefix} from "./custom/collection.js";
 import Priority from "./custom/priority.js";
+import type CustomHandlerOrder from "./custom/order.js";
 
 export default class Formatter {
     public static FormatWithProps(
@@ -92,28 +93,33 @@ export default class Formatter {
     public static AddCustomPrefix(
         name: string,
         fn: CustomHandlerFunction,
-        priority: Priority
+        priority: Priority,
+        order: CustomHandlerOrder
     ) {
         if (SearchCustomPrefix(name, priority) !== undefined) {
             throw new Error(`Custom format "${name}" already exists.`);
         }
 
         // Add to the appropriate priority map
+        const collection = order === CustomHandlerOrder.Pre ?
+            custom_prefixes.pre :
+            custom_prefixes.post;
+        
         switch (priority) {
             case Priority.Highest:
-                custom_prefixes.highest.set(name, fn);
+                collection.highest.set(name, fn);
                 break;
             case Priority.High:
-                custom_prefixes.high.set(name, fn);
+                collection.high.set(name, fn);
                 break;
             case Priority.Normal:
-                custom_prefixes.normal.set(name, fn);
+                collection.normal.set(name, fn);
                 break;
             case Priority.Low:
-                custom_prefixes.low.set(name, fn);
+                collection.low.set(name, fn);
                 break;
             case Priority.Lowest:
-                custom_prefixes.lowest.set(name, fn);
+                collection.lowest.set(name, fn);
                 break;
             default:
                 throw new Error("Invalid priority level.");
