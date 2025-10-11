@@ -6,18 +6,45 @@
 
 import type { CustomHandlerFunction } from "./type.js";
 import CustomHandlerPriority from "./priority.js";
-import OrderedListenerCollection from "../listener_collection.js";
+import {
+    OrderedNamedListenerCollection,
+} from "../listener_collection.js";
 
-const custom_prefixes = new OrderedListenerCollection();
+const custom_prefixes = new OrderedNamedListenerCollection();
 
 function _SearchCustomPrefix(
     prefix: string,
-    obj: Map<string, CustomHandlerPriority>,
+    obj: OrderedNamedListenerCollection,
     priority: CustomHandlerPriority
 ) {
-    if (obj.has(prefix)) {
-        return [obj.get(prefix), priority] as
-            [CustomHandlerFunction, CustomHandlerPriority];
+    const levels = [obj.pre, obj.post];
+
+    for (const level of levels) {
+        let map: Map<string, CustomHandlerFunction[]>;
+
+        switch (priority) {
+            case CustomHandlerPriority.Highest:
+                map = level.highest;
+                break;
+            case CustomHandlerPriority.High:
+                map = level.high;
+                break;
+            case CustomHandlerPriority.Normal:
+                map = level.normal;
+                break;
+            case CustomHandlerPriority.Low:
+                map = level.low;
+                break;
+            case CustomHandlerPriority.Lowest:
+                map = level.lowest;
+                break;
+            default:
+                throw new Error("Invalid priority level.");
+        }
+
+        if (map.has(prefix)) {
+            return [map.get(prefix), priority];
+        }
     }
 }
 
@@ -27,11 +54,13 @@ export function SearchCustomPrefix(
 ): [CustomHandlerFunction, CustomHandlerPriority] | undefined {
     // Search in specified priority level first
     if (priority) {
-        const level = custom_prefixes[priority];
-        if (level.has(prefix)) {
-            return [level.get(prefix), priority];
-        }
+        let res = _SearchCustomPrefix(
+            prefix,
+            custom_prefixes,
+            priority
+        );
 
+        if (res) return res;
         // Fallback to searching all levels if not
         // found in specified priority
     }
