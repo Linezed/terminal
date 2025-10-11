@@ -11,7 +11,7 @@ import CustomHandlerPriority from "../src/format/custom/priority";
 import CustomHandlerOrder from "../src/format/custom/order";
 
 test("honors custom formatters", () => {
-    Formatter.AddCustomPrefix("MyFormat", (obj, state) => {
+    Formatter.AddCustomPrefix("MyFormat", (obj, _) => {
         obj = obj.toString().toUpperCase();
         return obj;
     }, CustomHandlerPriority.Highest, CustomHandlerOrder.Post);
