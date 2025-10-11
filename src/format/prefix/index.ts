@@ -8,7 +8,7 @@ import type { State } from "../state.js";
 import prefixes from "./collection.js";
 import UnknownFormat from "../unknown_format.js";
 import FormatPadding from "./preset/padding.js";
-import custom_prefixes, { SearchCustomPrefix } from "../custom/collection.js";
+import { SearchCustomPrefix } from "../custom/collection.js";
 import CustomHandlerPriority from "../custom/priority.js";
 
 export default function FormatPrefix(
@@ -22,7 +22,7 @@ export default function FormatPrefix(
     // Padding
     if (pref.startsWith(">") || pref.startsWith("<")) {
         FormatPadding(pref, state);
-        return false; // Exit after handling padding
+        return; // Exit after handling padding
     }
 
     // Custom prefixes
@@ -56,7 +56,7 @@ export default function FormatPrefix(
                 break;
         }
 
-        return true; // Exit after handling custom prefix
+        return; // Exit after handling custom prefix
     }
 
     // Determine what to do based on the prefix
@@ -69,5 +69,4 @@ export default function FormatPrefix(
 
     // Call the prefix function
     fn(pref, state);
-    return false;
 }
