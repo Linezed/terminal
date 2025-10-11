@@ -19,6 +19,9 @@ export class State {
     /// Boolean formatting.
     boolean: boolean = false;
 
+    /// Selected custom formats
+    custom: CustomHandlerFunction[] = undefined as [] | undefined;
+
     /// Prop access.
     prop = {
         name: undefined as string | undefined,
