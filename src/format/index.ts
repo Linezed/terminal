@@ -138,21 +138,26 @@ export default class Formatter {
 
         // Remove from the appropriate priority map
         const p = search[1];
+        const order = search[2];
+        const coll = order === CustomHandlerOrder.Pre ?
+            custom_prefixes.pre :
+            custom_prefixes.post;
+
         switch (p) {
             case Priority.Highest:
-                custom_prefixes.highest.delete(name);
+                coll.highest.delete(name);
                 break;
             case Priority.High:
-                custom_prefixes.high.delete(name);
+                coll.high.delete(name);
                 break;
             case Priority.Normal:
-                custom_prefixes.normal.delete(name);
+                coll.normal.delete(name);
                 break;
             case Priority.Low:
-                custom_prefixes.low.delete(name);
+                coll.low.delete(name);
                 break;
             case Priority.Lowest:
-                custom_prefixes.lowest.delete(name);
+                coll.lowest.delete(name);
                 break;
             default:
                 throw new Error("Invalid priority level.");
