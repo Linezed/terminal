@@ -5,7 +5,81 @@
  */
 
 import type { CustomHandlerFunction } from "./type.js";
+import CustomHandlerPriority from "./priority.js";
 
-const custom_prefixes = new Map<string, CustomHandlerFunction>();
+const custom_prefixes = {
+    highest: new Map<string, CustomHandlerFunction>(),
+    high: new Map<string, CustomHandlerFunction>(),
+    medium: new Map<string, CustomHandlerFunction>(),
+    low: new Map<string, CustomHandlerFunction>(),
+    lowest: new Map<string, CustomHandlerFunction>(),
+};
+
+function _SearchCustomPrefix(
+    prefix: string,
+    obj: Map<string, CustomHandlerPriority>,
+    priority: CustomHandlerPriority
+) {
+    if (obj.has(prefix)) {
+        return [obj.get(prefix), priority] as
+            [CustomHandlerFunction, CustomHandlerPriority];
+    }
+}
+
+export function SearchCustomPrefix(
+    prefix: string,
+    priority?: CustomHandlerPriority
+): [CustomHandlerFunction, CustomHandlerPriority] | undefined {
+    // Search in specified priority level first
+    if (priority) {
+        const level = custom_prefixes[priority];
+        if (level.has(prefix)) {
+            return [level.get(prefix), priority];
+        }
+
+        // Fallback to searching all levels if not
+        // found in specified priority
+    }
+
+    let highest = _SearchCustomPrefix(
+        prefix,
+        custom_prefixes.highest,
+        CustomHandlerPriority.highest
+    );
+
+    if (highest) return highest;
+
+    let high = _SearchCustomPrefix(
+        prefix,
+        custom_prefixes.high,
+        CustomHandlerPriority.high
+    );
+
+    if (high) return high;
+
+    let medium = _SearchCustomPrefix(
+        prefix,
+        custom_prefixes.medium,
+        CustomHandlerPriority.medium
+    );
+
+    if (medium) return medium;
+
+    let low = _SearchCustomPrefix(
+        prefix,
+        custom_prefixes.low,
+        CustomHandlerPriority.low
+    );
+
+    if (low) return low;
+
+    let lowest = _SearchCustomPrefix(
+        prefix,
+        custom_prefixes.lowest,
+        CustomHandlerPriority.lowest
+    );
+
+    if (lowest) return lowest;
+}
 
 export default custom_prefixes;

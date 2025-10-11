@@ -10,7 +10,8 @@ import prefixes from "./prefix/collection.js";
 import type { BaseFormatFunction } from "./base/type.js";
 import base_fns from "./base/collection.js";
 import type { CustomHandlerFunction } from "./custom/type.js";
-import custom_prefixes from "./custom/collection.js";
+import custom_prefixes, {SearchCustomPrefix} from "./custom/collection.js";
+import Priority from "./custom/priority.js";
 
 export default class Formatter {
     public static FormatWithProps(
@@ -88,19 +89,67 @@ export default class Formatter {
         base_fns.delete(name);
     }
 
-    public static AddCustomPrefix(name: string, fn: CustomHandlerFunction) {
-        if (custom_prefixes.has(name)) {
+    public static AddCustomPrefix(
+        name: string,
+        fn: CustomHandlerFunction,
+        priority: Priority
+    ) {
+        if (SearchCustomPrefix(name, priority) !== undefined) {
             throw new Error(`Custom format "${name}" already exists.`);
         }
 
-        custom_prefixes.set(name, fn);
+        // Add to the appropriate priority map
+        switch (priority) {
+            case Priority.Highest:
+                custom_prefixes.highest.set(name, fn);
+                break;
+            case Priority.High:
+                custom_prefixes.high.set(name, fn);
+                break;
+            case Priority.Normal:
+                custom_prefixes.normal.set(name, fn);
+                break;
+            case Priority.Low:
+                custom_prefixes.low.set(name, fn);
+                break;
+            case Priority.Lowest:
+                custom_prefixes.lowest.set(name, fn);
+                break;
+            default:
+                throw new Error("Invalid priority level.");
+        }
     }
 
-    public static RemoveCustomPrefix(name: string) {
-        if (!(custom_prefixes.has(name))) {
+    public static RemoveCustomPrefix(
+        name: string,
+        priority?: Priority
+    ) {
+        let search = SearchCustomPrefix(name, priority);
+
+        if (search === undefined) {
             throw new Error(`Custom format "${name}" does not exist.`);
         }
 
-        custom_prefixes.delete(name);
+        // Remove from the appropriate priority map
+        const p = search[1];
+        switch (p) {
+            case Priority.Highest:
+                custom_prefixes.highest.delete(name);
+                break;
+            case Priority.High:
+                custom_prefixes.high.delete(name);
+                break;
+            case Priority.Normal:
+                custom_prefixes.normal.delete(name);
+                break;
+            case Priority.Low:
+                custom_prefixes.low.delete(name);
+                break;
+            case Priority.Lowest:
+                custom_prefixes.lowest.delete(name);
+                break;
+            default:
+                throw new Error("Invalid priority level.");
+        }
     }
 }
