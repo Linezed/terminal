@@ -11,7 +11,7 @@ import Types from "./types/types.js";
 import LineReader from "./stream/line_reader.js";
 import ConvertToType from "./types/converter.js";
 import * as Colors from "./colors/colors.js";
-import Formatter from "./format/formatter.js";
+import Formatter from "./format/index.js";
 import ArgvErrorCode from "./cli/interface/argv/codes.js";
 import IArgv from "./cli/impl/argv/argv.js";
 import IFlag from "./cli/impl/flag.js";
@@ -20,6 +20,10 @@ import type Config from "./cli/interface/config/config.js";
 import DefaultConfig from "./cli/impl/config/config.js";
 import IConfig from "./cli/impl/config/config.js";
 import { State } from "./format/state.js";
+import UnknownFormat from "./format/unknown_format.js";
+import CustomHandlerPriority from "./format/custom/priority.js";
+import CustomHandlerOrder from "./format/custom/order.js";
+import LookupOrder from "./cli/interface/argv/lookup_order.js";
 
 export default class Terminal {
     /// The output stream for the terminal.
@@ -91,7 +95,10 @@ process.on("uncaughtException", (_) => {
 // Other exports
 export {
     ArgvErrorCode,
+    BufferedOStream,
     Colors,
+    CustomHandlerOrder,
+    CustomHandlerPriority,
     DefaultConfig,
     Formatter,
     IApp,
@@ -99,6 +106,9 @@ export {
     IConfig,
     ICommand,
     IFlag,
+    LookupOrder,
+    LineReader,
     State,
-    Types
+    Types,
+    UnknownFormat
 };

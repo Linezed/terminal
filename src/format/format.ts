@@ -43,6 +43,7 @@ export default function FormatOutput(
 
         // Check if we have a prefix formatter
         if (part.startsWith(":")) {
+            // true = Parsed custom handler
             FormatPrefix(part, state);
         } else {
             // Use the base formatter
@@ -51,5 +52,9 @@ export default function FormatOutput(
     }
 
     // Apply the formatting based on the state
-    return [ConvertState(arg_idx, props, state, args), idx, !state.prop.name];
+    return [
+        ConvertState(arg_idx, props, state, args),
+        idx,
+        !state.prop.name
+    ];
 }

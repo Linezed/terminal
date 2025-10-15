@@ -9,7 +9,8 @@ import type Command from "../../interface/command.js";
 import ArgvException from "./exception.js";
 import ArgvErrorCode from "../../interface/argv/codes.js";
 import Types from "../../../types/types.js";
-import ConvertToType from "../../../types/converter.js";
+import SetFlagValue from "./flag_value.js";
+import type FlagCollection from "./flag_collection.js";
 
 function _ThrowUnknownFlag() {
     throw new ArgvException(ArgvErrorCode.UnknownFlag, "Unknown flag");
@@ -20,43 +21,20 @@ function _FindFlag(
     cmd: Command | undefined,
     flags: Map<string, Flag>
 ): Flag {
-    // Make sure the flag has been found
-    if (!flags.has(name as string)) {
-        // Last resort: Try to find the flag in the command
-        if (cmd && cmd.flags.has(name as string)) {
-            return cmd.flags.get(name as string) as Flag;
-        }
+    // Prioritize local flags
+    if (cmd && cmd.flags.has(name as string)) {
+        let f = cmd.flags.get(name as string) as Flag;
+        f.local = true; // Mark as local flag
+        return f;
+    }
 
+    if (!flags.has(name as string)) {
         _ThrowUnknownFlag();
     }
 
-    return flags.get(name as string) as Flag;
-}
-
-export function SetFlagValue(
-    flag: Flag,
-    val: string,
-    strings: Map<string, string> = new Map(),
-    bools: Map<string, boolean> = new Map(),
-    numbers: Map<string, number> = new Map()
-) {
-    // Try to parse the value's type
-    let result = ConvertToType(flag.Type() as Types, val);
-
-    // Put the correct flag in the correct map
-    switch (flag.Type()) {
-        case Types.String:
-            strings.set(flag.Name(), result as string);
-            break;
-
-        case Types.Number:
-            numbers.set(flag.Name(), result as number);
-            break;
-
-        case Types.Boolean:
-            bools.set(flag.Name(), result as boolean);
-            break;
-    }
+    let flag = flags.get(name as string) as Flag;
+    flag.local = false; // Mark as non-local flag
+    return flag;
 }
 
 export default function ParseFlag(
@@ -64,9 +42,8 @@ export default function ParseFlag(
     cmd: Command | undefined,
     flags: Map<string, Flag>,
     required_flags: Set<string>,
-    strings: Map<string, string> = new Map(),
-    bools: Map<string, boolean> = new Map(),
-    numbers: Map<string, number> = new Map()
+    local: FlagCollection,
+    global: FlagCollection
 ): Flag | undefined {
     let name: string | undefined;
     let val: string | undefined;
@@ -117,7 +94,11 @@ export default function ParseFlag(
             }
 
             // Set the flag to true in boolean flags
-            bools.set(flag.Name(), true);
+            if (flag.local) {
+                local.bools.set(flag.Name(), true);
+            } else {
+                global.bools.set(flag.Name(), true);
+            }
 
             // Remove from required flags
             required_flags.delete(flag.Name());
@@ -141,7 +122,11 @@ export default function ParseFlag(
         }
 
         // Set in the boolean flags
-        bools.set(flag.Name(), true);
+        if (flag.local) {
+            local.bools.set(flag.Name(), true);
+        } else {
+            global.bools.set(flag.Name(), true);
+        }
         return;
     }
 
@@ -150,7 +135,7 @@ export default function ParseFlag(
         // Remove from required flags
         required_flags.delete(flag.Name());
 
-        SetFlagValue(flag, val, strings, bools, numbers);
+        SetFlagValue(flag, val, local, global);
         return; // No return value
     }
 

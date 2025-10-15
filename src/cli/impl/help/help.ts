@@ -5,7 +5,7 @@
  */
 
 import type Argv from "../../interface/argv/argv.js";
-import Formatter from "../../../format/formatter.js";
+import Formatter from "../../../format/index.js";
 import type App from "../../interface/app.js";
 import CreateTypeText from "./types.js";
 import CreateFlagsSection from "./flags.js";
@@ -106,12 +106,12 @@ export default function GenerateHelp(
                 config
             );
         }
+
+        resp += "\n"; // New line
     }
 
     // Add available flags
     if (app.Flags().size > 0) {
-        resp += "\n"; // New line
-
         resp += Formatter.FormatWithProps(
             config.format.flag.header.format,
             app,

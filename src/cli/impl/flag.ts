@@ -22,6 +22,9 @@ export default class IFlag
     /// The default value for the flag.
     default: any;
 
+    /// Whether the flag is local (belongs to a specific command) or global (belongs to the entire application).
+    local: boolean = false;
+
     /// Whether the flag is required.
     required: boolean = false;
 
@@ -84,5 +87,9 @@ export default class IFlag
         } else {
             return super.Shortcut();
         }
+    }
+
+    Local(): boolean {
+        return this.local;
     }
 }

@@ -10,6 +10,33 @@ import FormatValue from "../value.js";
 import MatchType, { MatchInstance } from "../../types/type_matcher.js";
 import Types from "../../types/types.js";
 import ColorKeys from "../color_keys.js";
+import type { CustomHandlerFunction } from "../custom/type.js";
+import { ListenerCollection } from "../listener_collection.js";
+
+function _RunHandlers(handlers: CustomHandlerFunction[] | undefined, obj: any, state: State) {
+    if (handlers) {
+        for (const handler of handlers) {
+            obj = handler(obj, state);
+            MatchType(Types.String, obj);
+        }
+    }
+
+    return obj;
+}
+
+function _IterateAndRunCollection(
+    base: any,
+    coll: ListenerCollection,
+    state: State
+) {
+    base = _RunHandlers(coll.highest, base, state);
+    base = _RunHandlers(coll.high, base, state);
+    base = _RunHandlers(coll.normal, base, state);
+    base = _RunHandlers(coll.low, base, state);
+    base = _RunHandlers(coll.lowest, base, state);
+
+    return base;
+}
 
 export default function ConvertState(
     arg_idx: number,
@@ -29,7 +56,22 @@ export default function ConvertState(
     } else {
         // Otherwise, use the argument at the specified index
         base = args[arg_idx];
+
+        // Detect other cases
+        if (!base && state.text.prefix) {
+            throw new Error(
+                `A prefix with no positional argument is not allowed. Either provide an argument or remove the prefix.`
+            ); // Prefix with no argument
+        }
+
+        // Base case
+        if (!base) {
+            throw new Error(`Argument at index ${arg_idx} is undefined or null`); // Argument not found
+        }
     }
+
+    // Run all pre custom handlers
+    base = _IterateAndRunCollection(base, state.custom.pre, state);
 
     // Check if we are supposed to format floats
     if (state.precision) {
@@ -55,6 +97,10 @@ export default function ConvertState(
     else if (state.date.utc) {
         MatchInstance(Date, base);
         base = (base as Date).toUTCString();
+    }
+    else if (state.boolean) {
+        MatchType(Types.Boolean, base);
+        base = base ? "true" : "false";
     }
     // Use default value if base is null or undefined
     else {
@@ -107,6 +153,9 @@ export default function ConvertState(
             );
         }
     }
+
+    // Run all post custom handlers
+    base = _IterateAndRunCollection(base, state.custom.post, state);
 
     // Apply colors
     if (state.color) {

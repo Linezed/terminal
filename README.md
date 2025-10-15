@@ -94,16 +94,6 @@ if (res.Error) {
 
 ---
 
-### Other utilities
-
-- `Terminal.Args()`: Retrieves command-line arguments.
-- `Terminal.Types`: Provides various data types for commands and flags.
-- `Terminal.Read()`: Reads input from the terminal.
-- `Terminal.Colors.*`: Utilities for colored terminal output.
-- `Terminal.Cursor.*`: Utilities for cursor manipulation in the terminal.
-
----
-
 ### License
 
 This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.

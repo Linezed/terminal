@@ -12,15 +12,10 @@ export default interface ArgvError {
     code: ArgvErrorCode;
     /// The error message
     message: string;
-    /// Additional details about the error
-    details?: string | undefined;
 
     /// Getter for the error code
     Code(): ArgvErrorCode;
 
     /// Getter for the error message
     Message(): string;
-
-    /// Getter for additional details about the error
-    Data(): string | undefined;
 }

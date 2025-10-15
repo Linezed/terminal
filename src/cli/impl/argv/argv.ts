@@ -9,7 +9,7 @@ import type ArgvError from "../../interface/argv/error.js";
 import type App from "../../interface/app.js";
 import type Flag from "../flag.js";
 import type Command from "../../interface/command.js";
-import ParseFlag, { SetFlagValue } from "./flag.js";
+import ParseFlag from "./flag.js";
 import ArgvException from "./exception.js";
 import ArgvErrorCode from "../../interface/argv/codes.js";
 import ConvertToType from "../../../types/converter.js";
@@ -17,6 +17,9 @@ import ParseCommand from "./command.js";
 import IArgvError from "./error.js";
 import Types from "../../../types/types.js";
 import MatchType from "../../../types/type_matcher.js";
+import FlagCollection from "./flag_collection.js";
+import SetFlagValue from "./flag_value.js";
+import LookupOrder from "../../interface/argv/lookup_order.js";
 
 function _GetFlag(name: string, owner: App, cmd: Command) {
     // Attempt to get the default value from the owner
@@ -37,6 +40,43 @@ function _GetFlag(name: string, owner: App, cmd: Command) {
     return flag;
 }
 
+function _LookupValue<T>(name: string, order: LookupOrder, localMap: Map<string, T>, globalMap: Map<string, T>): T | undefined {
+    // Determine the order of lookup
+    const sources =
+        order == LookupOrder.LocalThenGlobal ? [localMap, globalMap]
+            : order == LookupOrder.GlobalThenLocal ? [globalMap, localMap]
+            : order == LookupOrder.LocalOnly ? [localMap]
+                : [globalMap];
+
+    // Lookup the value in the specified order
+    for (const src of sources) {
+        const attempt = src.get(name);
+        if (attempt !== undefined) return attempt;
+    }
+
+    return undefined;
+}
+
+function _HandleError(
+    argv: Argv,
+    code: ArgvErrorCode | undefined,
+    message: string
+) {
+    // Create the error if it doesn't exist
+    if (!argv.Error) {
+        argv.Error = new IArgvError();
+    }
+
+    if (code) {
+        argv.Error.code = code;
+        argv.Error.message = message;
+        return;
+    }
+
+    argv.Error.code = ArgvErrorCode.TypeMismatch;
+    argv.Error.message = message;
+}
+
 export default class IArgv implements Argv {
     /// The owner of the argv
     owner: App | undefined = undefined;
@@ -47,14 +87,11 @@ export default class IArgv implements Argv {
     /// The parsed command
     command: Command | undefined = undefined;
 
-    /// String flags
-    strings: Map<string, string> = new Map();
+    /// Collection of local flags
+    local = new FlagCollection();
 
-    /// Boolean flags
-    bools: Map<string, boolean> = new Map();
-
-    /// Number flags
-    numbers: Map<string, number> = new Map();
+    /// Collection of global flags
+    global = new FlagCollection();
 
     /// The value of the command
     val: any = undefined;
@@ -92,10 +129,10 @@ export default class IArgv implements Argv {
                     SetFlagValue(
                         last_flag,
                         arg,
-                        this.strings,
-                        this.bools,
-                        this.numbers
+                        this.local,
+                        this.global
                     );
+
                     last_flag = undefined; // No longer waiting on the value
                     continue;
                 }
@@ -104,10 +141,13 @@ export default class IArgv implements Argv {
                 if (arg.startsWith("-")) {
                     // Check if we're waiting for a value
                     if (last_flag) {
-                        throw new ArgvException(
+                        _HandleError(
+                            this,
                             ArgvErrorCode.ExpectedValue,
                             "Expected a value, not a flag"
                         );
+
+                        return;
                     }
 
                     // Set the last flag
@@ -116,9 +156,8 @@ export default class IArgv implements Argv {
                         cmd,
                         flags,
                         required_flags,
-                        this.strings,
-                        this.bools,
-                        this.numbers
+                        this.local,
+                        this.global
                     );
 
                     continue;
@@ -133,10 +172,13 @@ export default class IArgv implements Argv {
 
                 // Make sure we haven't parsed a command already
                 if (this.val) {
-                    throw new ArgvException(
+                    _HandleError(
+                        this,
                         ArgvErrorCode.AlreadyParsedCommand,
                         "Already parsed a command value"
                     );
+
+                    return;
                 }
 
                 // Parse the command
@@ -146,25 +188,32 @@ export default class IArgv implements Argv {
 
             // Make sure we have parsed a value
             if (!this.val) {
-                throw new ArgvException(
+                _HandleError(
+                    this,
                     ArgvErrorCode.NotParsedCommand,
-                    "Never parsed a command value"
+                    "Missing command"
                 );
+
+                return;
             }
 
             // Make sure we aren't expecting a value
             if (cmd || last_flag) {
-                throw new ArgvException(
+                _HandleError(
+                    this,
                     ArgvErrorCode.ExpectedValue,
-                    "Expected a value"
+                    "Expected a value, not the end of input"
                 );
+
+                return;
             }
 
             // Make sure all required flags are present
             if (required_flags.size != 0) {
-                throw new ArgvException(
+                _HandleError(
+                    this,
                     ArgvErrorCode.MissingRequired,
-                    "One or more required flags are missing"
+                    `Missing required flag: ${[...required_flags].join(", ")}`
                 );
             }
 
@@ -172,23 +221,12 @@ export default class IArgv implements Argv {
             this.command = cmds.get(cmd_name as string);
         } catch (e) {
             if (e instanceof ArgvException) {
-                // Set the appropriate code
-                if (!this.Error) {
-                    this.Error = new IArgvError();
-                }
-
-                this.Error.code = e.code;
-                this.Error.message = e.message;
+                _HandleError(this, e.code, e.message);
                 return;
             }
 
-            // Formatting exception
-            if (!this.Error) {
-                this.Error = new IArgvError();
-            }
-
-            this.Error.code = ArgvErrorCode.TypeMismatch;
-            this.Error.message = (e as Error).message;
+            _HandleError(this, undefined, (e as Error).message);
+            return;
         }
 
         // Fire the handler
@@ -199,19 +237,26 @@ export default class IArgv implements Argv {
         return this.val;
     }
 
-    Boolean(name: string): boolean {
-        // Get the boolean flag
-        if (this.bools.has(name)) {
-            return this.bools.get(name) as boolean;
+    Boolean(name: string, order: LookupOrder = LookupOrder.LocalThenGlobal): boolean {
+        let first_attempt = _LookupValue<boolean>(name, order, this.local.bools, this.global.bools);
+        if (first_attempt !== undefined) {
+            return first_attempt;
         }
 
+        // Get the default value from the flag
         return !!_GetFlag(name, this.owner as App, this.command!).Default();
     }
 
-    String(name: string): string {
-        // Get the string flag
-        if (this.strings.has(name)) {
-            return this.strings.get(name) as string;
+    String(name: string, order: LookupOrder = LookupOrder.LocalThenGlobal): string {
+        let first_attempt = _LookupValue<string>(
+            name,
+            order,
+            this.local.strings,
+            this.global.strings
+        );
+
+        if (first_attempt !== undefined) {
+            return first_attempt;
         }
 
         // Perform type checking
@@ -221,10 +266,16 @@ export default class IArgv implements Argv {
         return flag.Default();
     }
 
-    Number(name: string): number {
-        // Get the number flag
-        if (this.numbers.has(name)) {
-            return this.numbers.get(name) as number;
+    Number(name: string, order: LookupOrder = LookupOrder.LocalThenGlobal): number {
+        let first_attempt = _LookupValue<number>(
+            name,
+            order,
+            this.local.numbers,
+            this.global.numbers
+        );
+
+        if (first_attempt !== undefined) {
+            return first_attempt;
         }
 
         // Perform type checking
@@ -234,23 +285,43 @@ export default class IArgv implements Argv {
         return flag.Default();
     }
 
-    HasBoolean(name: string): boolean {
-        return this.bools.has(name) as boolean;
+    HasBoolean(name: string, order: LookupOrder = LookupOrder.LocalThenGlobal): boolean {
+        return _LookupValue<boolean>(
+            name,
+            order,
+            this.local.bools,
+            this.global.bools
+        ) !== undefined;
     }
 
-    HasString(name: string): boolean {
-        throw this.strings.has(name) as boolean;
+    HasString(name: string, order: LookupOrder = LookupOrder.LocalThenGlobal): boolean {
+        return _LookupValue<string>(
+            name,
+            order,
+            this.local.strings,
+            this.global.strings
+        ) !== undefined;
     }
 
-    HasNumber(name: string): boolean {
-        throw this.numbers.has(name) as boolean;
+    HasNumber(name: string, order: LookupOrder = LookupOrder.LocalThenGlobal): boolean {
+        return _LookupValue<number>(
+            name,
+            order,
+            this.local.numbers,
+            this.global.numbers
+        ) !== undefined;
     }
 
-    Has(name: string): boolean {
-        throw (
-            this.HasBoolean(name) ||
-            this.HasNumber(name) ||
-            this.HasString(name)
-        );
+    Has(name: string, order: LookupOrder = LookupOrder.LocalThenGlobal): boolean {
+        const collections = order == LookupOrder.LocalThenGlobal ? [this.local, this.global]
+            : order == LookupOrder.GlobalThenLocal ? [this.global, this.local]
+                : order == LookupOrder.LocalOnly ? [this.local]
+                    : [this.global];
+
+        for (const src of collections) {
+            if (src.Has(name)) return true;
+        }
+
+        return false;
     }
 }

@@ -4,6 +4,8 @@
  License: MIT
  */
 
+import OrderedListenerCollection from "./listener_collection.js";
+
 export class State {
     /// The color of the string.
     color: string | undefined = undefined;
@@ -13,6 +15,12 @@ export class State {
 
     /// Spaces for JSON formatting.
     json: undefined | number = undefined;
+
+    /// Boolean formatting.
+    boolean: boolean = false;
+
+    /// Selected custom formats
+    custom = new OrderedListenerCollection();
 
     /// Prop access.
     prop = {

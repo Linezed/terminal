@@ -14,6 +14,9 @@ export default interface Flag extends Nameable, Typable, Trimmable {
     /// The default value for the flag.
     default: any;
 
+    /// Whether the flag is local (belongs to a specific command) or global (belongs to the entire application).
+    local: boolean;
+
     /// Whether the flag is required.
     required: boolean;
 
@@ -28,4 +31,7 @@ export default interface Flag extends Nameable, Typable, Trimmable {
 
     /// Getter for whether the flag is required.
     Required(): boolean;
+
+    /// Getter for whether the flag is local.
+    Local(): boolean;
 }

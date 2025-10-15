@@ -14,9 +14,6 @@ export default class IArgvError implements ArgvError {
     /// The error message
     message: string = "";
 
-    /// Additional details about the error
-    details?: string | undefined;
-
     /// Getter for the error code
     Code(): ArgvErrorCode {
         return this.code;
@@ -25,10 +22,5 @@ export default class IArgvError implements ArgvError {
     /// Getter for the error message
     Message(): string {
         return this.message;
-    }
-
-    /// Getter for additional details about the error
-    Data(): string | undefined {
-        return this.details;
     }
 }

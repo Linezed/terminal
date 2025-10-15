@@ -1,0 +1,41 @@
+/*
+ @linezed/terminal
+ A simple yet powerful terminal framework for building command-line applications in TypeScript.
+ License: MIT
+ */
+
+import { test } from "uvu";
+import * as assert from "uvu/assert";
+import { Formatter } from "../src";
+
+test("formats text", () => {
+    let str = Formatter.Format("Hello, {}", "world!");
+    assert.is(str, "Hello, world!");
+
+    str = Formatter.Format("Number: {}, String: {}, Bool: {}", 42, "test", true);
+    assert.is(str, "Number: 42, String: test, Bool: true");
+
+    str = Formatter.Format("No placeholders here.");
+    assert.is(str, "No placeholders here.");
+
+    str = Formatter.FormatWithProps(
+        "Hello, {curr.name}",
+        {
+            curr: {
+                name: "world!"
+            }
+        }
+    );
+    assert.is(str, "Hello, world!");
+
+    str = Formatter.FormatWithProps(
+        "Hello, {:Upper | curr.name?}",
+        {}
+    );
+    assert.is(str, "Hello, ");
+
+    str = Formatter.Format("Pi is approximately {.2f}", 3.14159);
+    assert.is(str, "Pi is approximately 3.14");
+});
+
+test.run();
