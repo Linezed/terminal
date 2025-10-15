@@ -4,4 +4,5 @@ node_modules/
 .vscode/
 docs/.vitepress/cache
 docs/.vitepress/dist
+assets/
 package-lock.json
