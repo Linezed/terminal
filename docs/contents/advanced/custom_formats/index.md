@@ -20,6 +20,28 @@ export class State {
     /// Spaces for JSON formatting.
     json: undefined | number = undefined;
 
+    /// Boolean formatting.
+    boolean: boolean = false;
+
+    /// Selected custom formats
+    custom = {
+        pre: {
+            highest: [] as CustomHandlerFunction[],
+            high: [] as CustomHandlerFunction[],
+            normal: [] as CustomHandlerFunction[],
+            low: [] as CustomHandlerFunction[],
+            lowest: [] as CustomHandlerFunction[]
+        },
+        
+        post: {
+            highest: [] as CustomHandlerFunction[],
+            high: [] as CustomHandlerFunction[],
+            normal: [] as CustomHandlerFunction[],
+            low: [] as CustomHandlerFunction[],
+            lowest: [] as CustomHandlerFunction[]
+        }
+    };
+
     /// Prop access.
     prop = {
         name: undefined as string | undefined,
@@ -130,4 +152,133 @@ Formatter.AddFormat("s", (range: number[], state: State) => {
         throw new Error("Invalid range for .s format");
     }
 });
+```
+
+## User-defined behavior
+
+Sometimes, user-defined behavior that goes beyond the provided
+capabilities of the `State` object is needed. For example, 
+you might want to create a custom format that adds a specific prefix
+and suffix to a string, however the `State` object does not have
+properties for that.
+
+As per the reference of [Formatter](/contents/reference/formatter),
+the methods `AddCustomPrefix` and `RemoveCustomPrefix` can be used to add
+and remove user-defined formats.
+
+User-defined formats are [Prefix Formats](#the-prefixfunction-type)
+that also start with `:`, but must include a `!` after the colon to
+indicate that they are user-defined.
+
+They also have a priority level, which determines the order in which
+they are applied. The priority levels are:
+
+- Highest (`CustomHandlerPriority.Highest`)
+- High (`CustomHandlerPriority.High`)
+- Normal (`CustomHandlerPriority.Normal`)
+- Low (`CustomHandlerPriority.Low`)
+- Lowest (`CustomHandlerPriority.Lowest`)
+
+Additionally, user-defined formats can be applied either before
+or after all other formats, depending on the `order` parameter. The
+options are:
+
+- Pre (`CustomHandlerOrder.Pre`): Applied before all other formats.
+- Post (`CustomHandlerOrder.Post`): Applied after all other formats.
+
+As a safety measure, custom prefixes may never receive the whole
+string to format, but only the positional argument or prop
+value associated with the format they're modifying.
+
+What this means is that if the format is:
+
+```text
+Hello, {:!MyCustomFormat | app.name}
+```
+
+Then the custom format will only receive the value of `app.name`,
+and not the whole string `Hello, ...`.
+
+This is to prevent custom formats from interfering with other parts
+of the string that they should not be modifying.
+
+### Execution Flow
+
+![Linezed Formatter Execution Flow](https://cdn.jsdelivr.net/gh/Linezed/terminal@master/assets/docs-formatter-flow.png)
+
+Hence, it is clearly appreciated how `Pre` and `Post` custom formats
+can be useful to modify the value before or after all other formats
+have been applied.
+
+### Restrictions
+
+- `Pre` formats will not receive prefixes added by other formats, while
+`Post` formats will receive prefixes added by other formats.
+- Both formats must return a string.
+- `Post` formats are guaranteed to receive a string as input, while `Pre` formats
+may receive values of any type.
+- All formats are applied in the order of their priority, from highest to lowest.
+- If two formats have the same priority, they are applied in the order they were added.
+
+### Adding custom prefixes
+
+As per the definition of `AddCustomPrefix` in the reference of [Formatter](/contents/reference/formatter),
+custom prefixes can be added using the following method:
+
+```ts
+public static AddCustomPrefix(
+    name: string,
+    fn: CustomHandlerFunction,
+    priority: CustomHandlerPriority,
+    order: CustomHandlerOrder
+)
+```
+
+The `CustomHandlerFunction` type is defined as follows:
+
+```ts
+export type CustomHandlerFunction = (obj: any, state: State) => string;
+```
+
+**Example**:
+
+```ts
+import { Formatter, State, CustomHandlerPriority, CustomHandlerOrder } from "@linezed/terminal";
+
+Formatter.AddCustomPrefix(
+    "MyCustomFormat",
+    (obj: any, state: State) => {
+        let str = String(obj);
+        if (state.text.upper) {
+            str = str.toUpperCase();
+        }
+        return `***${str}***`;
+    },
+    CustomHandlerPriority.Normal,
+    CustomHandlerOrder.Pre
+);
+```
+
+### Removing custom prefixes
+
+As per the definition of `RemoveCustomPrefix` in the reference of [Formatter](/contents/reference/formatter),
+custom prefixes can be removed using the following method:
+
+```ts
+public static RemoveCustomPrefix(
+    name: string,
+    priority?: Priority
+)
+```
+
+The `Formatter` class keeps an internal map of priorities to custom prefixes,
+so if the `priority` parameter is not provided, the custom prefix will be
+removed from all priority levels, specifying the priority may improve performance.
+
+**Example**:
+
+```ts
+import { Formatter, CustomHandlerPriority } from "@linezed/terminal";
+
+Formatter.RemoveCustomPrefix("MyCustomFormat", CustomHandlerPriority.Normal);
 ```
