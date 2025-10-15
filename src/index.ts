@@ -23,6 +23,7 @@ import { State } from "./format/state.js";
 import UnknownFormat from "./format/unknown_format.js";
 import CustomHandlerPriority from "./format/custom/priority.js";
 import CustomHandlerOrder from "./format/custom/order.js";
+import LookupOrder from "./cli/interface/argv/lookup_order.js";
 
 export default class Terminal {
     /// The output stream for the terminal.
@@ -105,6 +106,8 @@ export {
     IConfig,
     ICommand,
     IFlag,
+    LookupOrder,
+    LineReader,
     State,
     Types,
     UnknownFormat
