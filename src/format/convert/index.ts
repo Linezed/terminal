@@ -13,7 +13,11 @@ import ColorKeys from "../color_keys.js";
 import type { CustomHandlerFunction } from "../custom/type.js";
 import { ListenerCollection } from "../listener_collection.js";
 
-function _RunHandlers(handlers: CustomHandlerFunction[] | undefined, obj: any, state: State) {
+function _RunHandlers(
+    handlers: CustomHandlerFunction[] | undefined,
+    obj: any,
+    state: State
+) {
     if (handlers) {
         for (const handler of handlers) {
             obj = handler(obj, state);
@@ -66,7 +70,9 @@ export default function ConvertState(
 
         // Base case
         if (!base) {
-            throw new Error(`Argument at index ${arg_idx} is undefined or null`); // Argument not found
+            throw new Error(
+                `Argument at index ${arg_idx} is undefined or null`
+            ); // Argument not found
         }
     }
 
@@ -93,12 +99,10 @@ export default function ConvertState(
     else if (state.date.iso) {
         MatchInstance(Date, base);
         base = (base as Date).toISOString();
-    }
-    else if (state.date.utc) {
+    } else if (state.date.utc) {
         MatchInstance(Date, base);
         base = (base as Date).toUTCString();
-    }
-    else if (state.boolean) {
+    } else if (state.boolean) {
         MatchType(Types.Boolean, base);
         base = base ? "true" : "false";
     }

@@ -8,7 +8,7 @@ enum LookupOrder {
     LocalThenGlobal,
     GlobalThenLocal,
     LocalOnly,
-    GlobalOnly
+    GlobalOnly,
 }
 
 export default LookupOrder;

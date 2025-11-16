@@ -181,6 +181,7 @@ Please read it to understand the standards of behavior we expect from everyone i
 ### Additional Restrictions
 
 By contributing to this project, you agree to the following additional restrictions:
+
 - Your contributions will be licensed under the same license as the project (MIT License).
 - You will not include any proprietary or confidential information in your contributions.
 - You will not submit any code that you do not have the right to contribute.

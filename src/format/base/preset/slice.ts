@@ -6,7 +6,9 @@
 
 import type { BaseFormatFunction } from "../type.js";
 
-export default function FillSlicePrefixes(map: Map<string, BaseFormatFunction>) {
+export default function FillSlicePrefixes(
+    map: Map<string, BaseFormatFunction>
+) {
     map.set("s", (range: number[], state) => {
         // Make sure the range is valid
         if (range.length > 2 || range[0]! < 0 || range[1]! < 0) {

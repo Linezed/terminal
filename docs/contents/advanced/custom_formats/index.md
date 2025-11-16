@@ -30,22 +30,22 @@ export class State {
             high: [] as CustomHandlerFunction[],
             normal: [] as CustomHandlerFunction[],
             low: [] as CustomHandlerFunction[],
-            lowest: [] as CustomHandlerFunction[]
+            lowest: [] as CustomHandlerFunction[],
         },
-        
+
         post: {
             highest: [] as CustomHandlerFunction[],
             high: [] as CustomHandlerFunction[],
             normal: [] as CustomHandlerFunction[],
             low: [] as CustomHandlerFunction[],
-            lowest: [] as CustomHandlerFunction[]
-        }
+            lowest: [] as CustomHandlerFunction[],
+        },
     };
 
     /// Prop access.
     prop = {
         name: undefined as string | undefined,
-        optional: false
+        optional: false,
     };
 
     /// Text formatting.
@@ -61,21 +61,21 @@ export class State {
         /// Padding for text.
         padding: {
             left: 0,
-            right: 0
+            right: 0,
         },
 
         /// Slicing for text.
         slice: {
             start: Infinity,
-            end: Infinity
-        }
+            end: Infinity,
+        },
     };
 
     /// Date formatting.
     date = {
         iso: false,
         utc: false,
-    }
+    };
 }
 ```
 
@@ -157,7 +157,7 @@ Formatter.AddFormat("s", (range: number[], state: State) => {
 ## User-defined behavior
 
 Sometimes, user-defined behavior that goes beyond the provided
-capabilities of the `State` object is needed. For example, 
+capabilities of the `State` object is needed. For example,
 you might want to create a custom format that adds a specific prefix
 and suffix to a string, however the `State` object does not have
 properties for that.
@@ -213,10 +213,10 @@ have been applied.
 ### Restrictions
 
 - `Pre` formats will not receive prefixes added by other formats, while
-`Post` formats will receive prefixes added by other formats.
+  `Post` formats will receive prefixes added by other formats.
 - Both formats must return a string.
 - `Post` formats are guaranteed to receive a string as input, while `Pre` formats
-may receive values of any type.
+  may receive values of any type.
 - All formats are applied in the order of their priority, from highest to lowest.
 - If two formats have the same priority, they are applied in the order they were added.
 
@@ -243,7 +243,12 @@ export type CustomHandlerFunction = (obj: any, state: State) => string;
 **Example**:
 
 ```ts
-import { Formatter, State, CustomHandlerPriority, CustomHandlerOrder } from "@linezed/terminal";
+import {
+    Formatter,
+    State,
+    CustomHandlerPriority,
+    CustomHandlerOrder,
+} from "@linezed/terminal";
 
 Formatter.AddCustomPrefix(
     "MyCustomFormat",

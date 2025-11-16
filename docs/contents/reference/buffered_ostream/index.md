@@ -10,11 +10,11 @@ to the stream.
 ## API Documentation
 
 - `BufferedOStream(stream: WritableStream, bufferSize?: number)`: Constructor that
-initializes the buffered output stream with the given writable
-stream and buffer size.
+  initializes the buffered output stream with the given writable
+  stream and buffer size.
 - `BufferedOStream.Flush(): void`: Flushes the buffered data to the underlying stream.
 - `BufferedOStream.Write(data: string): void`: Writes data to the buffer. If the buffer
-exceeds the specified size, it automatically flushes the data to the stream.
+  exceeds the specified size, it automatically flushes the data to the stream.
 
 ## Additional Notes
 

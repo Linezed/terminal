@@ -6,7 +6,7 @@
 
 enum CustomHandlerOrder {
     Pre,
-    Post
+    Post,
 }
 
 export default CustomHandlerOrder;

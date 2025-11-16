@@ -112,5 +112,5 @@ export {
     LineReader,
     State,
     Types,
-    UnknownFormat
+    UnknownFormat,
 };

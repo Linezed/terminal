@@ -20,14 +20,15 @@ const docs = ConvertSections(sections);
 export default {
     ignoreDeadLinks: true,
     title: "Linezed Terminal",
-    description: "Terminal framework for building command-line applications in TypeScript and Node.js",
+    description:
+        "Terminal framework for building command-line applications in TypeScript and Node.js",
     themeConfig: {
         nav: [
             { text: "Home", link: "/" },
-            { text: "Guide", link: "/contents/basic/welcome" }
+            { text: "Guide", link: "/contents/basic/welcome" },
         ],
         sidebar: {
-            "/contents/": docs
-        }
-    }
-}
+            "/contents/": docs,
+        },
+    },
+};

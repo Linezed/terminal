@@ -37,10 +37,11 @@ app.Command("test-command")
     .Description("test command")
     .Handler((ctx) => {
         Terminal.Printfln("Test command executed with value {}!", ctx.Value());
-    }).Flag("help")
-        .Shortcut("h")
-        .Type(Types.Boolean)
-        .Description("display help");
+    })
+    .Flag("help")
+    .Shortcut("h")
+    .Type(Types.Boolean)
+    .Description("display help");
 ```
 
 **3. Run your application:**

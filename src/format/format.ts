@@ -52,9 +52,5 @@ export default function FormatOutput(
     }
 
     // Apply the formatting based on the state
-    return [
-        ConvertState(arg_idx, props, state, args),
-        idx,
-        !state.prop.name
-    ];
+    return [ConvertState(arg_idx, props, state, args), idx, !state.prop.name];
 }

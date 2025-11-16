@@ -16,9 +16,6 @@ export default interface Metadata {
 
 export function ReadMetadata(p: string): Metadata {
     return JSON.parse(
-        fs.readFileSync(
-            path.join(p, Constants.metadata_name),
-            "utf-8"
-        ).trim()
+        fs.readFileSync(path.join(p, Constants.metadata_name), "utf-8").trim()
     ) as Metadata;
 }

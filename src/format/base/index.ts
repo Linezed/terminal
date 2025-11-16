@@ -17,10 +17,7 @@ function _ParseNum(str: string): number {
     return num;
 }
 
-export default function FormatBase(
-    pref: string,
-    state: State
-) {
+export default function FormatBase(pref: string, state: State) {
     // Determine what to do based on the first character of the prefix
     if (pref[0] == ".") {
         // Get the last letter
@@ -95,7 +92,9 @@ export default function FormatBase(
 
     // Consider this a prop access
     if (state.prop.name) {
-        throw new Error("Multiple property accesses in a single format specifier are not allowed");
+        throw new Error(
+            "Multiple property accesses in a single format specifier are not allowed"
+        );
     }
 
     state.prop.name = pref;

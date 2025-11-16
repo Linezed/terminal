@@ -6,7 +6,9 @@
 
 import type { BaseFormatFunction } from "../type.js";
 
-export default function FillPrecisionPrefixes(map: Map<string, BaseFormatFunction>) {
+export default function FillPrecisionPrefixes(
+    map: Map<string, BaseFormatFunction>
+) {
     map.set("f", (range: number[], state) => {
         // Make sure the range is valid
         if (range.length != 1 || range[0]! < 0) {

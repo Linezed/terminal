@@ -10,10 +10,7 @@ import type App from "../../interface/app.js";
 import CreateTypeText from "./types.js";
 import CreateFlagsSection from "./flags.js";
 
-export default function GenerateHelp(
-    app: App,
-    argv?: Argv
-): string {
+export default function GenerateHelp(app: App, argv?: Argv): string {
     // Get config
     let config = app.Config();
     let space = " ".repeat(config.indent);
@@ -50,7 +47,7 @@ export default function GenerateHelp(
             config.format.error.format,
             {
                 ...app,
-                Error: argv.Error
+                Error: argv.Error,
             },
             ...config.format.error.args
         );
@@ -72,7 +69,7 @@ export default function GenerateHelp(
     for (let [name, cmd] of app.Commands()) {
         // Ignore aliases
         if (name == cmd.shortcut) continue;
-        let args = {...app, Command: cmd};
+        let args = { ...app, Command: cmd };
 
         // Add command name and description
         resp += space; // Indent
@@ -119,12 +116,7 @@ export default function GenerateHelp(
         );
         resp += "\n"; // New line
 
-        resp += CreateFlagsSection(
-            config.indent,
-            app.Flags(),
-            app,
-            config
-        );
+        resp += CreateFlagsSection(config.indent, app.Flags(), app, config);
     }
 
     return resp.trim(); // Trim any extra new lines

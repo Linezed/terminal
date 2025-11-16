@@ -45,6 +45,6 @@ export default class IConfig implements Config {
             string: new ISection(),
             number: new ISection(),
             boolean: new ISection(),
-        }
+        },
     };
 }

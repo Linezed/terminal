@@ -6,10 +6,7 @@
 
 import type { State } from "../../state.js";
 
-export default function FormatPadding(
-    pref: string,
-    state: State
-) {
+export default function FormatPadding(pref: string, state: State) {
     // Get the first character of the prefix
     const char = pref.charAt(0);
 

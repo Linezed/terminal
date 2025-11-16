@@ -11,7 +11,7 @@ import { Section } from "./docs";
 import * as Constants from "./constants";
 
 export default function GetSections(contents_dir: string): Array<Section> {
-    const files = fs.readdirSync(contents_dir)
+    const files = fs.readdirSync(contents_dir);
     const sections = [] as Array<Section>;
 
     // Iterate over each file in the contents directory
@@ -23,11 +23,12 @@ export default function GetSections(contents_dir: string): Array<Section> {
         let section_metadata = ReadMetadata(section_path);
 
         // Read all files in the section directory
-        const section_files = fs.readdirSync(section_path)
-            .filter(file => file != Constants.metadata_name);
+        const section_files = fs
+            .readdirSync(section_path)
+            .filter((file) => file != Constants.metadata_name);
 
         // Populate the items array
-        const items = section_files.map(f => {
+        const items = section_files.map((f) => {
             const item_path = path.join(section_path, f);
             const item_md = ReadMetadata(item_path);
             const item_link = `/contents/${file}/${f}`;
@@ -36,7 +37,7 @@ export default function GetSections(contents_dir: string): Array<Section> {
                 title: item_md.title,
                 link: item_link,
                 after: item_md.after,
-                id: f
+                id: f,
             };
         });
 
@@ -45,7 +46,7 @@ export default function GetSections(contents_dir: string): Array<Section> {
             title: section_metadata.title,
             after: section_metadata.after,
             items: items,
-            id: file
+            id: file,
         });
     });
 

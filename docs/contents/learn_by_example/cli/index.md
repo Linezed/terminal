@@ -15,10 +15,11 @@ app.Command("greet")
         const name = ctx.Value();
         const age = ctx.Number("age") || "unknown";
         Terminal.Printfln("Hello, {}! You are {} years old.", name, age);
-    }).Flag("age")
-        .Shortcut("a")
-        .Type(Types.Number)
-        .Description("The age of the user");
+    })
+    .Flag("age")
+    .Shortcut("a")
+    .Type(Types.Number)
+    .Description("The age of the user");
 
 app.Parse(Terminal.Args());
 ```
@@ -27,13 +28,13 @@ app.Parse(Terminal.Args());
 
 1. Make sure you have `@linezed/terminal` installed in your project. You can install it using npm:
 
-   ```bash
-   npm install @linezed/terminal
-   ```
-   
+    ```bash
+    npm install @linezed/terminal
+    ```
+
 2. Save the above code in a file named `greet.js`.
 3. Run the application from the command line, providing a name and optionally an age:
 
-   ```bash
-   node greet.js greet John --age 30
-   ```
+    ```bash
+    node greet.js greet John --age 30
+    ```

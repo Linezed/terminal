@@ -25,7 +25,7 @@ export class State {
     /// Prop access.
     prop = {
         name: undefined as string | undefined,
-        optional: false
+        optional: false,
     };
 
     /// Text formatting.
@@ -41,19 +41,19 @@ export class State {
         /// Padding for text.
         padding: {
             left: 0,
-            right: 0
+            right: 0,
         },
 
         /// Slicing for text.
         slice: {
             start: Infinity,
-            end: Infinity
-        }
+            end: Infinity,
+        },
     };
 
     /// Date formatting.
     date = {
         iso: false,
         utc: false,
-    }
+    };
 }

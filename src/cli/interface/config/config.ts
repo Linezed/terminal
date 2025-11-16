@@ -42,6 +42,6 @@ export default interface Config {
         flag: List;
 
         /// The format for types.
-        types: TypesSection
+        types: TypesSection;
     };
 }

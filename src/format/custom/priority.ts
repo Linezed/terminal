@@ -9,7 +9,7 @@ enum CustomHandlerPriority {
     High,
     Normal,
     Low,
-    Lowest
+    Lowest,
 }
 
 export default CustomHandlerPriority;

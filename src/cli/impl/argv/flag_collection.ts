@@ -31,6 +31,10 @@ export default class FlagCollection {
 
     /// Checks if a flag is present, regardless of type
     Has(name: string): boolean {
-        return this.strings.has(name) || this.bools.has(name) || this.numbers.has(name);
+        return (
+            this.strings.has(name) ||
+            this.bools.has(name) ||
+            this.numbers.has(name)
+        );
     }
 }

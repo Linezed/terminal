@@ -42,6 +42,7 @@ with Linezed Terminal's `Terminal.Print` method when printing
 a large number of lines to the terminal.
 
 **Benchmark setup:**
+
 - Number of lines: 100,000
 - Content of each line: "Hello, world!"
 - Environment: Node.js
@@ -49,6 +50,7 @@ a large number of lines to the terminal.
 **Code:**
 
 For Linezed Terminal:
+
 ```js
 const start = Date.now();
 for (let i = 0; i < 100_000; i++) {
@@ -60,6 +62,7 @@ Terminal.Println(`Time taken: ${end - start}ms`);
 ```
 
 For `console.log`:
+
 ```js
 const start = Date.now();
 for (let i = 0; i < 100_000; i++) {

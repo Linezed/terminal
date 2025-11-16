@@ -10,7 +10,7 @@ import prefixes from "./prefix/collection.js";
 import type { BaseFormatFunction } from "./base/type.js";
 import base_fns from "./base/collection.js";
 import type { CustomHandlerFunction } from "./custom/type.js";
-import custom_prefixes, {SearchCustomPrefix} from "./custom/collection.js";
+import custom_prefixes, { SearchCustomPrefix } from "./custom/collection.js";
 import Priority from "./custom/priority.js";
 import CustomHandlerOrder from "./custom/order.js";
 
@@ -31,7 +31,13 @@ export default class Formatter {
             // Check if it's a format specifier ("{}")
             if (char === "{") {
                 // Format the argument
-                let [res, skipped, move_arg] = FormatOutput(format, i, arg_idx, props, args);
+                let [res, skipped, move_arg] = FormatOutput(
+                    format,
+                    i,
+                    arg_idx,
+                    props,
+                    args
+                );
 
                 // Write the formatted argument
                 resp += res;
@@ -62,7 +68,7 @@ export default class Formatter {
 
     public static RemovePrefix(name: string) {
         // Make sure the prefix exists
-        if (!(prefixes.has(name))) {
+        if (!prefixes.has(name)) {
             throw new Error(`Prefix "${name}" does not exist.`);
         }
 
@@ -82,7 +88,7 @@ export default class Formatter {
 
     public static RemoveFormat(name: string) {
         // Make sure the format exists
-        if (!(base_fns.has(name))) {
+        if (!base_fns.has(name)) {
             throw new Error(`Format "${name}" does not exist.`);
         }
 
@@ -101,9 +107,10 @@ export default class Formatter {
         }
 
         // Add to the appropriate priority map
-        const collection = order === CustomHandlerOrder.Pre ?
-            custom_prefixes.pre :
-            custom_prefixes.post;
+        const collection =
+            order === CustomHandlerOrder.Pre
+                ? custom_prefixes.pre
+                : custom_prefixes.post;
 
         switch (priority) {
             case Priority.Highest:
@@ -126,10 +133,7 @@ export default class Formatter {
         }
     }
 
-    public static RemoveCustomPrefix(
-        name: string,
-        priority?: Priority
-    ) {
+    public static RemoveCustomPrefix(name: string, priority?: Priority) {
         let search = SearchCustomPrefix(name, priority);
 
         if (search === undefined) {
@@ -139,9 +143,10 @@ export default class Formatter {
         // Remove from the appropriate priority map
         const p = search[1];
         const order = search[2];
-        const coll = order === CustomHandlerOrder.Pre ?
-            custom_prefixes.pre :
-            custom_prefixes.post;
+        const coll =
+            order === CustomHandlerOrder.Pre
+                ? custom_prefixes.pre
+                : custom_prefixes.post;
 
         switch (p) {
             case Priority.Highest:

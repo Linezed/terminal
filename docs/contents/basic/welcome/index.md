@@ -11,6 +11,7 @@ It also provides other utilities to enhance the command-line experience.
 ## Getting started
 
 To install the package locally, run:
+
 ```bash
 npm install @linezed/terminal
 ```

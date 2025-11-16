@@ -40,12 +40,20 @@ function _GetFlag(name: string, owner: App, cmd: Command) {
     return flag;
 }
 
-function _LookupValue<T>(name: string, order: LookupOrder, localMap: Map<string, T>, globalMap: Map<string, T>): T | undefined {
+function _LookupValue<T>(
+    name: string,
+    order: LookupOrder,
+    localMap: Map<string, T>,
+    globalMap: Map<string, T>
+): T | undefined {
     // Determine the order of lookup
     const sources =
-        order == LookupOrder.LocalThenGlobal ? [localMap, globalMap]
-            : order == LookupOrder.GlobalThenLocal ? [globalMap, localMap]
-            : order == LookupOrder.LocalOnly ? [localMap]
+        order == LookupOrder.LocalThenGlobal
+            ? [localMap, globalMap]
+            : order == LookupOrder.GlobalThenLocal
+              ? [globalMap, localMap]
+              : order == LookupOrder.LocalOnly
+                ? [localMap]
                 : [globalMap];
 
     // Lookup the value in the specified order
@@ -126,12 +134,7 @@ export default class IArgv implements Argv {
                 // Parse flag values
                 if (last_flag) {
                     // Parse directly
-                    SetFlagValue(
-                        last_flag,
-                        arg,
-                        this.local,
-                        this.global
-                    );
+                    SetFlagValue(last_flag, arg, this.local, this.global);
 
                     last_flag = undefined; // No longer waiting on the value
                     continue;
@@ -237,8 +240,16 @@ export default class IArgv implements Argv {
         return this.val;
     }
 
-    Boolean(name: string, order: LookupOrder = LookupOrder.LocalThenGlobal): boolean {
-        let first_attempt = _LookupValue<boolean>(name, order, this.local.bools, this.global.bools);
+    Boolean(
+        name: string,
+        order: LookupOrder = LookupOrder.LocalThenGlobal
+    ): boolean {
+        let first_attempt = _LookupValue<boolean>(
+            name,
+            order,
+            this.local.bools,
+            this.global.bools
+        );
         if (first_attempt !== undefined) {
             return first_attempt;
         }
@@ -247,7 +258,10 @@ export default class IArgv implements Argv {
         return !!_GetFlag(name, this.owner as App, this.command!).Default();
     }
 
-    String(name: string, order: LookupOrder = LookupOrder.LocalThenGlobal): string {
+    String(
+        name: string,
+        order: LookupOrder = LookupOrder.LocalThenGlobal
+    ): string {
         let first_attempt = _LookupValue<string>(
             name,
             order,
@@ -266,7 +280,10 @@ export default class IArgv implements Argv {
         return flag.Default();
     }
 
-    Number(name: string, order: LookupOrder = LookupOrder.LocalThenGlobal): number {
+    Number(
+        name: string,
+        order: LookupOrder = LookupOrder.LocalThenGlobal
+    ): number {
         let first_attempt = _LookupValue<number>(
             name,
             order,
@@ -285,37 +302,59 @@ export default class IArgv implements Argv {
         return flag.Default();
     }
 
-    HasBoolean(name: string, order: LookupOrder = LookupOrder.LocalThenGlobal): boolean {
-        return _LookupValue<boolean>(
-            name,
-            order,
-            this.local.bools,
-            this.global.bools
-        ) !== undefined;
+    HasBoolean(
+        name: string,
+        order: LookupOrder = LookupOrder.LocalThenGlobal
+    ): boolean {
+        return (
+            _LookupValue<boolean>(
+                name,
+                order,
+                this.local.bools,
+                this.global.bools
+            ) !== undefined
+        );
     }
 
-    HasString(name: string, order: LookupOrder = LookupOrder.LocalThenGlobal): boolean {
-        return _LookupValue<string>(
-            name,
-            order,
-            this.local.strings,
-            this.global.strings
-        ) !== undefined;
+    HasString(
+        name: string,
+        order: LookupOrder = LookupOrder.LocalThenGlobal
+    ): boolean {
+        return (
+            _LookupValue<string>(
+                name,
+                order,
+                this.local.strings,
+                this.global.strings
+            ) !== undefined
+        );
     }
 
-    HasNumber(name: string, order: LookupOrder = LookupOrder.LocalThenGlobal): boolean {
-        return _LookupValue<number>(
-            name,
-            order,
-            this.local.numbers,
-            this.global.numbers
-        ) !== undefined;
+    HasNumber(
+        name: string,
+        order: LookupOrder = LookupOrder.LocalThenGlobal
+    ): boolean {
+        return (
+            _LookupValue<number>(
+                name,
+                order,
+                this.local.numbers,
+                this.global.numbers
+            ) !== undefined
+        );
     }
 
-    Has(name: string, order: LookupOrder = LookupOrder.LocalThenGlobal): boolean {
-        const collections = order == LookupOrder.LocalThenGlobal ? [this.local, this.global]
-            : order == LookupOrder.GlobalThenLocal ? [this.global, this.local]
-                : order == LookupOrder.LocalOnly ? [this.local]
+    Has(
+        name: string,
+        order: LookupOrder = LookupOrder.LocalThenGlobal
+    ): boolean {
+        const collections =
+            order == LookupOrder.LocalThenGlobal
+                ? [this.local, this.global]
+                : order == LookupOrder.GlobalThenLocal
+                  ? [this.global, this.local]
+                  : order == LookupOrder.LocalOnly
+                    ? [this.local]
                     : [this.global];
 
         for (const src of collections) {

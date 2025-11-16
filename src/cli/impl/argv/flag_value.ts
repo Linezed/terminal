@@ -43,7 +43,7 @@ function _SetValue(
 
             case Types.Boolean:
                 map = global.bools;
-                break
+                break;
         }
     }
 

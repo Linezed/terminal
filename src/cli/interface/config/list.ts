@@ -8,7 +8,7 @@ import type Section from "./section.js";
 
 export default interface List {
     /// The header format.
-    header: Section,
+    header: Section;
     /// The format for each item.
-    item: Section
+    item: Section;
 }

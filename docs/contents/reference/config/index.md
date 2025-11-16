@@ -81,7 +81,7 @@ type Config = {
                 /// The arguments for the format string.
                 args: string[];
             };
-            
+
             /// The format for each item.
             item: {
                 /// The format string.
@@ -111,9 +111,9 @@ type Config = {
                 /// The arguments for the format string.
                 args: string[];
             };
-        }
-    }
-}
+        };
+    };
+};
 ```
 
 ## Implementing a custom Config
@@ -137,7 +137,7 @@ let customConfig: Config = {
             /// The format string.
             format: "{:Bold.Cyan}",
             /// The arguments for the format string.
-            args: [ "Commands:" ],
+            args: ["Commands:"],
         },
         /// The format for each item.
         item: {
@@ -148,5 +148,5 @@ let customConfig: Config = {
         },
     },
     ///...
-}
+};
 ```

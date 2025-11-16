@@ -6,7 +6,9 @@
 
 import type { BaseFormatFunction } from "../type.js";
 
-export default function FillBooleanPrefixes(map: Map<string, BaseFormatFunction>) {
+export default function FillBooleanPrefixes(
+    map: Map<string, BaseFormatFunction>
+) {
     map.set("b", (range: number[], state) => {
         // Make sure the range is valid
         if (range.length != 0) {

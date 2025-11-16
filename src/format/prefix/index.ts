@@ -12,10 +12,7 @@ import { SearchCustomPrefix } from "../custom/collection.js";
 import CustomHandlerPriority from "../custom/priority.js";
 import CustomHandlerOrder from "../custom/order.js";
 
-export default function FormatPrefix(
-    pref: string,
-    state: State
-) {
+export default function FormatPrefix(pref: string, state: State) {
     // Ignore the first character of the prefix
     pref = pref.slice(1);
 
@@ -38,9 +35,10 @@ export default function FormatPrefix(
         const custom_fn = custom_combo[0];
         const priority = custom_combo[1];
         const order = custom_combo[2];
-        const obj = order == CustomHandlerOrder.Pre ?
-            state.custom.pre :
-            state.custom.post;
+        const obj =
+            order == CustomHandlerOrder.Pre
+                ? state.custom.pre
+                : state.custom.post;
 
         // Add the custom handler to the state
         switch (priority) {

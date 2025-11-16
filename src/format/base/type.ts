@@ -6,5 +6,4 @@
 
 import type { State } from "../state.js";
 
-export type BaseFormatFunction = (range: number[], state: State)
-    => void;
+export type BaseFormatFunction = (range: number[], state: State) => void;

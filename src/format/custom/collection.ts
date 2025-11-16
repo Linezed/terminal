@@ -6,9 +6,7 @@
 
 import type { CustomHandlerFunction } from "./type.js";
 import CustomHandlerPriority from "./priority.js";
-import {
-    OrderedNamedListenerCollection,
-} from "../listener_collection.js";
+import { OrderedNamedListenerCollection } from "../listener_collection.js";
 import CustomHandlerOrder from "./order.js";
 
 const custom_prefixes = new OrderedNamedListenerCollection();
@@ -17,9 +15,9 @@ function _SearchCustomPrefix(
     prefix: string,
     obj: OrderedNamedListenerCollection,
     priority: CustomHandlerPriority
-): [CustomHandlerFunction, CustomHandlerPriority, CustomHandlerOrder]
-    | undefined
-{
+):
+    | [CustomHandlerFunction, CustomHandlerPriority, CustomHandlerOrder]
+    | undefined {
     const levels = [obj.pre, obj.post];
     let is_pre = false;
 
@@ -50,8 +48,7 @@ function _SearchCustomPrefix(
             return [
                 map.get(prefix)!,
                 priority,
-                is_pre ? CustomHandlerOrder.Pre :
-                    CustomHandlerOrder.Post
+                is_pre ? CustomHandlerOrder.Pre : CustomHandlerOrder.Post,
             ];
         }
 
@@ -62,15 +59,12 @@ function _SearchCustomPrefix(
 export function SearchCustomPrefix(
     prefix: string,
     priority?: CustomHandlerPriority
-): [CustomHandlerFunction, CustomHandlerPriority, CustomHandlerOrder]
+):
+    | [CustomHandlerFunction, CustomHandlerPriority, CustomHandlerOrder]
     | undefined {
     // Search in specified priority level first
     if (priority) {
-        let res = _SearchCustomPrefix(
-            prefix,
-            custom_prefixes,
-            priority
-        );
+        let res = _SearchCustomPrefix(prefix, custom_prefixes, priority);
 
         if (res) return res;
         // Fallback to searching all levels if not

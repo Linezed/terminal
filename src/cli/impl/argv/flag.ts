@@ -76,7 +76,12 @@ export default function ParseFlag(
     }
 
     // Check for concatenated flags
-    if (!val && isShort && !flags.has(name as string) && !cmd?.Flags().has(name as string)) {
+    if (
+        !val &&
+        isShort &&
+        !flags.has(name as string) &&
+        !cmd?.Flags().has(name as string)
+    ) {
         // Get all concatenated flags
         for (let i = 0; i < (name as string).length; i++) {
             // Get the char

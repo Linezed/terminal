@@ -4,8 +4,8 @@
     <p>Empowering the Web with modern technologies.</p>
     <hr>
 
-
 [Getting started] | [Documentation] | [Contributing]
+
 </div>
 
 [Getting Started]: https://docs.terminal.linezed.dev/
