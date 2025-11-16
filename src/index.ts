@@ -84,10 +84,15 @@ function _FlushOnExit() {
     Terminal.Flush();
 }
 
+function _FlushAndExit() {
+    Terminal.Flush();
+    process.exit(0);
+}
+
 // Flush on exit
-process.on("exit", _FlushOnExit);
-process.on("SIGINT", _FlushOnExit);
-process.on("SIGTERM", _FlushOnExit);
+process.on("exit", _FlushAndExit);
+process.on("SIGINT", _FlushAndExit);
+process.on("SIGTERM", _FlushAndExit);
 process.on("uncaughtException", (e) => {
     _FlushOnExit();
     console.error(e);
