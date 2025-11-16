@@ -88,8 +88,10 @@ function _FlushOnExit() {
 process.on("exit", _FlushOnExit);
 process.on("SIGINT", _FlushOnExit);
 process.on("SIGTERM", _FlushOnExit);
-process.on("uncaughtException", (_) => {
+process.on("uncaughtException", (e) => {
     _FlushOnExit();
+    console.error(e);
+    process.exit(1);
 });
 
 // Other exports
